@@ -12,11 +12,9 @@ A boilerplate for a front-end website.
 - Run "gulp serve" for hot code reload.
 - Add custom Sass files in the sass folder, and import into theme.scss.
   - Compile Sass with "gulp sass".
-- Add partial HTML templates in the partials folder.
-  - To include the partial, add the path to assets/js/partials.js with a link to the div in index.html and use the jQuery method 'load'. 
 
 ## Frameworks Installed
-- [Material Kit PRO](http://www.creative-tim.com/product/material-kit-pro)
+- [Materialize](http://materializecss.com/)
 - [Bootstrap 3](http://getbootstrap.com/)
 - [jQuery](https://api.jquery.com/)
 - [Sass](http://sass-lang.com/guide)
