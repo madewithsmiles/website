@@ -15,7 +15,6 @@ Boilerplate for a front-end web development project using Materialize.
 
 ## Frameworks Installed
 - [Materialize](http://materializecss.com/)
-- [Bootstrap 3](http://getbootstrap.com/)
 - [jQuery](https://api.jquery.com/)
 - [Sass](http://sass-lang.com/guide)
 - [Bourbon](http://bourbon.io/docs/)
