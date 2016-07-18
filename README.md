@@ -1,5 +1,5 @@
-# Frontend Boilerplate
-A boilerplate for a front-end website.
+# Materialize Boilerplate
+Boilerplate for a front-end web development project using Materialize.
 
 ## How to host
 1. Use Github Pages like normal. The procedure isn't any different.
