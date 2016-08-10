@@ -13,8 +13,5 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-sass": "^2.3.2"
   },
-  "license": "MIT",
-  "dependencies": {
-    "node-bourbon": "^4.2.8"
-  }
+  "license": "MIT"
 }

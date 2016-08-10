@@ -3,14 +3,10 @@ var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var minify = require('gulp-minify-css');
 var browserSync = require('browser-sync').create();
-var bourbon = require('node-bourbon');
 var reload = browserSync.reload;
 
 gulp.task('sass', function() {
-    var scssStream = gulp.src('assets/sass/*.scss')
-        .pipe(sass({
-            includePaths: bourbon.includePaths
-        }))
+    var scssStream = gulp.src('assets/sass/theme.scss')
         .pipe(concat('style.css'))
         .pipe(minify())
         .pipe(gulp.dest('assets/css'))
