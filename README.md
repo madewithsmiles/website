@@ -17,6 +17,5 @@ Boilerplate for a front-end web development project using Materialize.
 - [Materialize](http://materializecss.com/)
 - [jQuery](https://api.jquery.com/)
 - [Sass](http://sass-lang.com/guide)
-- [Bourbon](http://bourbon.io/docs/)
 - [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 - [Browser-sync](https://www.browsersync.io/docs/gulp)
