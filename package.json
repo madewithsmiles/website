@@ -1,10 +1,10 @@
 {
-  "name": "materialkitboilerplate",
+  "name": "Cal Launchpad",
   "version": "1.0.0",
-  "description": "Boilerplate for a front-end web development project using Material Kit PRO.",
+  "description": "Berkeley Intelligent Software Club",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/petr-lee/FrontendBoilerplate.git"
+    "url": "git+https://github.com/callaunchpad/website.git"
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",
