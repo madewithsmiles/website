@@ -55,6 +55,7 @@
 }
 
 .small-logo {
+  padding-top: 20px;
 
   .logo-container {
     width: 100%;
@@ -78,9 +79,20 @@
 nav {
   background-color: transparent;
   box-shadow: none;
-  padding: 0 15px;
+  padding: 15px 35px;
 
   ul a {
     font-size: $p-fontsize;
+  }
+
+  ul {
+    li.active {
+      background: none;
+      // border-bottom: 2px solid $main-1;
+    }
+
+    li.active a {
+      color: $main-1;
+    }
   }
 }
