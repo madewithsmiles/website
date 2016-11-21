@@ -1,0 +1,39 @@
+@import "_variables";
+@import "_mixins";
+
+* {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+body {
+  @include body-font;
+}
+
+.display-font {
+  @include absolute-center;
+}
+
+.white-font {
+  color: white;
+}
+
+h1 {
+  @include h1-font;
+}
+
+h2 {
+  @include h2-font;
+}
+
+h3 {
+  @include h3-font;
+}
+
+p {
+  @include p-font;
+
+  .bold {
+    font-weight: 700;
+  }
+}

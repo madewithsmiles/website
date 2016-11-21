@@ -1,0 +1,12 @@
+@import "_global";
+@import "_mixins";
+@import "_variables";
+
+.title {
+    @include title-font;
+    font-size: $title-fontsize; 
+}
+
+.section {
+  padding: $section-padding;
+}
