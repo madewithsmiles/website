@@ -10,14 +10,6 @@ body {
   @include body-font;
 }
 
-.display-font {
-  @include absolute-center;
-}
-
-.white-font {
-  color: white;
-}
-
 h1 {
   @include h1-font;
 }
@@ -28,6 +20,7 @@ h2 {
 
 h3 {
   @include h3-font;
+  color: $main-5;
 }
 
 p {
