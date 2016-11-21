@@ -21,6 +21,7 @@ h2 {
 h3 {
   @include h3-font;
   color: $main-5;
+  line-height: inherit;
 }
 
 p {

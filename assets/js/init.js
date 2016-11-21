@@ -4,7 +4,7 @@
 var offset = 200;
 var fixedLogo = $('#fixed-logo');
 var divs = [$('#logo'), $('#description'), $('#values')];
-var limits = [0, 600, 1400];
+var limits = [0, 600, 1600];
 
 fixedLogo.hide();
 divs.forEach(function(div, index) {

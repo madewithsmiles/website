@@ -9,7 +9,7 @@
 
 .display-font {
   @include absolute-center;
-  line-height: 2rem;
+  line-height: 2rem !important;
   width: 60%;
 }
 
@@ -48,6 +48,10 @@
   p {
     margin: 0;
   }
+}
+
+.brand-logo, .small-logo, .logo-container {
+  height: 100%;
 }
 
 .small-logo {
