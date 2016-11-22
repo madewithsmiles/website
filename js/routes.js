@@ -7,6 +7,18 @@
       .when('/about', {
         templateUrl: 'templates/pages/about/index.html'
       })
+      .when('/projects', {
+        templateUrl: 'templates/pages/projects/index.html'
+      })
+      .when('/companies', {
+        templateUrl: 'templates/pages/companies/index.html'
+      })
+      .when('/contact', {
+        templateUrl: 'templates/pages/contact/index.html'
+      })
+      .when('/apply', {
+        templateUrl: 'templates/pages/apply/index.html'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -1,0 +1,37 @@
+nav {
+  background-color: color("shades", "white");
+
+  a.brand-logo {
+    height: inherit;
+
+    div.logo {
+    	height: inherit;
+    	position: absolute;
+
+			img {
+   		  position: relative;
+   		  top: 50%;
+   		  transform: translateY(-50%);
+   		  height: 50px;
+   	  }
+    }
+  }
+
+  a.button-collapse i {
+    margin-left: 0.5em;
+  }
+
+  ul {
+    a {
+      font-family: $karla;
+      color: color("blue-grey", "darken-4");
+    }
+  }
+}
+
+@media #{$large-and-up} {
+  .nav-wrapper {
+    padding-left: 6em;
+    padding-right: 6em;
+  }
+}

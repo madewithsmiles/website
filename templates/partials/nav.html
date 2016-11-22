@@ -1,3 +1,33 @@
-<nav>
-  
-</nav>
+<div class="navbar-fixed">
+  <nav class="white">
+    <div class="nav-wrapper">
+      <a href="#/" class="brand-logo">
+     	<div class="logo">
+		  	<img src="img/logo.png">
+     	</div> 
+	  </a>
+      <a href="javascript: void(0)" data-activates="mobile-demo" class="button-collapse black-text"><i class="fa fa-bars"></i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#/about">About</a></li>
+        <li><a href="#/projects">Projects</a></li>
+        <li><a href="#/companies">Companies</a></li>
+        <li><a href="#/contact">Contact</a></li>
+		<li><a href="#/apply">Apply</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="#/about">About</a></li>
+        <li><a href="#/projects">Projects</a></li>
+        <li><a href="#/companies">Companies</a></li>
+        <li><a href="#/contact">Contact</a></li>
+		<li><a href="#/apply">Apply</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<script>
+  $('.button-collapse').sideNav();
+  $('.side-nav a').click(function() {
+    $('.button-collapse').sideNav('hide');
+  });
+</script>
