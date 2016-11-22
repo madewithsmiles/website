@@ -1,6 +1,6 @@
 <div class="navbar-fixed">
-  <nav class="white">
-    <div class="nav-wrapper">
+  <nav class="white clearNav">
+    <div class="nav-wrapper clearNav">
       <a href="#/" class="brand-logo">
      	<div class="logo">
 		  	<img src="img/logo.png">
@@ -30,4 +30,16 @@
   $('.side-nav a').click(function() {
     $('.button-collapse').sideNav('hide');
   });
+
+  $(window).scroll(function() {    
+    var scroll = $(window).scrollTop();
+
+    if (scroll < 180) {
+      $(".nav-wrapper").addClass("clearNav");
+      $("nav").addClass("clearNav");
+    } else {
+      $(".nav-wrapper").removeClass("clearNav");
+      $("nav").removeClass("clearNav");
+    }
+	});
 </script>
