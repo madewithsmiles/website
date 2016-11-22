@@ -1,6 +1,7 @@
 $cover-height: 600px;
 
 .cover-wrapper {
+  position: relative;
   height: $cover-height;
   background-image: url('../img/cover.jpg');
   background-size: auto $cover-height;
