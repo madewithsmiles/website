@@ -1,6 +1,6 @@
 <div class="navbar-fixed">
-  <nav class="white clearNav">
-    <div class="nav-wrapper clearNav">
+  <nav class="white">
+    <div class="nav-wrapper">
       <a href="#/" class="brand-logo">
      	<div class="logo">
 		  	<img src="img/logo.png">
@@ -12,14 +12,14 @@
         <li><a href="#/projects">Projects</a></li>
         <li><a href="#/companies">Companies</a></li>
         <li><a href="#/contact">Contact</a></li>
-		<li><a href="#/apply">Apply</a></li>
+		    <li><a class="waves-effect waves-light blue-grey darken-2 btn apply-btn" href="#/apply">Apply</a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
         <li><a href="#/about">About</a></li>
         <li><a href="#/projects">Projects</a></li>
         <li><a href="#/companies">Companies</a></li>
         <li><a href="#/contact">Contact</a></li>
-		<li><a href="#/apply">Apply</a></li>
+    		<li><a class="apply-btn" href="#/apply">Apply</a></li>
       </ul>
     </div>
   </nav>
@@ -30,16 +30,4 @@
   $('.side-nav a').click(function() {
     $('.button-collapse').sideNav('hide');
   });
-
-  $(window).scroll(function() {    
-    var scroll = $(window).scrollTop();
-
-    if (scroll < 180) {
-      $(".nav-wrapper").addClass("clearNav");
-      $("nav").addClass("clearNav");
-    } else {
-      $(".nav-wrapper").removeClass("clearNav");
-      $("nav").removeClass("clearNav");
-    }
-	});
 </script>

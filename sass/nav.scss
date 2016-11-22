@@ -26,30 +26,36 @@ nav {
       font-family: $karla;
       color: color("blue-grey", "darken-4");
     }
+
+    a.apply-btn {
+      font-weight: 700;
+      
+    }
   }
 
   @include transition(all ease 0.6s);
 }
 
-nav.clearNav {
-  box-shadow: none;
-}
-
-div.nav-wrapper.clearNav {
-  background-color: $cover-color;
-
-  ul {
-    a {
-      color: white;
-    }
-  }
-
-  @include transition(background-color ease 0.6s);
-}
-
 @media #{$large-and-up} {
   .nav-wrapper {
-    padding-left: 6em;
+    padding-left: 1em;
     padding-right: 6em;
+  }
+  
+  nav.clearNav {
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+
+  div.nav-wrapper.clearNav {
+    background-color: rgba(0, 0, 0, 0);
+
+    ul {
+      a {
+        color: color("shades", "white");
+      }
+    }
+
+    @include transition(background-color ease 0.6s);
   }
 }

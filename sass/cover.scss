@@ -1,52 +1,59 @@
-.cover {
-  text-align: center;
-  width: 100%;
-  height: 536px;
-  margin-bottom: 2em;
-  overflow: hidden;
-  background-color: $cover-color;
+$cover-height: 600px;
 
-  img {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 600px;
-  }
+.cover-wrapper {
+  height: $cover-height;
+  background-image: url('../img/cover.jpg');
+  background-size: auto $cover-height;
+  background-position: center center;
 
-  .text-container {
-    width: 80%;
-    padding-left: 0.8em;
-    padding-right: 0.8em;
-    z-index: 1;
-    margin: auto;
+  .cover {
+    text-align: center;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
 
-    h1 {
-      font-size: 3.2em;
-      font-weight: 800;
-      font-family: $monda;
-      margin-bottom: 0;
-      text-transform: uppercase;
+    img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: $cover-height;
     }
 
-    p {
-      font-family: $karla;
-      font-weight: 300;
-      font-size: 1.2em;
-      margin-top: 0.4em;
+    .text-container {
+      margin: auto;
+      width: 80%;
+      z-index: 1;
+
+      h1 {
+        font-size: 3.2em;
+        font-weight: 800;
+        font-family: $monda;
+        margin-bottom: 0;
+        text-transform: uppercase;
+      }
+
+      p {
+        font-family: $karla;
+        font-weight: 300;
+        font-size: 1.2em;
+        margin-top: 0.4em;
+      }
     }
   }
 }
 
 @media #{$small-and-down} {
-  .cover {
-    .text-container {
-      h1 {
-        font-size: 2.4em;
-      }
+  .cover-wrapper {
+    .cover {
+      .text-container {
+        h1 {
+          font-size: 2.4em;
+        }
 
-      p {
-        font-size: 1em;
+        p {
+          font-size: 1em;
+        }
       }
     }
   }
