@@ -1,10 +1,10 @@
 {
-  "name": "Cal Launchpad",
+  "name": "MaterializeBoilerplate",
   "version": "1.0.0",
-  "description": "Berkeley Intelligent Software Club",
+  "description": "Boilerplate for a front-end web development project using Materialize.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/callaunchpad/website.git"
+    "url": "git+https://github.com/petr-lee/FrontendBoilerplate.git"
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",
