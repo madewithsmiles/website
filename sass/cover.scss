@@ -8,6 +8,12 @@ $cover-height: 600px;
   background-size: auto $cover-height;
   background-position: center center;
 
+  canvas.particles-js-canvas-el {
+    top: 0;
+    left: 0;
+    position: absolute;
+  }
+
   .cover {
     text-align: center;
     width: 100%;
@@ -49,7 +55,7 @@ $cover-height: 600px;
     .cover {
       .text-container {
         h1 {
-          font-size: 2.4em;
+          font-size: 2em;
         }
 
         p {
