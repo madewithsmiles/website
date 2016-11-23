@@ -4,8 +4,12 @@ $cover-height: 600px;
   position: relative;
   height: $cover-height;
 
-  background-image: url('../img/cover.jpg');
-  background-size: auto $cover-height;
+  // background-image: url('../img/cover.jpg');
+  // http://www.androidguys.com/wp-content/uploads/2013/05/geometry19.png
+  // http://cdn.wallpapersafari.com/88/66/dFaRuU.jpg
+  // https://s-media-cache-ak0.pinimg.com/originals/aa/a4/8e/aaa48e9d3fad0a8c6a4cc8bdf754f3b0.jpg
+  background-image: url('http://cdn.wallpapersafari.com/88/66/dFaRuU.jpg');
+  background-size: auto $cover-height no-repeat;
   background-position: center center;
 
   .cover {
@@ -24,21 +28,22 @@ $cover-height: 600px;
 
     .text-container {
       margin: auto;
-      width: 80%;
+      width: 70%;
       z-index: 1;
 
       h1 {
         @include font($display-font, 3.2em, 800);
         text-transform: uppercase;
         margin: auto;
-        margin-bottom: 0;
-        width: 80%;
+        margin-bottom: 1.5rem;
+        width: 100%;
       }
 
       p {
         @include font($content-font, 1.2em, 400);
         opacity: 0.9;
         margin-top: 0.4em;
+        line-height: 1.8rem;
       }
     }
   }
