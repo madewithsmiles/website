@@ -1,7 +1,7 @@
 @import 'materialize/materialize';
 @import 'bourbon/bourbon';
 
-/* Fonts */
+/* Custom Fonts */
 @font-face {
   font-family: 'Gidole';
   src: url('/fonts/gidole/Gidole-Regular.eot'); /* IE9 Compat Modes */
@@ -17,10 +17,6 @@
 	font-family: $name, sans-serif;
 	font-size: $size;
 	font-weight: $weight;
-
-	// @if $name == 'Blender Pro' {
-	// 	letter-spacing: 1px;
-	// }
 
 	@if $name == $display-font {
 		@if $size > 2em {
@@ -68,6 +64,10 @@ h1.brand-title {
   color: $dark-blue;
   display: inline;
   margin: 0 0 0 10px;
+}
+
+h1 {
+	margin-bottom: 0.4rem;
 }
 
 div.shade-overlay {

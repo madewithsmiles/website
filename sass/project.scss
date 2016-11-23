@@ -17,6 +17,10 @@ section.projects {
     font-size: 1.1em;
   }
 
+  .card-title {
+    font-family: $display-font;
+  }
+
   @media #{$small-and-down} {
     h1 {
       font-size: 1.4em;
