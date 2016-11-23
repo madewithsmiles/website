@@ -19,12 +19,12 @@ $content-font: 'Open Sans';
 /* Official Theme Colors */
 $dark-blue: #2F3540;
 $blue: #666A73;
-$light-grey: #F2EDE4; 
+$light-grey: #F2EDE4;
 $grey: #D9D1C7;
 $dark-grey: #8C8681;
 
 /* Specific Colors */
-$cover-color: #293D48; 
+$cover-color: #293D48;
 
 /* Global Styles */
 html {
@@ -54,9 +54,14 @@ div.shade-overlay {
 	text-transform: uppercase;
 }
 
+.inline {
+	display: inline-block;
+}
+
 /* Import Custom Styles */
 @import 'main';
 @import 'cover';
 @import 'overview';
 @import 'nav';
 @import 'footer';
+@import 'contact';
