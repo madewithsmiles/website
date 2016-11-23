@@ -1,11 +1,20 @@
 @import 'materialize/materialize';
 @import 'bourbon/bourbon';
 
+/* Mixins */
+@mixin font($name, $size, $weight) {
+	font-family: $name, sans-serif;
+	font-size: $size;
+	font-weight: $weight;
+
+	@if $name == 'Blender Pro' {
+		letter-spacing: 1px;
+	}
+}
+
 /* Fonts */
-$roboto: 'Roboto', sans-serif;
-$montserrat: 'Montserrat', sans-serif;
-$monda: 'Monda', sans-serif;
-$karla: 'Karla', sans-serif;
+$display-font: 'Monda';
+$content-font: 'Open Sans';
 
 /* Official Theme Colors */
 $dark-blue: #2F3540;
@@ -18,6 +27,11 @@ $dark-grey: #8C8681;
 $cover-color: #293D48; 
 
 /* Global Styles */
+html {
+	font-family: $content-font;
+	color: $dark-blue;
+}
+
 body {
 	background-color: $light-grey;
 }
@@ -34,12 +48,6 @@ div.shade-overlay {
 	height: 100%;
 	background-color: $dark-blue;
 	opacity: 0.5;
-}
-
-.title {
-	font-size: 1.6em;
-	font-family: $monda;
-	font-weight: 700;
 }
 
 .uppercase {

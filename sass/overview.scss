@@ -8,7 +8,7 @@ section.overview {
 		width: 70%;
 
 		h1 {
-			font-size: 1.6em;
+			@include font($display-font, 1.8em, 700);
 		}
 
 		p {

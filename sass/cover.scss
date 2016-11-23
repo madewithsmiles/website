@@ -3,6 +3,7 @@ $cover-height: 600px;
 .cover-wrapper {
   position: relative;
   height: $cover-height;
+
   background-image: url('../img/cover.jpg');
   background-size: auto $cover-height;
   background-position: center center;
@@ -27,17 +28,16 @@ $cover-height: 600px;
       z-index: 1;
 
       h1 {
-        font-size: 3.2em;
-        font-weight: 800;
-        font-family: $monda;
-        margin-bottom: 0;
+        @include font($display-font, 3.2em, 800);
         text-transform: uppercase;
+        margin: auto;
+        margin-bottom: 0;
+        width: 80%;
       }
 
       p {
-        font-family: $karla;
-        font-weight: 300;
-        font-size: 1.2em;
+        @include font($content-font, 1.2em, 400);
+        opacity: 0.9;
         margin-top: 0.4em;
       }
     }

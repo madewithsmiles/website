@@ -15,6 +15,12 @@ nav {
    		  transform: translateY(-50%);
    		  height: 50px;
    	  }
+
+      @media #{$medium-and-down} {
+        img {
+          transform: translateX(-24px) translateY(-50%);
+        }
+      }
     }
   }
 
@@ -24,7 +30,7 @@ nav {
 
   ul {
     a {
-      font-family: $karla;
+      @include font($content-font, 1em, 400);
       color: color("blue-grey", "darken-4");
     }
 
