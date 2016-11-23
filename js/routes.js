@@ -4,9 +4,6 @@
       $routeProvider.when('/', {
         templateUrl: 'templates/pages/home/index.html'
       })
-      .when('/about', {
-        templateUrl: 'templates/pages/about/index.html'
-      })
       .when('/projects', {
         templateUrl: 'templates/pages/projects/index.html'
       })
