@@ -1,30 +1,56 @@
 @import 'materialize/materialize';
 @import 'bourbon/bourbon';
 
+/* Fonts */
+@font-face {
+  font-family: 'Gidole';
+  src: url('/fonts/gidole/Gidole-Regular.eot'); /* IE9 Compat Modes */
+  src: url('/fonts/gidole/Gidole-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/fonts/gidole/Gidole-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/gidole/Gidole-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+       url('/fonts/gidole/Gidole-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('/fonts/gidole/Gidole-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
 /* Mixins */
 @mixin font($name, $size, $weight) {
 	font-family: $name, sans-serif;
 	font-size: $size;
 	font-weight: $weight;
 
-	@if $name == 'Blender Pro' {
-		letter-spacing: 1px;
+	// @if $name == 'Blender Pro' {
+	// 	letter-spacing: 1px;
+	// }
+
+	@if $name == $display-font {
+		@if $size > 2em {
+			letter-spacing: 3px;
+		}
+		@else {
+			letter-spacing: 1px;
+		}
 	}
 }
 
 /* Fonts */
-$display-font: 'Monda';
-$content-font: 'Open Sans';
+// Abel, Ropa Sans, Heebo, Cairo, Assistant
+// $display-font: 'Abel';
+$display-font: 'Ropa Sans';
+// $display-font: 'Heebo';
+// $display-font: 'Cairo';
+// $display-font: 'Assistant';
+$content-font: 'Gidole';
+// $content-font: 'Open Sans';
 
 /* Official Theme Colors */
 $dark-blue: #2F3540;
 $blue: #666A73;
-$light-grey: #F2EDE4; 
+$light-grey: #F2EDE4;
 $grey: #D9D1C7;
 $dark-grey: #8C8681;
 
 /* Specific Colors */
-$cover-color: #293D48; 
+$cover-color: #293D48;
 
 /* Global Styles */
 html {
