@@ -7,4 +7,10 @@ div#main-wrapper {
 		max-width: 1480px;
 		margin: auto;
 	}
+
+	@media #{$medium-and-down} {
+		div#main-content-wrapper {
+			box-shadow: none;
+		}
+	}
 }

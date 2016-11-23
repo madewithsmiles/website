@@ -22,6 +22,10 @@ body {
 	background-color: $light-grey;
 }
 
+strong {
+	font-weight: 700;
+}
+
 div.shade-overlay {
 	position: absolute;
 	top: 0;
@@ -32,8 +36,19 @@ div.shade-overlay {
 	opacity: 0.5;
 }
 
+.title {
+	font-size: 1.6em;
+	font-family: $monda;
+	font-weight: 700;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
 /* Import Custom Styles */
 @import 'main';
 @import 'cover';
+@import 'overview';
 @import 'nav';
 @import 'footer';
