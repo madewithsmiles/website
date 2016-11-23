@@ -1,0 +1,32 @@
+section.projects {
+  background-color: white;
+	padding-top: 2em;
+	padding-bottom: 4em;
+
+  h1 {
+    @include font($display-font, 1.8em, 700);
+  }
+
+  p {
+    font-size: 1.1em;
+  }
+
+  @media #{$small-and-down} {
+    h1 {
+      font-size: 1.4em;
+    }
+
+    p {
+      font-size: 1em;
+    }
+  }
+
+  .card-image {
+    height: 450px;
+
+    img {
+      position: absolute !important;
+      margin: auto;
+    }
+  }
+}
