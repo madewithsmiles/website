@@ -1,4 +1,4 @@
-$cover-height: 600px;
+$cover-height: 500px;
 
 .cover-wrapper {
   position: relative;
@@ -21,7 +21,7 @@ $cover-height: 600px;
   .cover {
     text-align: center;
     width: 100%;
-    height: 500px;
+    height: $cover-height;
     overflow: hidden;
 
     img {
