@@ -36,9 +36,6 @@
 // Abel, Ropa Sans, Heebo, Cairo, Assistant
 // $display-font: 'Abel';
 $display-font: 'Ropa Sans';
-// $display-font: 'Heebo';
-// $display-font: 'Cairo';
-// $display-font: 'Assistant';
 $content-font: 'Gidole';
 // $content-font: 'Open Sans';
 
@@ -64,6 +61,13 @@ body {
 
 strong {
 	font-weight: 700;
+}
+
+h1.brand-title {
+  @include font('Montserrat', .8em, 800);
+  color: $dark-blue;
+  display: inline;
+  margin: 0 0 0 10px;
 }
 
 div.shade-overlay {
