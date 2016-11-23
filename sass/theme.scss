@@ -80,10 +80,15 @@ div.shade-overlay {
 	text-transform: uppercase;
 }
 
+.inline {
+	display: inline-block;
+}
+
 /* Import Custom Styles */
 @import 'main';
 @import 'cover';
 @import 'overview';
 @import 'nav';
 @import 'footer';
+@import 'contact';
 @import 'project';
