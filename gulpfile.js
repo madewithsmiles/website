@@ -25,5 +25,5 @@ gulp.task('serve', ['sass'], function() {
     gulp.watch('*.html').on('change', reload);
     gulp.watch('**/*.html').on('change', reload);
     gulp.watch('*.js').on('change', reload);
-    gulp.watch('**/*.js').on('change', reload);
+    gulp.watch('js/**/*.js').on('change', reload);
 });
