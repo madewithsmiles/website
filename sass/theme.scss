@@ -63,6 +63,13 @@ strong {
 	font-weight: 700;
 }
 
+h1.brand-title {
+  @include font('Montserrat', .8em, 800);
+  color: $dark-blue;
+  display: inline;
+  margin: 0 0 0 10px;
+}
+
 h1 {
 	margin-bottom: 0.4rem;
 }

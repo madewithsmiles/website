@@ -13,16 +13,24 @@ nav {
   a.brand-logo {
     height: inherit;
 
+    .logo-wrapper {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      .valign-wrapper .valign {
+        display: inline-flex;
+      }
+    }
+
     div.logo {
       cursor: pointer;
     	height: inherit;
-    	position: absolute;
+      display: inline-flex;
 
 			img {
    		  position: relative;
-   		  top: 50%;
-   		  transform: translateY(-50%);
-   		  height: 50px;
+   		  height: 40px;
    	  }
 
       @media #{$medium-and-down} {
@@ -56,7 +64,7 @@ nav {
     padding-left: 1em;
     padding-right: 6em;
   }
-  
+
   nav.clearNav {
     box-shadow: none;
     background-color: rgba(0, 0, 0, 0) !important;
