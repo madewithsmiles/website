@@ -11,14 +11,14 @@
 		  	<img src="img/logo.png">
      	</div>
 	  </a>
-      <a href="javascript: void(0)" data-activates="mobile-demo" class="button-collapse black-text"><i class="fa fa-bars"></i></a>
+      <a href="javascript: void(0)" data-activates="mobile-demo" class="button-collapse black-text"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#/">Home</a></li>
         <li><a href="#/about">About</a></li>
         <li><a class="dropdown-button" href="#/projects" data-activates="projects">Projects</a></li>
         <li><a href="#/companies">Companies</a></li>
         <li><a href="#/contact">Contact</a></li>
-		    <li><a class="waves-effect waves-light blue-grey darken-2 btn apply-btn" href="#/apply">Apply</a></li>
+	    <li><a class="waves-effect waves-light blue-grey darken-2 btn apply-btn" href="#/apply">Apply</a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
         <li><a href="#/">Home</a></li>
@@ -26,18 +26,18 @@
         <li><a href="#/projects">Projects</a></li>
         <li><a href="#/companies">Companies</a></li>
         <li><a href="#/contact">Contact</a></li>
-    		<li><a class="apply-btn" href="#/apply">Apply</a></li>
+   		<li><a class="apply-btn" href="#/apply">Apply</a></li>
       </ul>
     </div>
   </nav>
 </div>
 
 <script>
-  $('.button-collapse').sideNav();
-  $('.side-nav a').click(function() {
-    $('.button-collapse').sideNav('hide');
-  });
-  $( document ).ready(function(){
+$( document ).ready(function(){
     $(".dropdown-button").dropdown({ hover: true, belowOrigin: true});
-  })
+    $('.button-collapse').sideNav();
+    $('.side-nav a').click(function() {
+        $('.button-collapse').sideNav('hide');
+    });
+})
 </script>
