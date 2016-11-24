@@ -3,9 +3,9 @@
     .module('MB')
     .controller('ApplyCtrl', ApplyCtrl);
 
-  ApplyCtrl.$inject = ['$scope'];
+  ApplyCtrl.$inject = ['FormService'];
 
-  function ApplyCtrl($scope){
+  function ApplyCtrl(FormService){
     var vm = this;
     const pageLimit = 3;
 
@@ -34,24 +34,15 @@
 
     var formSections = [vm.basic, vm.responses, vm.additional];
 
-    var checkFullSubmit = (object) => {
-      console.log(object);
-      for(var key in object) {
-         if (object.hasOwnProperty(key)) {
-             if (!object[key]) return false;
-         }
-      }
-      return true;
-    }
-
     vm.submitForm = () => {
-      var okay = checkFullSubmit(vm.basic) && checkFullSubmit(vm.responses) && checkFullSubmit(vm.additional);
+      var okay = FormService.checkFullSubmit(vm.basic) && FormService.checkFullSubmit(vm.responses) && FormService.checkFullSubmit(vm.additional);
       if (okay) {
         var fullForm = {
           basic: vm.basic,
           responses: vm.responses,
           additional: vm.additional
         }
+        // TODO: 'fullForm' object contains all information you want to email.
         console.log(fullForm);
         return true;
       }

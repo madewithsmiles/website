@@ -8,10 +8,14 @@
         templateUrl: 'templates/pages/projects/index.html'
       })
       .when('/companies', {
-        templateUrl: 'templates/pages/companies/index.html'
+        templateUrl: 'templates/pages/companies/index.html',
+        controller: 'CompaniesCtrl',
+        controllerAs: 'vm'
       })
       .when('/contact', {
-        templateUrl: 'templates/pages/contact/index.html'
+        templateUrl: 'templates/pages/contact/index.html',
+        controller: 'ContactCtrl',
+        controllerAs: 'vm'
       })
       .when('/apply', {
         templateUrl: 'templates/pages/apply/index.html',

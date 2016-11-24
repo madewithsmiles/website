@@ -11,7 +11,7 @@
         </div>
       </div>
     </nav>
-    <form class="col s12">
+    <form class="col s12" ng-submit="vm.submitForm()">
       <div ng-if="vm.page == 1">
         <div class="form-container">
           <div class="row">
@@ -105,7 +105,7 @@
           </div>
         </div>
         <div class="row">
-          <button class="btn waves-effect waves-light form-nav-btn right" type="submit" name="action" ng-click="vm.submitForm()">Submit
+          <button class="btn waves-effect waves-light form-nav-btn right" type="submit" name="action">Submit
             <i class="material-icons right">send</i>
           </button>
           <button class="btn waves-effect waves-light form-nav-btn right" type="button" name="action" ng-click="vm.prev()">Previous</button>

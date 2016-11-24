@@ -13,30 +13,30 @@
 <section class="contact">
   <div class="container">
     <h1 class="title uppercase">Contact Us</h1>
-    <form class="col s12">
+    <form class="col s12" ng-submit="vm.sendMessage()">
       <div class="row">
-        <div class="input-field col s4">
-          <input id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
+        <div input-field class="col s4">
+          <input id="firstName" type="text" ng-model="vm.contact.firstName" class="validate">
+          <label for="firstName" data-error="Invalid Input">First Name</label>
         </div>
-        <div class="input-field col s4">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Last Name</label>
+        <div input-field class="col s4">
+          <input id="lastName" type="text" ng-model="vm.contact.lastName" class="validate">
+          <label for="lastName" data-error="Invalid Input">Last Name</label>
         </div>
-        <div class="input-field col s4">
-          <input id="email" type="email" class="validate">
+        <div input-field class="col s4">
+          <input id="email" type="email" ng-model="vm.contact.email" class="validate">
           <label for="email" data-error="Invalid Email">Email</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
-          <input id="subject" type="text" class="validate">
-          <label for="subject">Subject</label>
+        <div input-field class="col s12">
+          <input id="subject" type="text" ng-model="vm.contact.subject" class="validate">
+          <label for="subject" data-error="Invalid Input">Subject</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
-          <textarea id="message" class="materialize-textarea"></textarea>
+        <div input-field class="col s12">
+          <textarea id="message" ng-model="vm.contact.message" class="materialize-textarea" placeholder="Type message here..."></textarea>
           <label for="message">Message</label>
         </div>
       </div>
