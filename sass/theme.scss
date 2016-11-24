@@ -114,7 +114,7 @@ div.shade-overlay {
 			}
 
 			p {
-				@include font($content-font, 1.2em, 400);
+				@include font($content-font, 1.2em, 200);
 				margin-top: 0.4em;
 				opacity: 0.9;
 			}
