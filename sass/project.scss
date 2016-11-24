@@ -17,10 +17,6 @@ section.projects {
     font-size: 1.1em;
   }
 
-  .card-title {
-    font-family: $display-font;
-  }
-
   @media #{$small-and-down} {
     h1 {
       font-size: 1.4em;
@@ -36,7 +32,7 @@ section.projects {
   }
 
   .card-image {
-    height: 450px;
+    height: 350px;
 
     img {
       position: absolute !important;
