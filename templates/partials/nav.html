@@ -8,37 +8,36 @@
     <div class="nav-wrapper">
       <a href="#/" class="brand-logo ">
         <div class="valign-wrapper logo-wrapper">
-         	<div class="logo valign">
-    		  	<img src="img/logo.png">
-         	</div>
-          <h1 class="brand-title valign">Launchpad</h1>
+          <div class="logo valign">
+           <img src="img/logo.png">
+          </div>
         </div>
-  	  </a>
+      </a>
       <a href="javascript: void(0)" data-activates="mobile-demo" class="button-collapse black-text"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#/">About</a></li>
         <li><a class="dropdown-button" href="#/projects" data-activates="projects">Projects</a></li>
         <li><a href="#/companies">Companies</a></li>
         <li><a href="#/contact">Contact</a></li>
-  	    <li><a class="waves-effect waves-light blue-grey darken-2 btn apply-btn" href="#/apply">Apply</a></li>
+        <li><a class="waves-effect waves-light blue-grey darken-2 btn apply-btn" href="#/apply">Apply</a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
         <li><a href="#/">About</a></li>
         <li><a href="#/projects">Projects</a></li>
         <li><a href="#/companies">Companies</a></li>
         <li><a href="#/contact">Contact</a></li>
-    		<li><a class="apply-btn" href="#/apply">Apply</a></li>
+        <li><a class="apply-btn" href="#/apply">Apply</a></li>
       </ul>
     </div>
   </nav>
 </div>
 
 <script>
-$( document ).ready(function(){
+  $( document ).ready(function(){
     $(".dropdown-button").dropdown({ hover: true, belowOrigin: true});
     $('.button-collapse').sideNav();
     $('.side-nav a').click(function() {
-        $('.button-collapse').sideNav('hide');
+      $('.button-collapse').sideNav('hide');
     });
-})
+  })
 </script>

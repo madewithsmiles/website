@@ -35,7 +35,7 @@ nav {
 
       @media #{$medium-and-down} {
         img {
-          transform: translateX(-24px) translateY(-50%);
+          transform: translateX(-24px);
         }
       }
     }
