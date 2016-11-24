@@ -18,6 +18,13 @@ section.apply {
     }
   }
 
+  @media #{$medium-and-down} {
+    #toast-container {
+      top: 50px !important;
+      right: 30px !important;
+    }
+  }
+
   @media #{$small-and-down} {
     h1 {
       font-size: 1.4em;
@@ -26,11 +33,17 @@ section.apply {
     p {
       font-size: 1em;
     }
+
+    #toast-container {
+      top: 50px !important;
+      right: 30px !important;
+    }
   }
 
   .breadcrumb-nav {
     box-shadow: none;
-    
+    margin-bottom: 20px;
+
     .breadcrumb {
       cursor: pointer;
     }
@@ -49,7 +62,47 @@ section.apply {
     color: $dark-blue;
   }
 
-  .submit-btn {
-    float: right;
+  .form-nav-btn {
+    margin: 0 20px;
+  }
+
+  .form-container {
+    width: 100%;
+    min-height: 400px;
+  }
+}
+
+@media #{$medium-and-down} {
+  #toast-container {
+    top: 74px !important;
+    right: 30px !important;
+    left: auto  !important;
+    bottom: auto  !important;
+    max-width: 90%;
+  }
+
+  .form-container {
+    min-height: 300px !important;
+  }
+}
+
+@media #{$small-and-down} {
+  .breadcrumb-nav {
+    .breadcrumb {
+      font-size: 1em;
+    }
+  }
+
+  .form-nav-btn {
+    margin: 0 10px !important;
+  }
+
+  #toast-container {
+    padding: 10px;
+    top: 50px !important;
+    right: auto  !important;
+    bottom: auto !important;
+    left: auto !important;
+    max-width: 90%;
   }
 }

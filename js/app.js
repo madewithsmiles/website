@@ -1,3 +1,3 @@
 (function($) {
-  angular.module('MB', ['ngRoute']);
+  angular.module('MB', ['ngRoute', 'ui.materialize']);
 })(jQuery);
