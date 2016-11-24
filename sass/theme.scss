@@ -109,6 +109,13 @@ div.shade-overlay {
 	}
 }
 
+a.anchor {
+  display: block;
+  position: relative;
+  top: -64px;
+  visibility: hidden;
+}
+
 /* Import Custom Styles */
 @import 'main';
 @import 'cover';
