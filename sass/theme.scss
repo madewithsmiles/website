@@ -116,6 +116,10 @@ a.anchor {
   visibility: hidden;
 }
 
+.input-field label {
+  left: 0;
+}
+
 /* Import Custom Styles */
 @import 'main';
 @import 'cover';
