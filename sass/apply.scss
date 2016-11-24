@@ -3,13 +3,9 @@ section.apply {
 	padding-top: 2em;
 	padding-bottom: 4em;
 
-  h1 {
-    @include font($display-font, 1.8em, 700);
-  }
+  h1 { @include font($display-font, 1.8em, 700); }
 
-  p {
-    font-size: 1.1em;
-  }
+  p { font-size: 1.1em; }
 
   .input-field {
     label {
@@ -26,13 +22,9 @@ section.apply {
   }
 
   @media #{$small-and-down} {
-    h1 {
-      font-size: 1.4em;
-    }
+    h1 { font-size: 1.4em; }
 
-    p {
-      font-size: 1em;
-    }
+    p { font-size: 1em; }
 
     #toast-container {
       top: 50px !important;
@@ -76,8 +68,8 @@ section.apply {
   #toast-container {
     top: 74px !important;
     right: 30px !important;
-    left: auto  !important;
-    bottom: auto  !important;
+    left: auto !important;
+    bottom: auto !important;
     max-width: 90%;
   }
 
@@ -87,10 +79,8 @@ section.apply {
 }
 
 @media #{$small-and-down} {
-  .breadcrumb-nav {
-    .breadcrumb {
-      font-size: 1em;
-    }
+  .breadcrumb-nav .breadcrumb {
+    font-size: 1em;
   }
 
   .form-nav-btn {
@@ -100,7 +90,7 @@ section.apply {
   #toast-container {
     padding: 10px;
     top: 50px !important;
-    right: auto  !important;
+    right: auto !important;
     bottom: auto !important;
     left: auto !important;
     max-width: 90%;

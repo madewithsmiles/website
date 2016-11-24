@@ -24,7 +24,6 @@ footer.page-footer {
 				li {
 					a:hover {
 						color: white !important;
-
 						@include transition(all ease 0.4s);
 					}
 				}
@@ -37,9 +36,7 @@ footer.page-footer {
 			height: 320px;
 
 			div.footer-container {
-				h5 {
-					font-size: 0.9em;
-				}
+				h5 { font-size: 0.9em; }
 			}
 		}
 	}
@@ -47,9 +44,6 @@ footer.page-footer {
 	@media #{$small-and-down} {
 		div.footer-content {
 			height: 720px;
-			div.footer-container {
-
-			}
 		}
 	}
 

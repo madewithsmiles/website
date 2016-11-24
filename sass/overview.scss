@@ -3,31 +3,23 @@ section.overview {
 	padding-top: 4em;
 	padding-bottom: 4em;
 
-	h1 {
-		@include font($display-font, 1.8em, 700);
-	}
+	h1 { @include font($display-font, 1.8em, 700); }
 
-	p {
-		font-size: 1.1em;
-	}
+	p { font-size: 1.1em; }
 
 	div.tagline {
 		margin: auto;
 		width: 70%;
 
 		@media #{$small-and-down} {
-			h1 {
-				font-size: 1.4em;
-			}
+			h1 { font-size: 1.4em; }
 
-			p {
-				font-size: 1em;
-			}
+			p { font-size: 1em; }
 		}
 	}
 
 	h2 {
 		@include font($display-font, 1.2em, 800);
 		margin-top: 0;
-	}	
+	}
 }

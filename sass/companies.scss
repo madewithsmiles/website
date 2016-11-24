@@ -3,26 +3,16 @@ section.companies {
 	padding-top: 2em;
 	padding-bottom: 4em;
 
-  h1 {
-    @include font($display-font, 2.2em, 700);
-  }
+  h1 { @include font($display-font, 2.2em, 700); }
 
-  h3 {
-    @include font($content-font, 1.3em, 700);
-  }
+  h3 { @include font($content-font, 1.3em, 700); }
 
-  p, li {
-    font-size: 1.1em;
-  }
+  p, li { font-size: 1.1em; }
 
   @media #{$small-and-down} {
-    h1 {
-      font-size: 1.4em;
-    }
+    h1 { font-size: 1.4em; }
 
-    span, p, li {
-      font-size: 1em;
-    }
+    span, p, li { font-size: 1em; }
   }
 
   .sponsors-container {

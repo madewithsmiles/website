@@ -19,12 +19,8 @@
 	font-weight: $weight;
 
 	@if $name == $display-font {
-		@if $size > 2em {
-			letter-spacing: 3px;
-		}
-		@else {
-			letter-spacing: 1px;
-		}
+		@if $size > 2em { letter-spacing: 3px; }
+		@else { letter-spacing: 1px; }
 	}
 }
 
@@ -49,13 +45,9 @@ html {
 	color: $dark-blue;
 }
 
-body {
-	background-color: $light-grey;
-}
+body { background-color: $light-grey; }
 
-strong {
-	font-weight: 700;
-}
+strong { font-weight: 700; }
 
 h1.brand-title {
   @include font('Montserrat', .8em, 800);
@@ -64,9 +56,7 @@ h1.brand-title {
   margin: 0 0 0 10px;
 }
 
-h1 {
-	margin-bottom: 0.4rem;
-}
+h1 { margin-bottom: 0.4rem; }
 
 div.shade-overlay {
 	position: absolute;
@@ -78,13 +68,9 @@ div.shade-overlay {
 	opacity: 0.5;
 }
 
-.uppercase {
-	text-transform: uppercase;
-}
+.uppercase { text-transform: uppercase; }
 
-.inline {
-	display: inline-block;
-}
+.inline { display: inline-block; }
 
 .disabled {
   pointer-events: none;

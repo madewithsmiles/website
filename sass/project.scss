@@ -48,9 +48,7 @@ section.projects {
   }
 
   @media #{$small-and-down} {
-    .card-image {
-      height: 180px;
-    }
+    .card-image { height: 180px; }
 
     .card-reveal {
       z-index: 1000;
@@ -70,9 +68,7 @@ section.projects {
         left: $card-padding;
         bottom: $card-padding;
 
-        a {
-          width: 100%;
-        }
+        a { width: 100%; }
       }
     }
   }
@@ -86,9 +82,7 @@ section.projects {
       color: white;
     }
 
-    .card-content {
-      padding: 0 $card-padding;
-    }
+    .card-content { padding: 0 $card-padding; }
 
     li {
       list-style-type: circle;
