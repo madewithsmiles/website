@@ -1,19 +1,19 @@
-section#overview {
+section.overview {
 	background-color: white;
 	padding-top: 4em;
 	padding-bottom: 4em;
 
+	h1 {
+		@include font($display-font, 1.8em, 700);
+	}
+
+	p {
+		font-size: 1.1em;
+	}
+
 	div.tagline {
 		margin: auto;
 		width: 70%;
-
-		h1 {
-			@include font($display-font, 1.8em, 700);
-		}
-
-		p {
-			font-size: 1.1em;
-		}
 
 		@media #{$small-and-down} {
 			h1 {
