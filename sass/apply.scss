@@ -11,6 +11,13 @@ section.apply {
     font-size: 1.1em;
   }
 
+  .input-field {
+    label {
+      font-size: 1.1em;
+      color: $blue;
+    }
+  }
+
   @media #{$small-and-down} {
     h1 {
       font-size: 1.4em;

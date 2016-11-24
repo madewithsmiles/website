@@ -24,7 +24,7 @@
           </div>
           <div class="input-field col s4">
             <select>
-              <option value="" disabled selected>Choose option</option>
+              <option value="" disabled selected>Choose</option>
               <option value="freshman">Freshman</option>
               <option value="sophomore">Sophomore</option>
               <option value="junior">Junior</option>
@@ -36,7 +36,7 @@
         <div class="row">
           <div class="input-field col s12">
             <input id="majors" type="text" class="validate">
-            <label for="majors" data-error="Invalid Input">Degree / Major(s)</label>
+            <label for="majors" data-error="Invalid Input">Major(s)</label>
           </div>
         </div>
         <div class="row">
@@ -46,7 +46,7 @@
           </div>
           <div class="input-field col s6">
             <input id="phone" type="tel" class="validate">
-            <label for="phone" data-error="Invalid Phone Number">Cell Phone Number</label>
+            <label for="phone" data-error="Invalid Phone Number">Phone Number</label>
           </div>
         </div>
         <div class="row">
@@ -64,21 +64,21 @@
       <div ng-if="vm.page == 2">
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="prompt1" class="materialize-textarea" length="250" placeholder="Type your response here... (max 250 words)"></textarea>
-            <label for="prompt1">What is the most interesting project you have worked on? Explain briefly your contributions to it and why you enjoyed it.</label>
+            <textarea id="prompt1" class="materialize-textarea" length="250" placeholder="Type your response here... (max 200 words)"></textarea>
+            <label for="prompt1">What is the most interesting project you worked on?</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="prompt1" class="materialize-textarea" length="250" placeholder="Type your response here... (max 250 words)"></textarea>
-            <label for="prompt1">What is your definition of a healthy community?</label>
+            <textarea id="prompt1" class="materialize-textarea" length="250" placeholder="Type your response here... (max 200 words)"></textarea>
+            <label for="prompt1">Tell us about an experience that you had working on a team.</label>
           </div>
         </div>
       </div>
       <div ng-if="vm.page == 3">
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="additional" class="materialize-textarea" length="250" placeholder="Type your response here... (max 250 words)"></textarea>
+            <textarea id="additional" class="materialize-textarea" length="250" placeholder="Type your response here... (max 200 words)"></textarea>
             <label for="additional">Additional Comments</label>
           </div>
         </div>
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="row">
-          <button class="btn waves-effect waves-light submit-btn" type="submit" name="action">Submit Application
+          <button class="btn waves-effect waves-light submit-btn" type="submit" name="action">Submit
             <i class="material-icons right">send</i>
           </button>
         </div>
