@@ -23,6 +23,10 @@ section.apply {
 
   .breadcrumb-nav {
     box-shadow: none;
+    
+    .breadcrumb {
+      cursor: pointer;
+    }
 
     .nav-wrapper {
       padding: 0;

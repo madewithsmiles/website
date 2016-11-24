@@ -5,58 +5,93 @@
     <nav class="breadcrumb-nav">
       <div class="nav-wrapper">
         <div class="col s12">
-          <a href="#!" class="breadcrumb">Personal Info</a>
-          <a href="#!" class="breadcrumb disabled">Prompt 1</a>
-          <a href="#!" class="breadcrumb disabled">Prompt 2</a>
+          <a ng-model="page" ng-value="1" ng-click="vm.page = 1" class="breadcrumb" ng-class="{disabled: vm.page != 1}">Basic</a>
+          <a ng-model="page" ng-value="2" ng-click="vm.page = 2" class="breadcrumb" ng-class="{disabled: vm.page != 2}">Responses</a>
+          <a ng-model="page" ng-value="3" ng-click="vm.page = 3" class="breadcrumb"  ng-class="{disabled: vm.page != 3}">Additional</a>
         </div>
       </div>
     </nav>
     <form class="col s12">
-      <div class="row">
-        <div class="input-field col s4">
-          <input id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
-        </div>
-        <div class="input-field col s4">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Last Name</label>
-        </div>
-        <div class="input-field col s4">
-          <select>
-            <option value="" disabled selected>Choose option</option>
-            <option value="freshman">Freshman</option>
-            <option value="sophomore">Sophomore</option>
-            <option value="junior">Junior</option>
-            <option value="senior">Senior</option>
-          </select>
-          <label>Year</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="majors" type="text" class="validate">
-          <label for="majors" data-error="Invalid Input">Degree / Major(s)</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="email" type="email" class="validate">
-          <label for="email" data-error="Invalid Email">Email</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="phone" type="tel" class="validate">
-          <label for="phone" data-error="Invalid Phone Number">Cell Phone Number</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="file-field input-field col s12">
-          <div class="btn">
-            <span>Choose File</span>
-            <input type="file">
+      <div ng-if="vm.page == 1">
+        <div class="row">
+          <div class="input-field col s4">
+            <input id="first_name" type="text" class="validate">
+            <label for="first_name">First Name</label>
           </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" placeholder="Resume">
+          <div class="input-field col s4">
+            <input id="last_name" type="text" class="validate">
+            <label for="last_name">Last Name</label>
           </div>
+          <div class="input-field col s4">
+            <select>
+              <option value="" disabled selected>Choose option</option>
+              <option value="freshman">Freshman</option>
+              <option value="sophomore">Sophomore</option>
+              <option value="junior">Junior</option>
+              <option value="senior">Senior</option>
+            </select>
+            <label>Year</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="majors" type="text" class="validate">
+            <label for="majors" data-error="Invalid Input">Degree / Major(s)</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="email" type="email" class="validate">
+            <label for="email" data-error="Invalid Email">Email</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="phone" type="tel" class="validate">
+            <label for="phone" data-error="Invalid Phone Number">Cell Phone Number</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="file-field input-field col s12">
+            <div class="btn">
+              <span>Choose File</span>
+              <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Resume">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="vm.page == 2">
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="prompt1" class="materialize-textarea" length="250" placeholder="Type your response here... (max 250 words)"></textarea>
+            <label for="prompt1">What is the most interesting project you have worked on? Explain briefly your contributions to it and why you enjoyed it.</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="prompt1" class="materialize-textarea" length="250" placeholder="Type your response here... (max 250 words)"></textarea>
+            <label for="prompt1">What is your definition of a healthy community?</label>
+          </div>
+        </div>
+      </div>
+      <div ng-if="vm.page == 3">
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="additional" class="materialize-textarea" length="250" placeholder="Type your response here... (max 250 words)"></textarea>
+            <label for="additional">Additional Comments</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="github" type="url" class="validate">
+            <label for="github" data-error="Invalid URL">Github URL</label>
+          </div>
+        </div>
+        <div class="row">
+          <button class="btn waves-effect waves-light submit-btn" type="submit" name="action">Submit Application
+            <i class="material-icons right">send</i>
+          </button>
         </div>
       </div>
     </form>
@@ -65,6 +100,8 @@
 
 <script>
   $(document).ready(function() {
+    Materialize.updateTextFields();
     $('select').material_select({ belowOrigin: true });
+    $('textarea').characterCounter();
   });
 </script>

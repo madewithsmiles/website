@@ -14,11 +14,12 @@
         templateUrl: 'templates/pages/contact/index.html'
       })
       .when('/apply', {
-        templateUrl: 'templates/pages/apply/index.html'
+        templateUrl: 'templates/pages/apply/index.html',
+        controller: 'ApplyCtrl',
+        controllerAs: 'vm'
       })
       .otherwise({
         redirectTo: '/'
       });
     });
 })();
-
