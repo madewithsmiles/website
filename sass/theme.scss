@@ -29,15 +29,9 @@
 }
 
 /* Fonts */
-// Abel, Ropa Sans, Heebo, Cairo, Assistant
-// $display-font: 'Abel';
 $display-font: 'Ropa Sans';
 $alt-display-font: 'Open Sans';
-// $display-font: 'Heebo';
-// $display-font: 'Cairo';
-// $display-font: 'Assistant';
 $content-font: 'Gidole';
-// $content-font: 'Open Sans';
 
 /* Official Theme Colors */
 $dark-blue: #2F3540;
@@ -92,6 +86,11 @@ div.shade-overlay {
 	display: inline-block;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .parallax-container {
 	height: 160px;
 
@@ -131,3 +130,4 @@ div.shade-overlay {
 @import 'contact';
 @import 'project';
 @import 'companies';
+@import 'apply';

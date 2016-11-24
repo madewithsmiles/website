@@ -1,3 +1,70 @@
-<section class="row">
-
+<section class="apply">
+  <div class="container">
+    <h1 class="title uppercase">Application Form</h1>
+    <div class="divider"></div>
+    <nav class="breadcrumb-nav">
+      <div class="nav-wrapper">
+        <div class="col s12">
+          <a href="#!" class="breadcrumb">Personal Info</a>
+          <a href="#!" class="breadcrumb disabled">Prompt 1</a>
+          <a href="#!" class="breadcrumb disabled">Prompt 2</a>
+        </div>
+      </div>
+    </nav>
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s4">
+          <input id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+        <div class="input-field col s4">
+          <select>
+            <option value="" disabled selected>Choose option</option>
+            <option value="freshman">Freshman</option>
+            <option value="sophomore">Sophomore</option>
+            <option value="junior">Junior</option>
+            <option value="senior">Senior</option>
+          </select>
+          <label>Year</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="majors" type="text" class="validate">
+          <label for="majors" data-error="Invalid Input">Degree / Major(s)</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="email" type="email" class="validate">
+          <label for="email" data-error="Invalid Email">Email</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="phone" type="tel" class="validate">
+          <label for="phone" data-error="Invalid Phone Number">Cell Phone Number</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="file-field input-field col s12">
+          <div class="btn">
+            <span>File</span>
+            <input type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload Photo of Yourself">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </section>
+
+<script>
+  $(document).ready(function() {
+    $('select').material_select({ belowOrigin: true });
+  });
+</script>
