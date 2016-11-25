@@ -5,6 +5,11 @@ section.apply {
 
   h1 { @include font($display-font, 1.8em, 700); }
 
+  h2 {
+    @include font($display-font, 1.2em, 800);
+    margin-top: 0;
+  }
+
   p { font-size: 1.1em; }
 
   .input-field {
