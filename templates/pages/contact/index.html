@@ -16,35 +16,36 @@
 
     <p ng-show="vm.submitted">Thanks for reaching out to us! We'll contact you as soon as possible.</p>
 
-    <form class="col s12" ng-hide="vm.submitted" ng-submit="vm.sendMessage()" action="https://docs.google.com/a/berkeley.edu/forms/d/e/1FAIpQLSd_t6x3aaNc8nIesK8jSKm4B7XE5hoSxrbJWULY39qFRWf9VA/formResponse" target="hidden_iframe">
+    <form class="col s12" ng-hide="vm.submitted" ng-submit="vm.sendMessage()">
+      <input type="hidden" name="_next" value="./index.html" />
       <div class="row">
         <div input-field class="col s4">
-          <input name="entry.819865048" id="entry.819865048" type="text" ng-model="vm.contact.firstName" class="validate">
+          <input name="First Name" id="firstName" type="text" ng-model="vm.contact.firstName" class="validate">
           <label for="firstName" data-error="Invalid Input">First Name</label>
         </div>
         <div input-field class="col s4">
-          <input name="entry.1312974038" id="entry.1312974038" type="text" ng-model="vm.contact.lastName" class="validate">
+          <input name="Last Name" id="lastName.1312974038" type="text" ng-model="vm.contact.lastName" class="validate">
           <label for="lastName" data-error="Invalid Input">Last Name</label>
         </div>
         <div input-field class="col s4">
-          <input name="entry.1811691670" id="entry.1811691670" type="email" ng-model="vm.contact.email" class="validate">
+          <input name="Email" id="email" type="email" ng-model="vm.contact.email" class="validate">
           <label for="email" data-error="Invalid Email">Email</label>
         </div>
       </div>
       <div class="row">
         <div input-field class="col s12">
-          <input name="entry.767865060" id="entry.767865060" type="text" ng-model="vm.contact.subject" class="validate">
+          <input name="Subject" id="subject" type="text" ng-model="vm.contact.subject" class="validate">
           <label for="subject" data-error="Invalid Input">Subject</label>
         </div>
       </div>
       <div class="row">
         <div input-field class="col s12">
-          <textarea name="entry.139167362" id="entry.139167362" ng-model="vm.contact.message" class="materialize-textarea" placeholder="Type message here..."></textarea>
+          <textarea name="Message" id="message" ng-model="vm.contact.message" class="materialize-textarea" placeholder="Type message here..."></textarea>
           <label for="message">Message</label>
         </div>
       </div>
       <div class="row">
-        <button class="btn waves-effect waves-light submit-btn" type="submit" name="action">Send
+        <button class="btn waves-effect waves-light submit-btn" type="submit">Send
           <i class="material-icons right">send</i>
         </button>
       </div>
