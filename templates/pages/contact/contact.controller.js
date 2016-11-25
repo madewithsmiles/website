@@ -5,9 +5,10 @@
 
   ContactCtrl.$inject = ['FormService'];
 
-  function ContactCtrl(FormService){
+  function ContactCtrl(FormService) {
     var vm = this;
 
+    vm.submitted = false;
     vm.contact = {
       firstName: null,
       lastName: null,
@@ -19,11 +20,10 @@
     vm.sendMessage = () => {
       var okay = FormService.checkFullSubmit(vm.contact);
       if (okay) {
-        // TODO: vm.contact object contains all information you want to email.
-        console.log(vm.contact);
+        vm.submitted = true;
         return true;
       }
-      Materialize.toast("Error: Please complete all fields so we have enough information to respond.", 2000);
+      Materialize.toast("Please complete all fields.", 2000);
       return false;
     }
   }
