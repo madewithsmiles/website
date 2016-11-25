@@ -23,7 +23,12 @@
         </div>
       </div>
     </nav>
-    <form class="col s12" ng-submit="vm.submitForm()">
+
+    <p ng-show="vm.submitted">Thanks for reaching out to us! We'll contact you as soon as possible.</p>
+
+    <form class="col s12" ng-hide="vm.submitted" ng-submit="vm.submitForm()">
+      <input type="hidden" name="_subject" value="Launchpad Member Application" />
+      <input type="text" name="_gotcha" style="display:none" />
       <div ng-if="vm.page == 1">
         <div class="form-container">
           <div class="row">
@@ -45,13 +50,13 @@
           </div>
           <div class="row">
             <div input-field class="col s12">
-              <input id="majors" type="text" ng-model="vm.basic.majors" class="validate">
-              <label for="majors" data-error="Invalid Input">Major(s)</label>
+              <input id="major" type="text" ng-model="vm.basic.major" class="validate">
+              <label for="major" data-error="Invalid Input">Major(s)</label>
             </div>
           </div>
           <div class="row">
             <div input-field class="col s6">
-              <input id="email" type="email" ng-model="vm.basic.email" class="validate">
+              <input name="_replyto" id="email" type="email" ng-model="vm.basic.email" class="validate">
               <label for="email" data-error="Invalid Email">Email</label>
             </div>
             <div input-field class="col s6">
@@ -82,13 +87,13 @@
         <div class="form-container">
           <div class="row">
             <div input-field class="col s12">
-              <textarea id="prompt1" ng-model="vm.responses.prompt1" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
+              <textarea id="interestingProject" ng-model="vm.responses.interestingProject" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
               <label>What is the most interesting project you worked on?</label>
             </div>
           </div>
           <div class="row">
             <div input-field class="col s12">
-              <textarea id="prompt2" ng-model="vm.responses.prompt2" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
+              <textarea id="teamExperience" ng-model="vm.responses.teamExperience" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
               <label>Tell us about an experience that you had working on a team.</label>
             </div>
           </div>
@@ -105,7 +110,7 @@
         <div class="form-container">
           <div class="row">
             <div input-field class="col s12">
-              <textarea id="additional" ng-model="vm.additional.comments" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
+              <textarea id="optional" ng-model="vm.additional.optional" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
               <label>Additional Comments</label>
             </div>
           </div>

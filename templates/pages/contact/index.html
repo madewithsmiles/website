@@ -17,7 +17,8 @@
     <p ng-show="vm.submitted">Thanks for reaching out to us! We'll contact you as soon as possible.</p>
 
     <form class="col s12" ng-hide="vm.submitted" ng-submit="vm.sendMessage()">
-      <input type="hidden" name="_next" value="./index.html" />
+      <input type="hidden" name="_subject" value="Website Message" />
+      <input type="text" name="_gotcha" style="display:none" />
       <div class="row">
         <div input-field class="col s4">
           <input name="First Name" id="firstName" type="text" ng-model="vm.contact.firstName" class="validate">
@@ -28,7 +29,7 @@
           <label for="lastName" data-error="Invalid Input">Last Name</label>
         </div>
         <div input-field class="col s4">
-          <input name="Email" id="email" type="email" ng-model="vm.contact.email" class="validate">
+          <input name="_replyto" id="email" type="email" ng-model="vm.contact.email" class="validate">
           <label for="email" data-error="Invalid Email">Email</label>
         </div>
       </div>

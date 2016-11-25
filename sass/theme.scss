@@ -120,6 +120,11 @@ a.anchor {
   left: 0;
 }
 
+.container .row {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Import Custom Styles */
 @import 'main';
 @import 'cover';

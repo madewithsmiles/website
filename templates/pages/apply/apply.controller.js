@@ -8,6 +8,7 @@
   function ApplyCtrl(FormService){
     var vm = this;
     const pageLimit = 3;
+    vm.submitted = false;
 
     vm.page = 1;
     vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
@@ -23,32 +24,25 @@
     }
 
     vm.responses = {
-      prompt1: null,
-      prompt2: null,
+      interestingProject: null,
+      teamExperience: null,
     }
 
     vm.additional = {
-      comments: null,
+      optional: null,
       github: null
     }
 
-    var formSections = [vm.basic, vm.responses, vm.additional];
-
     vm.submitForm = () => {
-      var okay = FormService.checkFullSubmit(vm.basic) && FormService.checkFullSubmit(vm.responses) && FormService.checkFullSubmit(vm.additional);
-      if (okay) {
-        var fullForm = {
-          basic: vm.basic,
-          responses: vm.responses,
-          additional: vm.additional
-        }
-        // TODO: 'fullForm' object contains all information you want to email.
-        console.log(fullForm);
+      var fullForm = Object.assign(vm.basic, vm.responses, vm.additional);
+      var errMsg = "Error: You must complete all previous fields to continue.";
+      var sent = FormService.sendMessage(fullForm, errMsg);
+      if (sent) {
+        vm.submitted = true;
         return true;
       }
-      Materialize.toast("Error: You must complete all previous fields to continue.", 2000);
       return false;
-    }
+    };
 
     vm.changePage = (page) => {
       if (page <= 3 && page >= 0) {

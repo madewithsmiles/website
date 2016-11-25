@@ -18,30 +18,13 @@
     }
 
     vm.sendMessage = () => {
-      var okay = FormService.checkFullSubmit(vm.contact);
-      var postData = {
-        "Subject": vm.contact.subject,
-        "Name": vm.contact.firstName + " " + vm.contact.lastName,
-        "Email": vm.contact.email,
-        "Message": vm.contact.message
-      };
-      if (okay) {
-        $http({
-          url: "https://formspree.io/team@callaunchpad.org",
-          method: "POST",
-          data: postData,
-          dataType: "json"
-        }).then(function successCallback(response) {
-          $log.debug(response);
-        }, function errorCallback(response) {
-          $log.error(response);
-        });
+      var sent = FormService.sendMessage(vm.contact);
+      if (sent) {
         vm.submitted = true;
         return true;
       }
-      Materialize.toast("Please complete all fields.", 2000);
       return false;
-    }
+    };
   }
 
 }());

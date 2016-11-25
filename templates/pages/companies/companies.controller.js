@@ -7,6 +7,7 @@
 
   function CompaniesCtrl(FormService){
     var vm = this;
+    vm.submitted = false;
 
     vm.company = {
       organization: null,
@@ -18,15 +19,14 @@
     }
 
     vm.sendRequest = () => {
-      var okay = FormService.checkFullSubmit(vm.company);
-      if (okay) {
-        // TODO: vm.company object contains all information you want to email.
-        console.log(vm.company);
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendMessage(vm.company, errMsg);
+      if (sent) {
+        vm.submitted = true;
         return true;
       }
-      Materialize.toast("Error: Please complete all fields so we have enough information to proceed.", 2000);
       return false;
-    }
+    };
   }
 
 }());
