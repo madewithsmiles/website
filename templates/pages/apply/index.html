@@ -12,7 +12,7 @@
 
 <section class="apply" ng-init="vm.init()">
   <div class="container">
-    <a id="values" class="anchor"></a> 
+    <a id="values" class="anchor"></a>
     <div class="row"></div>
     <div class="row">
       <div class="tagline">
@@ -37,7 +37,7 @@
     <div class="row"></div>
     <div class="divider"></div>
 
-    <a id="process" class="anchor"></a> 
+    <a id="process" class="anchor"></a>
     <div class="row"></div>
     <div class="row"></div>
     <div class="row">
@@ -60,7 +60,7 @@
     <div class="row"></div>
     <a id="application" class="anchor"></a>
     <div class="row"></div>
-    <div class="row"></div> 
+    <div class="row"></div>
 
     <h1 class="title uppercase">Application Form</h1>
     <div class="divider"></div>
@@ -79,7 +79,7 @@
     <form class="col s12" ng-hide="vm.submitted" ng-submit="vm.submitForm()">
       <input type="hidden" name="_subject" value="Launchpad Member Application" />
       <input type="text" name="_gotcha" style="display:none" />
-      <div ng-if="vm.page == 1">
+      <div ng-show="vm.page == 1">
         <div class="form-container">
           <div class="row">
             <div input-field class="col s4">
@@ -118,10 +118,10 @@
             <div class="file-field input-field col s12">
               <div class="btn">
                 <span>Choose File</span>
-                <input type="file">
+                <input id="resume" type="file">
               </div>
               <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" ng-model="vm.basic.resume" placeholder="Upload Resume">
+                <input class="file-path validate" type="text" ng-model="vm.basic.resume" placeholder="Upload Resume (PDF only)">
               </div>
             </div>
           </div>
@@ -133,7 +133,7 @@
         </div>
       </div>
 
-      <div ng-if="vm.page == 2">
+      <div ng-show="vm.page == 2">
         <div class="form-container">
           <div class="row">
             <div input-field class="col s12">
@@ -156,7 +156,7 @@
         </div>
       </div>
 
-      <div ng-if="vm.page == 3">
+      <div ng-show="vm.page == 3">
         <div class="form-container">
           <div class="row">
             <div input-field class="col s12">
@@ -179,17 +179,6 @@
         </div>
       </div>
     </form>
-    <!-- <pagination
-      page="vm.page"
-      page-size="1"
-      total="3"
-      show-prev-next="true"
-      use-simple-prev-next="false"
-      dots="..."
-      hide-if-empty="true"
-      adjacent="2"
-      scroll-top="false"
-      pagination-action="vm.changePage(page)" class="right"/> -->
   </div>
 </section>
 

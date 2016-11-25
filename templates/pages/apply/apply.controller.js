@@ -3,9 +3,9 @@
     .module('MB')
     .controller('ApplyCtrl', ApplyCtrl);
 
-  ApplyCtrl.$inject = ['FormService'];
+  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService'];
 
-  function ApplyCtrl(FormService){
+  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService){
     var vm = this;
     const pageLimit = 3;
     vm.submitted = false;
@@ -38,9 +38,13 @@
       var errMsg = "Error: You must complete all previous fields to continue.";
       var sent = FormService.sendMessage(fullForm, errMsg);
       if (sent) {
+        var fileInput = document.getElementById('resume');
+        var resume = fileInput.files[0];
+        var submitted = DropboxService.uploadFile('/resumes/' + resume.name, resume);
         vm.submitted = true;
         return true;
       }
+      $log.warn('Application not sent');
       return false;
     };
 
