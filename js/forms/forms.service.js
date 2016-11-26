@@ -44,13 +44,13 @@
       return object;
     }
 
-    function sendMessage(messageObject, errorMessage) {
+    function sendMessage(messageObject, errorMessage, gFormURL) {
       var okay = checkFullSubmit(messageObject);
-      var postData = prettyObjectKeys(messageObject);
       console.log(postData);
+
       if (okay) {
         $http({
-          url: "https://formspree.io/team@callaunchpad.org",
+          url: gFormURL,
           method: "POST",
           data: postData,
           dataType: "json"
