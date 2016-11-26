@@ -8,7 +8,8 @@
   function FormService($http, $log){
     var factory = {
       checkFullSubmit: checkFullSubmit,
-      sendMessage: sendMessage
+      sendMessage: sendMessage,
+      sendToSheet: sendToSheet
     }
 
     function checkFullSubmit(object) {
@@ -58,6 +59,34 @@
           $log.debug(response);
         }, function errorCallback(response) {
           $log.error(response);
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function sendToSheet(messageObject, sheetURL, errorMessage) {
+      var okay = checkFullSubmit(messageObject);
+      var message = prettyObjectKeys(messageObject);
+      var postData = $.param(messageObject);
+      console.log(postData);
+      if (okay) {
+        $.ajax({
+          url: sheetURL,
+          type: "post",
+          data: postData,
+          success: function(response){
+            $log.debug('Message Sent: ' + JSON.stringify(response));
+          },
+          error: function(request, textStatus, errorThrown) {
+            $log.error("Status: " + textStatus);
+            $log.error("Error: " + errorThrown);
+          }
         });
         return true;
       }

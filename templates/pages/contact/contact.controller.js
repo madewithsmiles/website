@@ -3,9 +3,9 @@
     .module('MB')
     .controller('ContactCtrl', ContactCtrl);
 
-  ContactCtrl.$inject = ['FormService', '$http', '$log'];
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
 
-  function ContactCtrl(FormService, $http, $log) {
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
     var vm = this;
 
     vm.submitted = false;
@@ -18,7 +18,8 @@
     }
 
     vm.sendMessage = () => {
-      var sent = FormService.sendMessage(vm.contact);
+      // var sent = FormService.sendMessage(vm.contact);
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;
