@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="_x34_0_x5F_virtual_x5F_glasses"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="40px"
-	 viewBox="0 0 64 40" style="enable-background:new 0 0 64 40;" xml:space="preserve">
+<svg version="1.1" id="_x31_0_x5F_gold_x5F_cup_x5F_winner"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px"
+	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
 <g>
-	<polyline style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" points="1,17 1,16 3,14 61,14 63,16 63,18 61,20 
-		38,20 36,22 28,22 26,20 18,20 	"/>
-	<polyline style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" points="24,1 16,1 3,14 	"/>
-	<line style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" x1="16" y1="1" x2="9" y2="14"/>
-	<polyline style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" points="40,1 48,1 61,14 	"/>
-	<line style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" x1="48" y1="1" x2="55" y2="14"/>
-	<line style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" x1="31" y1="18" x2="33" y2="18"/>
-	<rect x="11" y="20" style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" width="4" height="4"/>
-	<polyline style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" points="8,24 1,24 1,20 11,20 	"/>
-	<line style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" x1="16" y1="28" x2="14" y2="28"/>
-	<line style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" x1="12" y1="28" x2="10" y2="28"/>
-	<line style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" x1="8" y1="28" x2="6" y2="28"/>
-	<path style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" d="M3,24v9c0,3.3,2.7,6,6,6h14c2.762,0,5-2.238,5-5
-		c0-2.209,1.791-4,4-4s4,1.791,4,4c0,2.762,2.238,5,5,5h14c3.3,0,6-2.7,6-6V23"/>
-	<polygon style="fill:none;stroke:#222829;stroke-width:2;stroke-miterlimit:10;" points="46,32 46,26 52,29 	"/>
+	<g>
+		<g>
+			<g>
+				<path style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" d="M30,43V33
+					c-6-2-12-12-12-22c0-3,1-10,1-10h26c0,0,1,7,1,10c0,10-6,20-12,22v10"/>
+				<polygon style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" points="43,47 21,47 
+					25,43 39,43 				"/>
+				
+					<rect x="19" y="47" style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" width="26" height="12"/>
+				
+					<rect x="15" y="59" style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" width="34" height="4"/>
+				<path style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" d="M15,5h-5
+					c0,14,13,22,13,22"/>
+				<path style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" d="M49,5h5
+					c0,14-13,22-13,22"/>
+			</g>
+			
+				<line style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" x1="31" y1="53" x2="33" y2="53"/>
+			
+				<line style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" x1="27" y1="53" x2="29" y2="53"/>
+			
+				<line style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" x1="35" y1="53" x2="37" y2="53"/>
+			<polygon style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" points="32,6 34,12 
+				40,12 35,16 37,22 32,18 27,22 29,16 24,12 30,12 			"/>
+			
+				<line style="fill:none;stroke:#222829;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;" x1="0" y1="63" x2="64" y2="63"/>
+		</g>
+	</g>
 </g>
 </svg>
