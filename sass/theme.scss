@@ -125,6 +125,23 @@ a.anchor {
   margin-right: auto;
 }
 
+.form-container {
+	transition: height 0.5s ease;
+	min-height: 400px;
+}
+
+@media #{$medium-and-down} {
+	.form-container {
+		min-height: 350px;
+	}
+}
+
+@media #{$small-and-down} {
+	.form-container {
+		min-height: 300px;
+	}
+}
+
 /* Import Custom Styles */
 @import 'main';
 @import 'cover';
@@ -135,3 +152,4 @@ a.anchor {
 @import 'project';
 @import 'companies';
 @import 'apply';
+@import 'animations';

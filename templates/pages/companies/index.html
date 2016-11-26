@@ -19,50 +19,51 @@
     </div>
 
     <div class="row">
+      <div class="form-container">
+        <form class="col s12 animate-form" ng-hide="vm.submitted" ng-submit="vm.sendRequest()">
+          <input type="hidden" name="_subject" value="Sponsorship Request" />
+          <input type="text" name="_gotcha" style="display:none" />
+          <div class="row">
+            <div input-field class="col s6">
+              <input name="Organization" id="organization" type="text" ng-model="vm.company.organization" class="validate">
+              <label for="organization" data-error="Invalid Input">Organization</label>
+            </div>
+            <div input-field class="col s6">
+              <input name="_replyto" id="email" type="email" ng-model="vm.company.email" class="validate">
+              <label for="email" data-error="Invalid Email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div input-field class="col s6">
+              <input name="First Name" id="firstName" type="text" ng-model="vm.company.firstName" class="validate">
+              <label for="firstName" data-error="Invalid Input">First Name</label>
+            </div>
+            <div input-field class="col s6">
+              <input name="Last Name" id="lastName" type="text" ng-model="vm.company.lastName" class="validate">
+              <label for="lastName" data-error="Invalid Input">Last Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div input-field class="col s12">
+              <input name="Subject" id="subject" type="text" ng-model="vm.company.subject" class="validate">
+              <label for="subject" data-error="Invalid Input">Subject</label>
+            </div>
+          </div>
+          <div class="row">
+            <div input-field class="col s12">
+              <textarea name="Message" id="message" ng-model="vm.company.message" class="materialize-textarea" placeholder="Type message here..."></textarea>
+              <label for="message">Message</label>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn waves-effect waves-light submit-btn" type="submit" name="action">Send
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
 
-      <p ng-show="vm.submitted">Thank you for reaching out to us! We are excited to work with you and will respond as soon as possible.</p>
-
-      <form class="col s12" ng-hide="vm.submitted" ng-submit="vm.sendRequest()">
-        <input type="hidden" name="_subject" value="Sponsorship Request" />
-        <input type="text" name="_gotcha" style="display:none" />
-        <div class="row">
-          <div input-field class="col s6">
-            <input name="Organization" id="organization" type="text" ng-model="vm.company.organization" class="validate">
-            <label for="organization" data-error="Invalid Input">Organization</label>
-          </div>
-          <div input-field class="col s6">
-            <input name="_replyto" id="email" type="email" ng-model="vm.company.email" class="validate">
-            <label for="email" data-error="Invalid Email">Email</label>
-          </div>
-        </div>
-        <div class="row">
-          <div input-field class="col s6">
-            <input name="First Name" id="firstName" type="text" ng-model="vm.company.firstName" class="validate">
-            <label for="firstName" data-error="Invalid Input">First Name</label>
-          </div>
-          <div input-field class="col s6">
-            <input name="Last Name" id="lastName" type="text" ng-model="vm.company.lastName" class="validate">
-            <label for="lastName" data-error="Invalid Input">Last Name</label>
-          </div>
-        </div>
-        <div class="row">
-          <div input-field class="col s12">
-            <input name="Subject" id="subject" type="text" ng-model="vm.company.subject" class="validate">
-            <label for="subject" data-error="Invalid Input">Subject</label>
-          </div>
-        </div>
-        <div class="row">
-          <div input-field class="col s12">
-            <textarea name="Message" id="message" ng-model="vm.company.message" class="materialize-textarea" placeholder="Type message here..."></textarea>
-            <label for="message">Message</label>
-          </div>
-        </div>
-        <div class="row">
-          <button class="btn waves-effect waves-light submit-btn" type="submit" name="action">Send
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-      </form>
+        <p class="animate-message" ng-show="vm.submitted">Thank you for reaching out to us! We are excited to work with you and will respond as soon as possible.</p>
+      </div>
     </div>
 
     <a id="sponsors" class="anchor"></a>

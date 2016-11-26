@@ -14,43 +14,45 @@
   <div class="container">
     <h1 class="title uppercase">Contact Us</h1>
 
-    <p ng-show="vm.submitted">Thank you for reaching out to us! We will respond to your message as soon as possible.</p>
+    <div class="form-container">
+      <form class="col s12 animate-form" ng-hide="vm.submitted" ng-submit="vm.sendMessage()">
+        <input type="hidden" name="_subject" value="Website Message" />
+        <input type="text" name="_gotcha" style="display:none" />
+        <div class="row">
+          <div input-field class="col s4">
+            <input name="First Name" id="firstName" type="text" ng-model="vm.contact.firstName" class="validate">
+            <label for="firstName" data-error="Invalid Input">First Name</label>
+          </div>
+          <div input-field class="col s4">
+            <input name="Last Name" id="lastName.1312974038" type="text" ng-model="vm.contact.lastName" class="validate">
+            <label for="lastName" data-error="Invalid Input">Last Name</label>
+          </div>
+          <div input-field class="col s4">
+            <input name="_replyto" id="email" type="email" ng-model="vm.contact.email" class="validate">
+            <label for="email" data-error="Invalid Email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div input-field class="col s12">
+            <input name="Subject" id="subject" type="text" ng-model="vm.contact.subject" class="validate">
+            <label for="subject" data-error="Invalid Input">Subject</label>
+          </div>
+        </div>
+        <div class="row">
+          <div input-field class="col s12">
+            <textarea name="Message" id="message" ng-model="vm.contact.message" class="materialize-textarea" placeholder="Type message here..."></textarea>
+            <label for="message">Message</label>
+          </div>
+        </div>
+        <div class="row">
+          <button class="btn waves-effect waves-light submit-btn" type="submit">Send
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
 
-    <form class="col s12" ng-hide="vm.submitted" ng-submit="vm.sendMessage()">
-      <input type="hidden" name="_subject" value="Website Message" />
-      <input type="text" name="_gotcha" style="display:none" />
-      <div class="row">
-        <div input-field class="col s4">
-          <input name="First Name" id="firstName" type="text" ng-model="vm.contact.firstName" class="validate">
-          <label for="firstName" data-error="Invalid Input">First Name</label>
-        </div>
-        <div input-field class="col s4">
-          <input name="Last Name" id="lastName.1312974038" type="text" ng-model="vm.contact.lastName" class="validate">
-          <label for="lastName" data-error="Invalid Input">Last Name</label>
-        </div>
-        <div input-field class="col s4">
-          <input name="_replyto" id="email" type="email" ng-model="vm.contact.email" class="validate">
-          <label for="email" data-error="Invalid Email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div input-field class="col s12">
-          <input name="Subject" id="subject" type="text" ng-model="vm.contact.subject" class="validate">
-          <label for="subject" data-error="Invalid Input">Subject</label>
-        </div>
-      </div>
-      <div class="row">
-        <div input-field class="col s12">
-          <textarea name="Message" id="message" ng-model="vm.contact.message" class="materialize-textarea" placeholder="Type message here..."></textarea>
-          <label for="message">Message</label>
-        </div>
-      </div>
-      <div class="row">
-        <button class="btn waves-effect waves-light submit-btn" type="submit">Send
-          <i class="material-icons right">send</i>
-        </button>
-      </div>
-    </form>
+      <p class="animate-message" ng-show="vm.submitted">Thank you for reaching out to us! We will respond to your message as soon as possible.</p>
+    </div>
   </div>
 </section>
 

@@ -1,0 +1,26 @@
+.animate-form {
+  opacity: 1;
+}
+
+.animate-message {
+  // transform: translateX(0, 0, 0);
+  // position: absolute;
+  opacity: 1;
+}
+
+.animate-form.ng-hide-add, .animate-form.ng-hide-remove {
+  transition: all linear 0.35s;
+}
+
+.animate-message.ng-hide-add, .animate-message.ng-hide-remove {
+  transition: all linear 0.5s;
+  transition-delay: 0.5s;
+}
+
+.animate-form.ng-hide, .animate-message.ng-hide {
+  opacity: 0;
+}
+
+.animate-form.ng-hide {
+  // transform: translate3d(100%, 0, 0);
+}
