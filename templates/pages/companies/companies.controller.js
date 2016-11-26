@@ -3,9 +3,9 @@
     .module('MB')
     .controller('CompaniesCtrl', CompaniesCtrl);
 
-  CompaniesCtrl.$inject = ['FormService'];
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
 
-  function CompaniesCtrl(FormService){
+  function CompaniesCtrl(FormService, CompanySheetURL){
     var vm = this;
     vm.submitted = false;
 
@@ -20,7 +20,7 @@
 
     vm.sendRequest = () => {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendMessage(vm.company, errMsg);
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
       if (sent) {
         vm.submitted = true;
         return true;

@@ -3,9 +3,9 @@
     .module('MB')
     .controller('ApplyCtrl', ApplyCtrl);
 
-  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService'];
+  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
 
-  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService){
+  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL){
     var vm = this;
     const pageLimit = 3;
     vm.submitted = false;
@@ -36,7 +36,7 @@
     vm.submitForm = () => {
       var fullForm = Object.assign(vm.basic, vm.responses, vm.additional);
       var errMsg = "Error: You must complete all previous fields to continue.";
-      var sent = FormService.sendMessage(fullForm, errMsg);
+      var sent = FormService.sendToSheet(fullForm, ApplicationSheetURL, errMsg);
       if (sent) {
         var fileInput = document.getElementById('resume');
         var resume = fileInput.files[0];
