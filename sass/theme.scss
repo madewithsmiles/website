@@ -130,6 +130,10 @@ a.anchor {
 	min-height: 400px;
 }
 
+.horizontal-line {
+	margin: 50px 0;
+}
+
 @media #{$medium-and-down} {
 	.form-container {
 		min-height: 350px;
