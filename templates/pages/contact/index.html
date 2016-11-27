@@ -20,27 +20,27 @@
         <input type="text" name="_gotcha" style="display:none" />
         <div class="row">
           <div input-field class="col s4">
-            <input name="First Name" id="firstName" type="text" ng-model="vm.contact.firstName" class="validate">
+            <input name="First Name" id="firstName" type="text" ng-model="vm.contact.firstName" class="validate" maxlength="500">
             <label for="firstName" data-error="Invalid Input">First Name</label>
           </div>
           <div input-field class="col s4">
-            <input name="Last Name" id="lastName.1312974038" type="text" ng-model="vm.contact.lastName" class="validate">
+            <input name="Last Name" id="lastName.1312974038" type="text" ng-model="vm.contact.lastName" class="validate" maxlength="500">
             <label for="lastName" data-error="Invalid Input">Last Name</label>
           </div>
           <div input-field class="col s4">
-            <input name="_replyto" id="email" type="email" ng-model="vm.contact.email" class="validate">
+            <input name="_replyto" id="email" type="email" ng-model="vm.contact.email" class="validate" maxlength="500">
             <label for="email" data-error="Invalid Email">Email</label>
           </div>
         </div>
         <div class="row">
           <div input-field class="col s12">
-            <input name="Subject" id="subject" type="text" ng-model="vm.contact.subject" class="validate">
+            <input name="Subject" id="subject" type="text" ng-model="vm.contact.subject" class="validate" maxlength="500">
             <label for="subject" data-error="Invalid Input">Subject</label>
           </div>
         </div>
         <div class="row">
           <div input-field class="col s12">
-            <textarea name="Message" id="message" ng-model="vm.contact.message" class="materialize-textarea" placeholder="Type message here..."></textarea>
+            <textarea name="Message" id="message" ng-model="vm.contact.message" class="materialize-textarea" placeholder="Type message here..." maxlength="10000"></textarea>
             <label for="message">Message</label>
           </div>
         </div>

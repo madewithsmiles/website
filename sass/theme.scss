@@ -139,6 +139,14 @@ a.anchor {
 	margin-bottom: 6px;
 }
 
+p.wordCount {
+	width: 100%;
+	margin-top: 0;
+	margin-bottom: 1em !important;
+	font-size: 1em !important;
+	text-align: right;
+}
+
 @media #{$medium-and-down} {
 	.form-container {
 		min-height: 350px;

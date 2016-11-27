@@ -88,11 +88,11 @@
             <div class="row">
               <div input-field class="col s4">
                 <input name="First Name" id="firstName" type="text" ng-model="vm.basic.firstName" class="validate">
-                <label for="firstName" data-error="Invalid Input">First Name</label>
+                <label for="firstName" data-error="Invalid Input" maxlength="50">First Name</label>
               </div>
               <div input-field class="col s4">
                 <input name="Last Name" id="lastName" type="text" ng-model="vm.basic.lastName" class="validate">
-                <label for="lastName" data-error="Invalid Input">Last Name</label>
+                <label for="lastName" data-error="Invalid Input" maxlength="50">Last Name</label>
               </div>
               <div class="input-field col s4">
                 <select name="Year" ng-model="vm.basic.year" material-select watch required="required">
@@ -105,17 +105,17 @@
             <div class="row">
               <div input-field class="col s12">
                 <input name="Major" id="major" type="text" ng-model="vm.basic.major" class="validate">
-                <label for="major" data-error="Invalid Input">Major(s)</label>
+                <label for="major" data-error="Invalid Input" maxlength="500">Major(s)</label>
               </div>
             </div>
             <div class="row">
               <div input-field class="col s6">
                 <input name="_replyto" id="email" type="email" ng-model="vm.basic.email" class="validate">
-                <label for="email" data-error="Invalid Email">Email</label>
+                <label for="email" data-error="Invalid Email" maxlength="500">Email</label>
               </div>
               <div input-field class="col s6">
                 <input name="Phone" id="phone" type="tel" ng-model="vm.basic.phone" class="validate">
-                <label for="phone" data-error="Invalid Phone Number">Phone Number</label>
+                <label for="phone" data-error="Invalid Phone Number" maxlength="200">Phone Number</label>
               </div>
             </div>
             <div class="row">
@@ -141,14 +141,16 @@
           <div class="form-container">
             <div class="row">
               <div input-field class="col s12">
-                <textarea name="Interesting Project" id="interestingProject" ng-model="vm.responses.interestingProject" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
+                <textarea name="Interesting Project" id="interestingProject" ng-model="vm.responses.interestingProject" class="materialize-textarea" placeholder="(max 200 words)" maxlength="2000" ng-change="vm.updateTextArea1()"></textarea>
                 <label>What is the most interesting project you worked on?</label>
+                <p class="wordCount">{{vm.wordCount1}}/200</p>
               </div>
             </div>
             <div class="row">
               <div input-field class="col s12">
-                <textarea name="Team Experience" id="teamExperience" ng-model="vm.responses.teamExperience" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
+                <textarea name="Team Experience" id="teamExperience" ng-model="vm.responses.teamExperience" class="materialize-textarea" placeholder="(max 200 words)" maxlength="2000" ng-change="vm.updateTextArea2()"></textarea>
                 <label>Tell us about an experience that you had working on a team.</label>
+                <p class="wordCount">{{vm.wordCount2}}/200</p>
               </div>
             </div>
           </div>
@@ -164,14 +166,15 @@
           <div class="form-container">
             <div class="row">
               <div input-field class="col s12">
-                <textarea name="Optional" id="optional" ng-model="vm.additional.optional" class="materialize-textarea" length="200" placeholder="(max 200 words)"></textarea>
+                <textarea name="Optional" id="optional" ng-model="vm.additional.optional" class="materialize-textarea" placeholder="(max 200 words)" maxlength="8000" ng-change="vm.updateTextArea3()"></textarea>
                 <label>Additional Comments</label>
+                <p class="wordCount">{{vm.wordCount3}}/200</p>
               </div>
             </div>
             <div class="row">
               <div input-field class="col s12">
-                <input name="Github" id="github" type="url" ng-model="vm.additional.github" class="validate">
-                <label for="github" data-error="Invalid URL">Github URL</label>
+                <input name="Github" id="github" type="text" ng-model="vm.additional.github" class="validate">
+                <label for="github" data-error="Invalid URL" maxlength="200">Github Username</label>
               </div>
             </div>
           </div>
@@ -184,7 +187,7 @@
         </div>
       </form>
 
-      <p class="animate-message" ng-show="vm.submitted">Thank you for your application! You will receive a phone call or email shortly regarding your application status. While you wait feel free to contact us to ask for coffee chats. We would love to meet you!</p>
+      <p class="animate-message" ng-show="vm.submitted">Thank you for your interest in Launchpad! We'll reach out to you as soon as possible regarding your application status. If you have any questions or want to schedule a coffee chat, feel free to reach out to us.</p>
     </div>
   </div>
 </section>
