@@ -44,6 +44,12 @@ footer.page-footer {
 	@media #{$small-and-down} {
 		div.footer-content {
 			height: 720px;
+
+			ul {
+				li {
+					padding: 3px 0;
+				}
+			}
 		}
 	}
 
