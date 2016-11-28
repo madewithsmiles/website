@@ -9,7 +9,8 @@
     var factory = {
       checkFullSubmit: checkFullSubmit,
       sendMessage: sendMessage,
-      sendToSheet: sendToSheet
+      sendToSheet: sendToSheet,
+      updateTextArea: updateTextArea
     }
 
     function checkFullSubmit(object) {
@@ -96,6 +97,29 @@
         Materialize.toast(errorMessage, 2000);
       }
       return false;
+    }
+
+    isWhitespace = (char) => {
+      return char == ' ' || char == '\n';
+    };
+
+    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
+      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
+
+      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
+        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i-1])) {
+          vmObject[wordCountVar]++;
+          if (vmObject[wordCountVar] == wordLimit + 1) {
+            vmObject[wordCountVar]--;
+            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
+            return;
+          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i-1]) && vmObject[wordCountVar] == 0) {
+            vmObject[wordCountVar] = 1;
+          }
+        }
+      }
+
+      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
     }
 
     return factory;

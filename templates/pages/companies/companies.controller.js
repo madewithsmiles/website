@@ -9,14 +9,7 @@
     var vm = this;
     vm.submitted = false;
 
-    vm.company = {
-      organization: null,
-      email: null,
-      firstName: null,
-      lastName: null,
-      subject: null,
-      message: null
-    }
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
 
     vm.sendRequest = () => {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";

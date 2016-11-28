@@ -8,13 +8,7 @@
     var vm = this;
 
     vm.submitted = false;
-    vm.contact = {
-      firstName: null,
-      lastName: null,
-      email: null,
-      subject: null,
-      message: null
-    }
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
 
     vm.sendMessage = () => {
       var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
