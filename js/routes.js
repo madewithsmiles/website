@@ -1,29 +1,36 @@
 (function() {
   angular.module('MB')
-    .config(function($routeProvider) {
-      $routeProvider.when('/', {
-        templateUrl: 'templates/pages/home/index.html'
-      })
-      .when('/projects', {
-        templateUrl: 'templates/pages/projects/index.html'
-      })
-      .when('/companies', {
-        templateUrl: 'templates/pages/companies/index.html',
-        controller: 'CompaniesCtrl',
-        controllerAs: 'vm'
-      })
-      .when('/contact', {
-        templateUrl: 'templates/pages/contact/index.html',
-        controller: 'ContactCtrl',
-        controllerAs: 'vm'
-      })
-      .when('/apply', {
-        templateUrl: 'templates/pages/apply/index.html',
-        controller: 'ApplyCtrl',
-        controllerAs: 'vm'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+    .config(function($stateProvider, $urlRouterProvider) {
+      $urlRouterProvider.otherwise('about');
+
+      $stateProvider
+        .state('about', {
+          url: '/',
+          templateUrl: 'templates/pages/home/index.html'
+        })
+        .state('projects', {
+          url: '/projects',
+          templateUrl: 'templates/pages/projects/index.html'
+        })
+        .state('companies', {
+          url: '/companies',
+          templateUrl: 'templates/pages/companies/index.html',
+          controller: 'CompaniesCtrl',
+          controllerAs: 'vm'
+        })
+        .state('contact', {
+          url: '/contact',
+          templateUrl: 'templates/pages/contact/index.html',
+          controller: 'ContactCtrl',
+          controllerAs: 'vm'
+        })
+        .state('apply', {
+            url: '/apply',
+            templateUrl: 'templates/pages/apply/index.html',
+            controller: 'ApplyCtrl',
+            controllerAs: 'vm'
+        });
+
+      // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});
     });
 })();
