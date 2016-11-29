@@ -1,7 +1,7 @@
 (function() {
   angular.module('MB')
     .config(function($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('about');
+      $urlRouterProvider.otherwise('/');
 
       $stateProvider
         .state('about', {
