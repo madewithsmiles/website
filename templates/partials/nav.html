@@ -58,8 +58,13 @@
     $('.side-nav a').click(function() {
       $('.button-collapse').sideNav('hide');
     });
-    $(".drag-target").swipeleft(function(){
-      $("#sidenav-overlay").remove();
+    var dragTarget = document.getElementsByClassName('drag-target')[0];
+    var mc = new Hammer.Manager(dragTarget);
+    var Swipe = new Hammer.Swipe();
+    var Tap = new Hammer.Tap();
+    mc.add(Swipe);
+    mc.on("swipeleft", function(ev) {
+    	$("#sidenav-overlay").remove();
     });
   })
 </script>
