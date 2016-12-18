@@ -168,7 +168,7 @@
       return false;
     }
 
-    isWhitespace = function isWhitespace(char) {
+    var isWhitespace = function isWhitespace(char) {
       return char == ' ' || char == '\n';
     };
 

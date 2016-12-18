@@ -99,7 +99,7 @@
       return false;
     }
 
-    isWhitespace = (char) => {
+    var isWhitespace = (char) => {
       return char == ' ' || char == '\n';
     };
 
