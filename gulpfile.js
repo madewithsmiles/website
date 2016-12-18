@@ -3,6 +3,8 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var minify = require('gulp-minify-css');
+var merge = require('merge-stream');
+var babel = require('gulp-babel');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 
@@ -14,11 +16,23 @@ gulp.task('sass', function() {
         .pipe(minify())
         .pipe(gulp.dest('css'))
         .pipe(reload({ stream:true }));
-
     return scssStream;
 });
 
-gulp.task('serve', ['sass'], function() {
+gulp.task('js', function() {
+    var rootStream = gulp.src('js/app.js');
+    var dependenciesStream = gulp.src(['js/**/*.js', 'templates/**/*.js', '!js/vendor/*.js', '!js/script.js', '!js/app.js']);
+    var mergeStream = merge(rootStream, dependenciesStream)
+        .pipe(babel({
+            'presets': ['es2015']
+        }))
+        .pipe(concat('script.js'))
+        .pipe(gulp.dest('js'))
+        .pipe(reload({ stream:true }));
+    return mergeStream;
+});
+
+gulp.task('serve', ['sass', 'js'], function() {
     browserSync.init({
         server: true
     });
