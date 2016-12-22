@@ -9,6 +9,7 @@
     var vm = this;
     const WORD_LIMIT = 200;
     vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
+    vm.positions = ["Project Developer", "Project Leader", "Design", "Business"];
 
     vm.submitted = false;
     vm.page = 1;
@@ -16,7 +17,7 @@
     vm.wordCount2 = 0;
     vm.wordCount3 = 0;
 
-    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, resume: null };
+    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
     vm.responses = { interestingProject: null, teamExperience: null, };
     vm.additional = { optional: null, github: null };
 
@@ -31,7 +32,7 @@
         vm.submitted = true;
         return true;
       }
-      $log.warn('Application not sent');
+      $log.warn('Application not sent!');
       return false;
     };
 

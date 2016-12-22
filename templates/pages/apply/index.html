@@ -109,13 +109,20 @@
               </div>
             </div>
             <div class="row">
-              <div input-field class="col s6">
+              <div input-field class="col s4">
                 <input name="_replyto" id="email" type="email" ng-model="vm.basic.email" class="validate">
                 <label for="email" data-error="Invalid Email" maxlength="500">Email</label>
               </div>
-              <div input-field class="col s6">
+              <div input-field class="col s4">
                 <input name="Phone" id="phone" type="tel" ng-model="vm.basic.phone" class="validate">
                 <label for="phone" data-error="Invalid Phone Number" maxlength="200">Phone Number</label>
+              </div>
+              <div input-field class="col s4">
+                <select name="Position" ng-model="vm.basic.position" material-select watch required="required">
+                  <option value="" disabled selected>Choose</option>
+                  <option ng-repeat="position in vm.positions">{{position}}</option>
+                </select>
+                <label>Position</label>
               </div>
             </div>
             <div class="row">
