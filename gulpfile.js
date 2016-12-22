@@ -40,6 +40,6 @@ gulp.task('serve', ['sass', 'js'], function() {
     gulp.watch('sass/*.scss', ['sass']);
     gulp.watch('*.html').on('change', reload);
     gulp.watch('**/*.html').on('change', reload);
-    gulp.watch('*.js').on('change', reload);
-    gulp.watch('js/**/*.js').on('change', reload);
+    gulp.watch('*.js', ['js']).on('change', reload);
+    gulp.watch('js/**/*.js', ['js']).on('change', reload);
 });

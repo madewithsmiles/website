@@ -1,0 +1,46 @@
+section#team {
+	.member {
+		position: relative;
+		.image-wrapper {
+			position: relative;
+			img {
+				position: relative;
+				width: 100%;
+				top: 0;
+				right: 0;
+			}
+
+			.overlay {
+				background-color: $dark-blue;
+				position: absolute;
+				width: 100%;
+				top: 0;
+				right: 0;
+				bottom: 5px;
+				padding: 0.5rem;
+				h1 {
+					margin-top: 0;
+					font-size: 1.8rem;
+					color: white;
+				}
+
+				h2 {
+					color: white;
+				}
+				opacity: 0;
+				cursor: pointer;
+
+				@include transition(all 0.2s ease);
+			}
+
+			.overlay:hover {
+				opacity: 0.8;
+			}
+		}
+
+		.tagline {
+			width: 100%;
+			text-align: center;
+		}
+	}
+}

@@ -13,7 +13,7 @@ We are a group of UC Berkeley students that build projects with a purpose throug
 
 - Artificial Intelligence
 - Machine Learning
-- Data Science
+- Computer Vision
 
 ### Tools
 
@@ -29,12 +29,11 @@ We are a group of UC Berkeley students that build projects with a purpose throug
 
 ## Spring 2017 Projects
 
-### Machine Learning: Sherlock
+### Computer Vision: Recognition CV
 
 - Web API
-  - Open-source toolkit for machine learning based projects.
-    - Features popular machine learning algorithms.
-      - Provides example usages for each algorithm that are user-friendly.
+  - Open-source toolkit for computer vision projects on the web.
+    - Features image processing and analysis algorithms in OpenCV.
 
 **Project Sherlock** is a Cloud-Based Machine Learning and Aritifical Intelligence API. We implement, optimize, and rigorously test powerful algorithms and then release our work to the public in the form of a documented API.
 
