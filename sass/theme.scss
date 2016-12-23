@@ -147,6 +147,10 @@ p.wordCount {
 	text-align: right;
 }
 
+section#previews {
+	padding-bottom: 3em;
+}
+
 @media #{$medium-and-down} {
 	.form-container {
 		min-height: 350px;
