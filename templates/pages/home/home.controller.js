@@ -12,14 +12,14 @@
         name: 'Felix Su',
         position: 'Founder',
         website: 'http://felixsu.com',
-        tagline: 'Future Amazon Intern',
+        tagline: 'Amazon SDE Intern, Summer 2017',
         image: path + 'felixsu.png'
       },
       {
         name: 'Peter Lee',
         position: 'Founder',
         website: 'http://peterlee.tech',
-        tagline: 'Future Microsoft Intern',
+        tagline: 'Microsoft Software Engineer Intern, Summer 2017',
         image: path + 'peterlee.png'
       },
       {

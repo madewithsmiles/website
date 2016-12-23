@@ -199,6 +199,30 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -263,30 +287,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ContactCtrl', ContactCtrl);
   ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
 
@@ -319,13 +319,13 @@
       name: 'Felix Su',
       position: 'Founder',
       website: 'http://felixsu.com',
-      tagline: 'Future Amazon Intern',
+      tagline: 'Amazon SDE Intern, Summer 2017',
       image: path + 'felixsu.png'
     }, {
       name: 'Peter Lee',
       position: 'Founder',
       website: 'http://peterlee.tech',
-      tagline: 'Future Microsoft Intern',
+      tagline: 'Microsoft Software Engineer Intern, Summer 2017',
       image: path + 'peterlee.png'
     }, {
       name: 'Katie Li',
