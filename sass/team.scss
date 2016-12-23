@@ -27,6 +27,7 @@ section#team {
 				h2 {
 					color: white;
 				}
+
 				opacity: 0;
 				cursor: pointer;
 
@@ -38,8 +39,13 @@ section#team {
 			}
 		}
 
-		.tagline {
+		.tagline-header {
+			margin-bottom: 0;
 			width: 100%;
+			text-align: center;
+		}
+
+		.tagline-subheader {
 			text-align: center;
 		}
 	}

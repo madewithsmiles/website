@@ -199,30 +199,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -309,6 +285,30 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('HomeCtrl', HomeCtrl);
 
   function HomeCtrl() {
@@ -319,25 +319,29 @@
       name: 'Felix Su',
       position: 'Founder',
       website: 'http://felixsu.com',
-      tagline: 'Amazon SDE Intern, Summer 2017',
+      header: 'Amazon SDE Intern',
+      subheader: 'Summer 2017',
       image: path + 'felixsu.png'
     }, {
       name: 'Peter Lee',
       position: 'Founder',
       website: 'http://peterlee.tech',
-      tagline: 'Microsoft Software Engineer Intern, Summer 2017',
+      header: 'Microsoft SDE Intern',
+      subheader: 'Summer 2017',
       image: path + 'peterlee.png'
     }, {
       name: 'Katie Li',
       position: 'External Vice President',
       website: 'http://linkedin.com/in/katienli',
-      tagline: 'Project Manager at DiversaTech',
+      header: 'Project Manager at',
+      subheader: 'DiversaTech',
       image: path + 'katieli.jpg'
     }, {
       name: 'Michelle Huang',
       position: 'Internal Vice President',
       website: 'http://linkedin.com/in/michellerhuang',
-      tagline: 'Business Analyst at CMG Consulting',
+      header: 'Business Analyst at',
+      subheader: 'CMG Consulting',
       image: path + 'michellehuang.jpg'
     }];
   }
