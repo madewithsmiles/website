@@ -21,10 +21,16 @@ section.newsletter {
     }
 
     .container {
+      padding: 3rem;
+
       .form-container {
         min-height: 100px !important;
       }
     }
+  }
+
+  @media #{$small-and-down} {
+    .container { padding: 2rem; }
   }
 
   h1 {
