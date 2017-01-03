@@ -2,7 +2,7 @@
 	<div class="cover valign-wrapper">
 		<div class="text-container valign center">
 			<h1 class="white-text">Projects with Intelligent Software</h1>
-			<p class="white-text">We are a group of UC Berkeley students that solve problems by building intelligent software. By connecting research in artificial intelligence, machine learning, and data science, our teams build projects that impact people globally.</p>
+			<p class="white-text">We are a group of UC Berkeley students that solve problems by building intelligent software. Our mission is to use artificial intelligence, machine learning, and computer vision to develop meaningful technology.</p>
 		</div>
 	</div>
 	<div class="shade-overlay"></div>
@@ -14,7 +14,7 @@
 			<div class="tagline">
 				<div class="row center">
 					<h1 class="uppercase">Join our team for Spring 2017</h1>
-					<p>Take a look at our sneak previews of our projects for the upcoming semester.</p>
+					<p>Take a sneak peak into our projects for the upcoming semester.</p>
 				</div>
 			</div>
 
@@ -26,6 +26,43 @@
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<section class="newsletter">
+	  <div class="container z-depth-2">
+	    <h1 class="title uppercase">Newsletter</h1>
+			<p>Sign up for our newsletter. We will only send you updates on event dates and application deadlines.</p>
+
+	    <div class="form-container">
+	      <form class="col s12 animate-form" ng-hide="vm.submitted" ng-submit="vm.sendMessage()">
+	        <input type="hidden" name="_subject" value="Website Message" />
+	        <input type="text" name="_gotcha" style="display:none" />
+	        <div class="row">
+	          <div input-field class="col s6">
+	            <input name="First Name" id="firstName" type="text" ng-model="vm.notification.firstName" class="validate" maxlength="500">
+	            <label for="firstName" data-error="Invalid Input">First Name</label>
+	          </div>
+	          <div input-field class="col s6">
+	            <input name="Last Name" id="lastName.1312974038" type="text" ng-model="vm.notification.lastName" class="validate" maxlength="500">
+	            <label for="lastName" data-error="Invalid Input">Last Name</label>
+	          </div>
+					</div>
+					<div class="row">
+	          <div input-field class="col s12">
+	            <input name="_replyto" id="email" type="email" ng-model="vm.notification.email" class="validate" maxlength="500">
+	            <label for="email" data-error="Invalid Email">Email</label>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <button class="btn waves-effect waves-light submit-btn" type="submit">Send
+	            <i class="material-icons right">send</i>
+	          </button>
+	        </div>
+	      </form>
+
+	      <p class="animate-message" ng-show="vm.submitted">Thank you for signing up for the newsletter!</p>
+	    </div>
+	  </div>
 	</section>
 
 	<div class="container">
@@ -155,9 +192,9 @@
 				</a>
 				<h2 class="tagline-header">{{member.header}}</h2>
 				<h2 class="tagline-subheader" ng-if="member.subheader">{{member.subheader}}</h2>
-			</div>	
+			</div>
 		</div>
-	</div>	
+	</div>
 </section>
 
 <script>

@@ -2,9 +2,22 @@
   angular
   .module('MB')
   .controller('HomeCtrl', HomeCtrl);
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL'];
 
-  function HomeCtrl() {
+  function HomeCtrl(FormService, NotificationSheetURL) {
     var vm = this;
+
+    vm.submitted = false;
+    vm.notification = { firstName: null, lastName: null, email: null };
+
+    vm.sendMessage = () => {
+      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
 
     var path = '/img/team/';
     vm.team = [
