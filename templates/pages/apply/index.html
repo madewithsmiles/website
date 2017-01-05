@@ -118,7 +118,7 @@
                 <input name="Phone" id="phone" type="tel" ng-model="vm.basic.phone" class="validate">
                 <label for="phone" data-error="Invalid Phone Number" maxlength="200">Phone Number</label>
               </div>
-              <div input-field class="col s4">
+              <div class="input-field col s4">
                 <select name="Position" ng-model="vm.basic.position" material-select watch required="required">
                   <option value="" disabled selected>Choose</option>
                   <option ng-repeat="position in vm.positions">{{position}}</option>
