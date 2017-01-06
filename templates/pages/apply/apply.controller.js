@@ -9,7 +9,7 @@
     var vm = this;
     const WORD_LIMIT = 200;
     vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
-    vm.positions = ["Project Developer", "Project Leader", "Design", "Business"];
+    vm.positions = ["Project Developer", "Project Leader", "Designer", "Business Developer"];
 
     vm.submitted = false;
     vm.page = 1;
