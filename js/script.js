@@ -87,7 +87,7 @@
     function checkFullSubmit(object) {
       for (var key in object) {
         if (object.hasOwnProperty(key)) {
-          if (!object[key] && key != 'optional') return false;
+          if (!object[key] && (key != 'optional' || key != 'github')) return false;
         }
       }
       return true;
@@ -287,6 +287,28 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('HomeCtrl', HomeCtrl);
   HomeCtrl.$inject = ['FormService', 'NotificationSheetURL'];
 
@@ -335,27 +357,5 @@
       subheader: 'CMG Consulting',
       image: path + 'michellehuang.jpg'
     }];
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
   }
 })();
