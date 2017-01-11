@@ -16,7 +16,7 @@
     function checkFullSubmit(object) {
       for(var key in object) {
         if (object.hasOwnProperty(key)) {
-          if (!object[key] && key != 'optional') return false;
+          if (!object[key] && (key != 'optional' || key != 'github')) return false;
         }
       }
       return true;
