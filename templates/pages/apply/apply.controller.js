@@ -22,7 +22,8 @@
     vm.additional = { optional: null, github: null };
 
     vm.submitForm = () => {
-      var fullForm = Object.assign(vm.basic, vm.responses, vm.additional);
+      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
+      console.log(fullForm);
       var errMsg = "Error: You must complete all previous fields to continue.";
       var sent = FormService.sendToSheet(fullForm, ApplicationSheetURL, errMsg);
       if (sent) {

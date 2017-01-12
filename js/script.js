@@ -87,7 +87,10 @@
     function checkFullSubmit(object) {
       for (var key in object) {
         if (object.hasOwnProperty(key)) {
-          if (!object[key] && (key != 'optional' || key != 'github')) return false;
+          if (!object[key] && key != 'optional' && key != 'github') {
+            console.log("Invalid key: " + key);
+            return false;
+          }
         }
       }
       return true;
@@ -119,6 +122,7 @@
 
     function sendMessage(messageObject, errorMessage, gFormURL) {
       var okay = checkFullSubmit(messageObject);
+      var postData = $.param(messageObject);
       console.log(postData);
 
       if (okay) {
@@ -146,7 +150,6 @@
       var okay = checkFullSubmit(messageObject);
       var message = prettyObjectKeys(messageObject);
       var postData = $.param(messageObject);
-      console.log(postData);
       if (okay) {
         $.ajax({
           url: sheetURL,
@@ -220,7 +223,8 @@
     vm.additional = { optional: null, github: null };
 
     vm.submitForm = function () {
-      var fullForm = Object.assign(vm.basic, vm.responses, vm.additional);
+      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
+      console.log(fullForm);
       var errMsg = "Error: You must complete all previous fields to continue.";
       var sent = FormService.sendToSheet(fullForm, ApplicationSheetURL, errMsg);
       if (sent) {

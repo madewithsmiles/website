@@ -16,7 +16,10 @@
     function checkFullSubmit(object) {
       for(var key in object) {
         if (object.hasOwnProperty(key)) {
-          if (!object[key] && (key != 'optional' || key != 'github')) return false;
+          if (!object[key] && key != 'optional' && key != 'github') {
+            console.log("Invalid key: " + key);
+            return false;
+          }
         }
       }
       return true;
@@ -48,6 +51,7 @@
 
     function sendMessage(messageObject, errorMessage, gFormURL) {
       var okay = checkFullSubmit(messageObject);
+      var postData = $.param(messageObject);
       console.log(postData);
 
       if (okay) {
@@ -75,13 +79,12 @@
       var okay = checkFullSubmit(messageObject);
       var message = prettyObjectKeys(messageObject);
       var postData = $.param(messageObject);
-      console.log(postData);
       if (okay) {
         $.ajax({
           url: sheetURL,
           type: "post",
           data: postData,
-          success: function(response){
+          success: function(response) {
             $log.debug('Message Sent: ' + JSON.stringify(response));
           },
           error: function(request, textStatus, errorThrown) {
