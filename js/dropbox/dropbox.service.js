@@ -11,7 +11,7 @@
     }
 
     function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({path: filePath, contents: fileContents})
+      Dropbox.filesUpload({path: filePath, contents: fileContents, mode: {".tag": "add"}, autorename: true})
       .then((response) => {
         $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
         return true;
