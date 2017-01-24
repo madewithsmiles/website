@@ -23,13 +23,11 @@
 
     vm.submitForm = () => {
       var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
-      console.log(fullForm);
+      var resume = document.getElementById('resume').files[0];
+      $log.debug(fullForm);
       var errMsg = "Error: You must complete all previous fields to continue.";
-      var sent = FormService.sendToSheet(fullForm, ApplicationSheetURL, errMsg);
+      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
       if (sent) {
-        var fileInput = document.getElementById('resume');
-        var resume = fileInput.files[0];
-        var submitted = DropboxService.uploadFile('/resumes/' + resume.name, resume);
         vm.submitted = true;
         return true;
       }

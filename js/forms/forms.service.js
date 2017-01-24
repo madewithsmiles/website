@@ -3,13 +3,14 @@
     .module('MB')
     .factory('FormService', FormService);
 
-  FormService.$inject = ['$http', '$log'];
+  FormService.$inject = ['$http', '$log', 'Dropbox'];
 
-  function FormService($http, $log){
+  function FormService($http, $log, Dropbox){
     var factory = {
       checkFullSubmit: checkFullSubmit,
       sendMessage: sendMessage,
       sendToSheet: sendToSheet,
+      submitApplication: submitApplication,
       updateTextArea: updateTextArea
     }
 
@@ -64,6 +65,29 @@
           $log.debug(response);
         }, function errorCallback(response) {
           $log.error(response);
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
+      var okay = checkFullSubmit(messageObject);
+      if (okay) {
+        Dropbox.filesUpload({path: '/resumes/' + resume.name, contents: resume, mode: {".tag": "add"}, autorename: true})
+        .then((response) => {
+          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+          messageObject.resume = response.name;
+          sendToSheet(messageObject, sheetURL, errorMessage);
+          return true;
+        }).catch(function(error) {
+          $log.error(error);
+          return false;
         });
         return true;
       }
