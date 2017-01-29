@@ -7,6 +7,9 @@
 
   function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL){
     var vm = this;
+    var temp_deadline = new Date(Date.UTC(2017, 0, 28, 23, 59, 0));
+    temp_deadline.setTime( temp_deadline.getTime() + temp_deadline.getTimezoneOffset()*60*1000 );
+    const APP_DEADLINE = temp_deadline;
     const WORD_LIMIT = 200;
     vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
     vm.positions = ["Project Developer", "Project Leader", "Designer", "Business Developer"];
@@ -50,5 +53,6 @@
     vm.updateTextArea2 = ($event) => { FormService.updateTextArea($event, vm, 'responses', 'teamExperience', 'wordCount2', WORD_LIMIT); };
     vm.updateTextArea3 = ($event) => { FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT); };
 
+    vm.pastDeadline = () => { console.log(APP_DEADLINE); console.log(Date.now() > APP_DEADLINE); return Date.now() > APP_DEADLINE };
   }
 })();
