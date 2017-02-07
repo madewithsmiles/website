@@ -2,9 +2,9 @@
   angular
   .module('MB')
   .controller('HomeCtrl', HomeCtrl);
-  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL'];
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
 
-  function HomeCtrl(FormService, NotificationSheetURL) {
+  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
     var vm = this;
 
     vm.submitted = false;
@@ -19,40 +19,8 @@
       return false;
     };
 
-    var path = '/img/team/';
-    vm.team = [
-      {
-        name: 'Felix Su',
-        position: 'Founder',
-        website: 'http://felixsu.com',
-        header: 'Amazon SDE Intern',
-        subheader: 'Summer 2017',
-        image: path + 'felixsu.png'
-      },
-      {
-        name: 'Peter Lee',
-        position: 'Founder',
-        website: 'http://peterlee.tech',
-        header: 'Microsoft SDE Intern',
-        subheader: 'Summer 2017',
-        image: path + 'peterlee.png'
-      },
-      {
-        name: 'Katie Li',
-        position: 'External Vice President',
-        website: 'http://linkedin.com/in/katienli',
-        header: 'Project Manager at',
-        subheader: 'DiversaTech',
-        image: path + 'katieli.jpg'
-      },
-      {
-        name: 'Michelle Huang',
-        position: 'Internal Vice President',
-        website: 'http://linkedin.com/in/michellerhuang',
-        header: 'Business Analyst at',
-        subheader: 'CMG Consulting',
-        image: path + 'michellehuang.jpg'
-      }
-    ];
+    vm.team = TeamService.getAll();
+
+    console.log(vm.team);
   }
 })();
