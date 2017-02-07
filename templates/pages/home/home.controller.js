@@ -20,7 +20,8 @@
     };
 
     vm.team = TeamService.getAll();
-
-    console.log(vm.team);
+    vm.executives = TeamService.getExecutives();
+    vm.business = TeamService.getBusiness();
+    vm.developers = TeamService.getDevelopers();
   }
 })();

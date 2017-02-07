@@ -183,18 +183,48 @@
 
 <section id="team-display" class="overview">
 	<div class="container">
+		<h1 class="center-align team-heading">Executive Team</h1>
 		<div class="row">
-			<div class="member col s6 m4 l3" ng-repeat="member in vm.team">
+			<div class="member col s6 m4 l3" ng-repeat="member in vm.executives">
 				<a ng-href="{{member.website}}" target="_blank">
-					<div class="image-wrapper">
-						<img ng-src="{{member.image}}">
+					<div class="image-wrapper" ng-style="{'background-image':'url({{member.image}})'}">
 						<div class="overlay">
 							<h1>{{member.name}}</h1>
 							<h2>{{member.position}}</h2>
 						</div>
 					</div>
 				</a>
-				<h2 class="tagline-header">{{member.header}}</h2>
+				<h2 class="tagline-header">{{member.name}}</h2>
+				<h2 class="tagline-subheader" ng-if="member.subheader">{{member.subheader}}</h2>
+			</div>
+		</div>
+		<h1 class="center-align team-heading">Business Developers</h1>
+		<div class="row">
+			<div class="member col s6 m4 l3" ng-repeat="member in vm.business">
+				<a ng-href="{{member.website}}" target="_blank">
+					<div class="image-wrapper" ng-style="{'background-image':'url({{member.image}})'}">
+						<div class="overlay">
+							<h1>{{member.name}}</h1>
+							<h2>{{member.position}}</h2>
+						</div>
+					</div>
+				</a>
+				<h2 class="tagline-header">{{member.name}}</h2>
+				<h2 class="tagline-subheader" ng-if="member.subheader">{{member.subheader}}</h2>
+			</div>
+		</div>
+		<h1 class="center-align team-heading">Project Developers</h1>
+		<div class="row">
+			<div class="member col s6 m4 l3" ng-repeat="member in vm.developers">
+				<a ng-href="{{member.website}}" target="_blank">
+					<div class="image-wrapper" ng-style="{'background-image':'url({{member.image}})'}">
+						<div class="overlay">
+							<h1>{{member.name}}</h1>
+							<h2>{{member.position}}</h2>
+						</div>
+					</div>
+				</a>
+				<h2 class="tagline-header">{{member.name}}</h2>
 				<h2 class="tagline-subheader" ng-if="member.subheader">{{member.subheader}}</h2>
 			</div>
 		</div>

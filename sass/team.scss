@@ -1,19 +1,24 @@
 section#team-display {
+	.team-heading {
+		margin-bottom: 40px;
+	}
 	.member {
 		position: relative;
+		margin-bottom: 50px;
+
 		.image-wrapper {
 			position: relative;
-			img {
-				position: relative;
-				width: 100%;
-				top: 0;
-				right: 0;
-			}
+			width: 100%;
+			padding-top: 100%;
+			background-position: center;
+			background-size: cover;
+			margin-bottom: 10px;
 
 			.overlay {
 				background-color: $dark-blue;
 				position: absolute;
 				width: 100%;
+				height: 100%;
 				top: 0;
 				right: 0;
 				bottom: 5px;
@@ -40,13 +45,16 @@ section#team-display {
 		}
 
 		.tagline-header {
-			margin-bottom: 0;
+			margin: 0;
 			width: 100%;
+			font-size: 1.5em;
+			font-weight: 400;
 			text-align: center;
 		}
 
 		.tagline-subheader {
 			text-align: center;
+			margin: 0;
 		}
 	}
 }
