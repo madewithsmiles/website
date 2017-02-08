@@ -311,7 +311,7 @@
         "website": "http://darrenklee.me/",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/darren_lee.jpg"
+        "image": "/img/team/members/developers/darren_lee.png"
       }, {
         "name": "Evan Limanto",
         "position": "Project Developer",
@@ -437,30 +437,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -531,28 +507,25 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('HomeCtrl', HomeCtrl);
-  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
-  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
     var vm = this;
-
     vm.submitted = false;
-    vm.notification = { firstName: null, lastName: null, email: null };
 
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
       if (sent) {
         vm.submitted = true;
         return true;
       }
       return false;
     };
-
-    vm.team = TeamService.getAll();
-    vm.executives = TeamService.getExecutives();
-    vm.business = TeamService.getBusiness();
-    vm.developers = TeamService.getDevelopers();
   }
 })();
 'use strict';
@@ -575,5 +548,32 @@
       }
       return false;
     };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('HomeCtrl', HomeCtrl);
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
+
+  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.notification = { firstName: null, lastName: null, email: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+
+    vm.team = TeamService.getAll();
+    vm.executives = TeamService.getExecutives();
+    vm.business = TeamService.getBusiness();
+    vm.developers = TeamService.getDevelopers();
   }
 })();

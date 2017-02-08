@@ -99,7 +99,7 @@
           "website": "http://darrenklee.me/",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/darren_lee.jpg"
+          "image": "/img/team/members/developers/darren_lee.png"
         },
         {
           "name": "Evan Limanto",
