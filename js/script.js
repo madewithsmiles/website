@@ -245,28 +245,32 @@
         "website": "http://felixsu.com",
         "header": "Amazon SDE Intern",
         "subheader": "",
-        "image": "/img/team/executives/felix_su.png"
+        "image": "/img/team/executives/felix_su.png",
+        "semester": "Spring 2017"
       }, {
         "name": "Peter Lee",
         "position": "President / Project Leader",
         "website": "http://peterlee.tech",
         "header": "Microsoft SDE Intern",
         "subheader": "",
-        "image": "/img/team/executives/peter_lee.png"
+        "image": "/img/team/executives/peter_lee.png",
+        "semester": "Spring 2017"
       }, {
         "name": "Katie Li",
         "position": "External Vice President",
         "website": "http://linkedin.com/in/katienli",
         "header": "Project Manager at",
         "subheader": "",
-        "image": "/img/team/executives/katie_li.jpg"
+        "image": "/img/team/executives/katie_li.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Michelle Huang",
         "position": "Internal Vice President",
         "website": "http://linkedin.com/in/michellerhuang",
         "header": "Business Analyst at",
         "subheader": "",
-        "image": "/img/team/executives/michelle_huang.jpg"
+        "image": "/img/team/executives/michelle_huang.jpg",
+        "semester": "Spring 2017"
       }],
       business: [{
         "name": "Aditya Gandhi",
@@ -274,14 +278,16 @@
         "website": "https://www.linkedin.com/in/adigandhi1",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/business/aditya_gandhi.jpg"
+        "image": "/img/team/members/business/aditya_gandhi.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Jim Xu",
         "position": "Business Developer",
         "website": "https://www.linkedin.com/in/zijingxu",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/business/jim_xu.jpg"
+        "image": "/img/team/members/business/jim_xu.jpg",
+        "semester": "Spring 2017"
       }],
       designers: [],
       developers: [{
@@ -290,112 +296,128 @@
         "website": "https://www.linkedin.com/in/annieyueyiwang",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/annie_wang.jpg"
+        "image": "/img/team/members/developers/annie_wang.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Arsh Zahed",
         "position": "Project Developer",
         "website": "https://github.com/azahed98",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/arsh_zahed.jpg"
+        "image": "/img/team/members/developers/arsh_zahed.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Caleb Siu",
         "position": "Project Developer",
         "website": "https://www.linkedin.com/in/calebsiu",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/caleb_siu.jpg"
+        "image": "/img/team/members/developers/caleb_siu.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Darren Lee",
         "position": "Project Developer",
         "website": "http://darrenklee.me/",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/darren_lee.png"
+        "image": "/img/team/members/developers/darren_lee.png",
+        "semester": "Spring 2017"
       }, {
         "name": "Evan Limanto",
         "position": "Project Developer",
         "website": "http://evanlimanto.github.io/",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/evan_limanto.jpg"
+        "image": "/img/team/members/developers/evan_limanto.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "George Zhang",
         "position": "Project Developer",
         "website": "",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/george_zhang.jpg"
+        "image": "/img/team/members/developers/george_zhang.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Hank O'Brien",
         "position": "Project Developer",
         "website": "https://github.com/hjobrien",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/hank_obrien.jpg"
+        "image": "/img/team/members/developers/hank_obrien.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Harika Kalidhindi",
         "position": "Project Developer",
         "website": "https://github.com/jrharika",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/harika_kalidhindi.jpg"
+        "image": "/img/team/members/developers/harika_kalidhindi.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Lenny Dong",
         "position": "Project Developer",
         "website": "http://lennyd.me/",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/lenny_dong.jpg"
+        "image": "/img/team/members/developers/lenny_dong.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Michael Fan",
         "position": "Project Developer",
         "website": "https://github.com/RI5E",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/michael_fan.jpg"
+        "image": "/img/team/members/developers/michael_fan.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Nate Young",
         "position": "Project Developer",
         "website": "https://github.com/natetyoung",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nate_young.jpg"
+        "image": "/img/team/members/developers/nate_young.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Nick Zoghb",
         "position": "Project Developer",
         "website": "https://github.com/nzoghb",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nick_zoghb.jpg"
+        "image": "/img/team/members/developers/nick_zoghb.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Nikita Vemuri",
         "position": "Project Developer",
         "website": "https://github.com/nikitavemuri",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nikita_vemuri.jpg"
+        "image": "/img/team/members/developers/nikita_vemuri.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Nina Chang",
         "position": "Project Developer",
         "website": "https://www.linkedin.com/in/nina-chang-100133118",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nina_chang.jpg"
+        "image": "/img/team/members/developers/nina_chang.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Nipun Ramakrishnan",
         "position": "Project Developer",
         "website": "https://github.com/nipunramk",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nipun_ramakrishnan.jpg"
+        "image": "/img/team/members/developers/nipun_ramakrishnan.jpg",
+        "semester": "Spring 2017"
       }, {
         "name": "Vishal Satish",
         "position": "Project Developer",
         "website": "https://github.com/visatish",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/vishal_satish.jpg"
+        "image": "/img/team/members/developers/vishal_satish.jpg",
+        "semester": "Spring 2017"
       }]
     };
 
@@ -432,6 +454,30 @@
     }
 
     return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
   }
 })();
 'use strict';
@@ -507,52 +553,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('HomeCtrl', HomeCtrl);
   HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
 
@@ -575,5 +575,27 @@
     vm.executives = TeamService.getExecutives();
     vm.business = TeamService.getBusiness();
     vm.developers = TeamService.getDevelopers();
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
   }
 })();

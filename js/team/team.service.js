@@ -22,7 +22,8 @@
           "website": "http://felixsu.com",
           "header": "Amazon SDE Intern",
           "subheader": "",
-          "image": "/img/team/executives/felix_su.png"
+          "image": "/img/team/executives/felix_su.png",
+          "semester": "Spring 2017"
         },
         {
           "name": "Peter Lee",
@@ -30,7 +31,8 @@
           "website": "http://peterlee.tech",
           "header": "Microsoft SDE Intern",
           "subheader": "",
-          "image": "/img/team/executives/peter_lee.png"
+          "image": "/img/team/executives/peter_lee.png",
+          "semester": "Spring 2017"
         },
         {
           "name": "Katie Li",
@@ -38,7 +40,8 @@
           "website": "http://linkedin.com/in/katienli",
           "header": "Project Manager at",
           "subheader": "",
-          "image": "/img/team/executives/katie_li.jpg"
+          "image": "/img/team/executives/katie_li.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Michelle Huang",
@@ -46,7 +49,8 @@
           "website": "http://linkedin.com/in/michellerhuang",
           "header": "Business Analyst at",
           "subheader": "",
-          "image": "/img/team/executives/michelle_huang.jpg"
+          "image": "/img/team/executives/michelle_huang.jpg",
+          "semester": "Spring 2017"
         }
       ],
       business: [
@@ -56,7 +60,8 @@
           "website": "https://www.linkedin.com/in/adigandhi1",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/business/aditya_gandhi.jpg"
+          "image": "/img/team/members/business/aditya_gandhi.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Jim Xu",
@@ -64,7 +69,8 @@
           "website": "https://www.linkedin.com/in/zijingxu",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/business/jim_xu.jpg"
+          "image": "/img/team/members/business/jim_xu.jpg",
+          "semester": "Spring 2017"
         }
       ],
       designers: [],
@@ -75,7 +81,8 @@
           "website": "https://www.linkedin.com/in/annieyueyiwang",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/annie_wang.jpg"
+          "image": "/img/team/members/developers/annie_wang.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Arsh Zahed",
@@ -83,7 +90,8 @@
           "website": "https://github.com/azahed98",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/arsh_zahed.jpg"
+          "image": "/img/team/members/developers/arsh_zahed.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Caleb Siu",
@@ -91,7 +99,8 @@
           "website": "https://www.linkedin.com/in/calebsiu",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/caleb_siu.jpg"
+          "image": "/img/team/members/developers/caleb_siu.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Darren Lee",
@@ -99,7 +108,8 @@
           "website": "http://darrenklee.me/",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/darren_lee.png"
+          "image": "/img/team/members/developers/darren_lee.png",
+          "semester": "Spring 2017"
         },
         {
           "name": "Evan Limanto",
@@ -107,7 +117,8 @@
           "website": "http://evanlimanto.github.io/",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/evan_limanto.jpg"
+          "image": "/img/team/members/developers/evan_limanto.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "George Zhang",
@@ -115,7 +126,8 @@
           "website": "",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/george_zhang.jpg"
+          "image": "/img/team/members/developers/george_zhang.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Hank O'Brien",
@@ -123,7 +135,8 @@
           "website": "https://github.com/hjobrien",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/hank_obrien.jpg"
+          "image": "/img/team/members/developers/hank_obrien.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Harika Kalidhindi",
@@ -131,7 +144,8 @@
           "website": "https://github.com/jrharika",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/harika_kalidhindi.jpg"
+          "image": "/img/team/members/developers/harika_kalidhindi.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Lenny Dong",
@@ -139,7 +153,8 @@
           "website": "http://lennyd.me/",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/lenny_dong.jpg"
+          "image": "/img/team/members/developers/lenny_dong.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Michael Fan",
@@ -147,7 +162,8 @@
           "website": "https://github.com/RI5E",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/michael_fan.jpg"
+          "image": "/img/team/members/developers/michael_fan.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Nate Young",
@@ -155,7 +171,8 @@
           "website": "https://github.com/natetyoung",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/nate_young.jpg"
+          "image": "/img/team/members/developers/nate_young.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Nick Zoghb",
@@ -163,7 +180,8 @@
           "website": "https://github.com/nzoghb",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/nick_zoghb.jpg"
+          "image": "/img/team/members/developers/nick_zoghb.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Nikita Vemuri",
@@ -171,7 +189,8 @@
           "website": "https://github.com/nikitavemuri",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/nikita_vemuri.jpg"
+          "image": "/img/team/members/developers/nikita_vemuri.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Nina Chang",
@@ -179,7 +198,8 @@
           "website": "https://www.linkedin.com/in/nina-chang-100133118",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/nina_chang.jpg"
+          "image": "/img/team/members/developers/nina_chang.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Nipun Ramakrishnan",
@@ -187,7 +207,8 @@
           "website": "https://github.com/nipunramk",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/nipun_ramakrishnan.jpg"
+          "image": "/img/team/members/developers/nipun_ramakrishnan.jpg",
+          "semester": "Spring 2017"
         },
         {
           "name": "Vishal Satish",
@@ -195,7 +216,8 @@
           "website": "https://github.com/visatish",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/vishal_satish.jpg"
+          "image": "/img/team/members/developers/vishal_satish.jpg",
+          "semester": "Spring 2017"
         }
       ]
     }
