@@ -204,7 +204,7 @@
         {
           "name": "Nipun Ramakrishnan",
           "position": "Project Developer",
-          "website": "https://github.com/nipunramk",
+          "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
           "header": "",
           "subheader": "",
           "image": "/img/team/members/developers/nipun_ramakrishnan.jpg",
