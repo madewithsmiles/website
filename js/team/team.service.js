@@ -193,9 +193,9 @@
           "semester": "Spring 2017"
         },
         {
-          "name": "Nina Chang",
+          "name": "Nina Chang ",
           "position": "Project Developer",
-          "website": "https://www.linkedin.com/in/nina-chang-100133118",
+          "website": "https://github.com/ninatchang",
           "header": "",
           "subheader": "",
           "image": "/img/team/members/developers/nina_chang.jpg",
