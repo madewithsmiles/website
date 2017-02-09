@@ -88,7 +88,7 @@
           "name": "Arsh Zahed",
           "position": "Project Developer",
           "website": "https://github.com/azahed98",
-          "header": "",
+          "header": "The",
           "subheader": "",
           "image": "/img/team/members/developers/arsh_zahed.jpg",
           "semester": "Spring 2017"
