@@ -186,7 +186,7 @@
         {
           "name": "Nikita Vemuri",
           "position": "Project Developer",
-          "website": "https://github.com/nikitavemuri",
+          "website": "https://www.linkedin.com/in/nikitavemuri",
           "header": "",
           "subheader": "",
           "image": "/img/team/members/developers/nikita_vemuri.jpg",
