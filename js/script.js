@@ -72,159 +72,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('FormService', FormService);
-
-  FormService.$inject = ['$http', '$log', 'Dropbox'];
-
-  function FormService($http, $log, Dropbox) {
-    var factory = {
-      checkFullSubmit: checkFullSubmit,
-      sendMessage: sendMessage,
-      sendToSheet: sendToSheet,
-      submitApplication: submitApplication,
-      updateTextArea: updateTextArea
-    };
-
-    function checkFullSubmit(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) {
-          if (!object[key] && key != 'optional' && key != 'github') {
-            console.log("Invalid key: " + key);
-            return false;
-          }
-        }
-      }
-      return true;
-    }
-
-    function camelCaseToPretty(text) {
-      var spaces = text.replace(/([A-Z0-9])/g, " $1");
-      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
-      return pretty;
-    }
-
-    function renameProperty(object, oldName, newName) {
-      if (oldName == newName) {
-        return object;
-      }
-      if (object.hasOwnProperty(oldName)) {
-        object[newName] = object[oldName];
-        delete object[oldName];
-      }
-      return object;
-    };
-
-    function prettyObjectKeys(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
-      }
-      return object;
-    }
-
-    function sendMessage(messageObject, errorMessage, gFormURL) {
-      var okay = checkFullSubmit(messageObject);
-      var postData = $.param(messageObject);
-      console.log(postData);
-
-      if (okay) {
-        $http({
-          url: gFormURL,
-          method: "POST",
-          data: postData,
-          dataType: "json"
-        }).then(function successCallback(response) {
-          $log.debug(response);
-        }, function errorCallback(response) {
-          $log.error(response);
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
-      var okay = checkFullSubmit(messageObject);
-      if (okay) {
-        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-          messageObject.resume = response.name;
-          sendToSheet(messageObject, sheetURL, errorMessage);
-          return true;
-        }).catch(function (error) {
-          $log.error(error);
-          return false;
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function sendToSheet(messageObject, sheetURL, errorMessage) {
-      var okay = checkFullSubmit(messageObject);
-      var message = prettyObjectKeys(messageObject);
-      var postData = $.param(messageObject);
-      if (okay) {
-        $.ajax({
-          url: sheetURL,
-          type: "post",
-          data: postData,
-          success: function success(response) {
-            $log.debug('Message Sent: ' + JSON.stringify(response));
-          },
-          error: function error(request, textStatus, errorThrown) {
-            $log.error("Status: " + textStatus);
-            $log.error("Error: " + errorThrown);
-          }
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    var isWhitespace = function isWhitespace(char) {
-      return char == ' ' || char == '\n';
-    };
-
-    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
-      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
-
-      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
-        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
-          vmObject[wordCountVar]++;
-          if (vmObject[wordCountVar] == wordLimit + 1) {
-            vmObject[wordCountVar]--;
-            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
-            return;
-          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
-            vmObject[wordCountVar] = 1;
-          }
-        }
-      }
-
-      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').factory('TeamService', TeamService);
 
   TeamService.$inject = ['$http', '$log'];
@@ -387,14 +234,6 @@
         "image": "/img/team/members/developers/nick_zoghb.jpg",
         "semester": "Spring 2017"
       }, {
-        "name": "Nikita Vemuri",
-        "position": "Project Developer",
-        "website": "https://github.com/nikitavemuri",
-        "header": "",
-        "subheader": "",
-        "image": "/img/team/members/developers/nikita_vemuri.jpg",
-        "semester": "Spring 2017"
-      }, {
         "name": "Nina Chang",
         "position": "Project Developer",
         "website": "https://www.linkedin.com/in/nina-chang-100133118",
@@ -405,7 +244,7 @@
       }, {
         "name": "Nipun Ramakrishnan",
         "position": "Project Developer",
-        "website": "https://github.com/nipunramk",
+        "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
         "header": "",
         "subheader": "",
         "image": "/img/team/members/developers/nipun_ramakrishnan.jpg",
@@ -451,6 +290,159 @@
         }
       }
       return result;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('FormService', FormService);
+
+  FormService.$inject = ['$http', '$log', 'Dropbox'];
+
+  function FormService($http, $log, Dropbox) {
+    var factory = {
+      checkFullSubmit: checkFullSubmit,
+      sendMessage: sendMessage,
+      sendToSheet: sendToSheet,
+      submitApplication: submitApplication,
+      updateTextArea: updateTextArea
+    };
+
+    function checkFullSubmit(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) {
+          if (!object[key] && key != 'optional' && key != 'github') {
+            console.log("Invalid key: " + key);
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function camelCaseToPretty(text) {
+      var spaces = text.replace(/([A-Z0-9])/g, " $1");
+      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
+      return pretty;
+    }
+
+    function renameProperty(object, oldName, newName) {
+      if (oldName == newName) {
+        return object;
+      }
+      if (object.hasOwnProperty(oldName)) {
+        object[newName] = object[oldName];
+        delete object[oldName];
+      }
+      return object;
+    };
+
+    function prettyObjectKeys(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
+      }
+      return object;
+    }
+
+    function sendMessage(messageObject, errorMessage, gFormURL) {
+      var okay = checkFullSubmit(messageObject);
+      var postData = $.param(messageObject);
+      console.log(postData);
+
+      if (okay) {
+        $http({
+          url: gFormURL,
+          method: "POST",
+          data: postData,
+          dataType: "json"
+        }).then(function successCallback(response) {
+          $log.debug(response);
+        }, function errorCallback(response) {
+          $log.error(response);
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
+      var okay = checkFullSubmit(messageObject);
+      if (okay) {
+        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+          messageObject.resume = response.name;
+          sendToSheet(messageObject, sheetURL, errorMessage);
+          return true;
+        }).catch(function (error) {
+          $log.error(error);
+          return false;
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function sendToSheet(messageObject, sheetURL, errorMessage) {
+      var okay = checkFullSubmit(messageObject);
+      var message = prettyObjectKeys(messageObject);
+      var postData = $.param(messageObject);
+      if (okay) {
+        $.ajax({
+          url: sheetURL,
+          type: "post",
+          data: postData,
+          success: function success(response) {
+            $log.debug('Message Sent: ' + JSON.stringify(response));
+          },
+          error: function error(request, textStatus, errorThrown) {
+            $log.error("Status: " + textStatus);
+            $log.error("Error: " + errorThrown);
+          }
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    var isWhitespace = function isWhitespace(char) {
+      return char == ' ' || char == '\n';
+    };
+
+    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
+      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
+
+      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
+        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
+          vmObject[wordCountVar]++;
+          if (vmObject[wordCountVar] == wordLimit + 1) {
+            vmObject[wordCountVar]--;
+            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
+            return;
+          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
+            vmObject[wordCountVar] = 1;
+          }
+        }
+      }
+
+      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
     }
 
     return factory;
@@ -553,6 +545,28 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('HomeCtrl', HomeCtrl);
   HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
 
@@ -575,27 +589,5 @@
     vm.executives = TeamService.getExecutives();
     vm.business = TeamService.getBusiness();
     vm.developers = TeamService.getDevelopers();
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
   }
 })();

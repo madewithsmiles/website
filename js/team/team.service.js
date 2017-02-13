@@ -184,15 +184,6 @@
           "semester": "Spring 2017"
         },
         {
-          "name": "Nikita Vemuri",
-          "position": "Project Developer",
-          "website": "https://www.linkedin.com/in/nikitavemuri",
-          "header": "",
-          "subheader": "",
-          "image": "/img/team/members/developers/nikita_vemuri.jpg",
-          "semester": "Spring 2017"
-        },
-        {
           "name": "Nina Chang",
           "position": "Project Developer",
           "website": "https://www.linkedin.com/in/nina-chang-100133118",
