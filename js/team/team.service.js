@@ -184,15 +184,6 @@
           "semester": "Spring 2017"
         },
         {
-          "name": "Nikita Vemuri",
-          "position": "Project Developer",
-          "website": "https://github.com/nikitavemuri",
-          "header": "",
-          "subheader": "",
-          "image": "/img/team/members/developers/nikita_vemuri.jpg",
-          "semester": "Spring 2017"
-        },
-        {
           "name": "Nina Chang",
           "position": "Project Developer",
           "website": "https://www.linkedin.com/in/nina-chang-100133118",
@@ -204,7 +195,7 @@
         {
           "name": "Nipun Ramakrishnan",
           "position": "Project Developer",
-          "website": "https://github.com/nipunramk",
+          "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
           "header": "",
           "subheader": "",
           "image": "/img/team/members/developers/nipun_ramakrishnan.jpg",
