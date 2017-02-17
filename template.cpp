@@ -11,6 +11,12 @@
 #include <functional>
 using namespace std;
 
+typedef long long ll;
+typedef pair<int, int> ii;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef vector<ii> vii;
+
 // To learn more, search "macros in c++"
 #define rep(i,a,n) for(int i=a;i<n;i++)
 #define mp make_pair
