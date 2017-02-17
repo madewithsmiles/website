@@ -1,4 +1,4 @@
-// Importing standard libraries
+// Import standard libraries
 #include <cstdio>
 #include <iostream>
 #include <cmath>
@@ -55,3 +55,4 @@ int main() {
     }
     return 0;
 }
+
