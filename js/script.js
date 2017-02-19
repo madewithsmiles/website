@@ -33,6 +33,11 @@
       templateUrl: 'templates/pages/contact/index.html',
       controller: 'ContactCtrl',
       controllerAs: 'vm'
+    }).state('blog', {
+      url: '/blog',
+      templateUrl: 'templates/pages/blog/index.html',
+      controller: 'BlogCtrl',
+      controllerAs: 'vm'
     }).state('apply', {
       url: '/apply',
       templateUrl: 'templates/pages/apply/index.html',
@@ -64,6 +69,159 @@
         return false;
       });
       return true;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('FormService', FormService);
+
+  FormService.$inject = ['$http', '$log', 'Dropbox'];
+
+  function FormService($http, $log, Dropbox) {
+    var factory = {
+      checkFullSubmit: checkFullSubmit,
+      sendMessage: sendMessage,
+      sendToSheet: sendToSheet,
+      submitApplication: submitApplication,
+      updateTextArea: updateTextArea
+    };
+
+    function checkFullSubmit(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) {
+          if (!object[key] && key != 'optional' && key != 'github') {
+            console.log("Invalid key: " + key);
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function camelCaseToPretty(text) {
+      var spaces = text.replace(/([A-Z0-9])/g, " $1");
+      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
+      return pretty;
+    }
+
+    function renameProperty(object, oldName, newName) {
+      if (oldName == newName) {
+        return object;
+      }
+      if (object.hasOwnProperty(oldName)) {
+        object[newName] = object[oldName];
+        delete object[oldName];
+      }
+      return object;
+    };
+
+    function prettyObjectKeys(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
+      }
+      return object;
+    }
+
+    function sendMessage(messageObject, errorMessage, gFormURL) {
+      var okay = checkFullSubmit(messageObject);
+      var postData = $.param(messageObject);
+      console.log(postData);
+
+      if (okay) {
+        $http({
+          url: gFormURL,
+          method: "POST",
+          data: postData,
+          dataType: "json"
+        }).then(function successCallback(response) {
+          $log.debug(response);
+        }, function errorCallback(response) {
+          $log.error(response);
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
+      var okay = checkFullSubmit(messageObject);
+      if (okay) {
+        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+          messageObject.resume = response.name;
+          sendToSheet(messageObject, sheetURL, errorMessage);
+          return true;
+        }).catch(function (error) {
+          $log.error(error);
+          return false;
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function sendToSheet(messageObject, sheetURL, errorMessage) {
+      var okay = checkFullSubmit(messageObject);
+      var message = prettyObjectKeys(messageObject);
+      var postData = $.param(messageObject);
+      if (okay) {
+        $.ajax({
+          url: sheetURL,
+          type: "post",
+          data: postData,
+          success: function success(response) {
+            $log.debug('Message Sent: ' + JSON.stringify(response));
+          },
+          error: function error(request, textStatus, errorThrown) {
+            $log.error("Status: " + textStatus);
+            $log.error("Error: " + errorThrown);
+          }
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    var isWhitespace = function isWhitespace(char) {
+      return char == ' ' || char == '\n';
+    };
+
+    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
+      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
+
+      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
+        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
+          vmObject[wordCountVar]++;
+          if (vmObject[wordCountVar] == wordLimit + 1) {
+            vmObject[wordCountVar]--;
+            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
+            return;
+          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
+            vmObject[wordCountVar] = 1;
+          }
+        }
+      }
+
+      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
     }
 
     return factory;
@@ -298,183 +456,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('FormService', FormService);
-
-  FormService.$inject = ['$http', '$log', 'Dropbox'];
-
-  function FormService($http, $log, Dropbox) {
-    var factory = {
-      checkFullSubmit: checkFullSubmit,
-      sendMessage: sendMessage,
-      sendToSheet: sendToSheet,
-      submitApplication: submitApplication,
-      updateTextArea: updateTextArea
-    };
-
-    function checkFullSubmit(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) {
-          if (!object[key] && key != 'optional' && key != 'github') {
-            console.log("Invalid key: " + key);
-            return false;
-          }
-        }
-      }
-      return true;
-    }
-
-    function camelCaseToPretty(text) {
-      var spaces = text.replace(/([A-Z0-9])/g, " $1");
-      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
-      return pretty;
-    }
-
-    function renameProperty(object, oldName, newName) {
-      if (oldName == newName) {
-        return object;
-      }
-      if (object.hasOwnProperty(oldName)) {
-        object[newName] = object[oldName];
-        delete object[oldName];
-      }
-      return object;
-    };
-
-    function prettyObjectKeys(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
-      }
-      return object;
-    }
-
-    function sendMessage(messageObject, errorMessage, gFormURL) {
-      var okay = checkFullSubmit(messageObject);
-      var postData = $.param(messageObject);
-      console.log(postData);
-
-      if (okay) {
-        $http({
-          url: gFormURL,
-          method: "POST",
-          data: postData,
-          dataType: "json"
-        }).then(function successCallback(response) {
-          $log.debug(response);
-        }, function errorCallback(response) {
-          $log.error(response);
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
-      var okay = checkFullSubmit(messageObject);
-      if (okay) {
-        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-          messageObject.resume = response.name;
-          sendToSheet(messageObject, sheetURL, errorMessage);
-          return true;
-        }).catch(function (error) {
-          $log.error(error);
-          return false;
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function sendToSheet(messageObject, sheetURL, errorMessage) {
-      var okay = checkFullSubmit(messageObject);
-      var message = prettyObjectKeys(messageObject);
-      var postData = $.param(messageObject);
-      if (okay) {
-        $.ajax({
-          url: sheetURL,
-          type: "post",
-          data: postData,
-          success: function success(response) {
-            $log.debug('Message Sent: ' + JSON.stringify(response));
-          },
-          error: function error(request, textStatus, errorThrown) {
-            $log.error("Status: " + textStatus);
-            $log.error("Error: " + errorThrown);
-          }
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    var isWhitespace = function isWhitespace(char) {
-      return char == ' ' || char == '\n';
-    };
-
-    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
-      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
-
-      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
-        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
-          vmObject[wordCountVar]++;
-          if (vmObject[wordCountVar] == wordLimit + 1) {
-            vmObject[wordCountVar]--;
-            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
-            return;
-          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
-            vmObject[wordCountVar] = 1;
-          }
-        }
-      }
-
-      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -541,6 +522,76 @@
       console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
     };
   }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+    angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', blogPostDirective);
+
+    BlogCtrl.$inject = [];
+
+    function BlogCtrl() {
+        var vm = this;
+        vm.parseText = parseText;
+
+        vm.posts = [{
+            title: "Google Cloud at HIMSS: engaging with the healthcare and health IT community",
+            author: "Felix Su",
+            date: new Date(),
+            tags: ["Cloud", "ML"],
+            category: "Project Luna",
+            text: "At Google Cloud, we’re working closely with the healthcare industry to provide the technology and tools that help create better patient experiences, empower care teams to work together and accelerate research. We're focused on supporting the digital transformation of our healthcare customers through data management at scale and advancements in machine learning for timely and actionable insights.\n\n \
+                    Next week at the HIMSS Health IT Conference, we're demonstrating the latest innovations in smart data, digital health, APIs, machine learning and real-time communications from Google Cloud, Research, Search, DeepMind and Verily. Together, we offer solutions that help enable hospital and health IT customers to tackle the rapidly evolving and long standing challenges facing the healthcare industry. Here’s a preview of the Google Cloud customers and partners who are joining us at HIMSS.\n\n \
+                    For customers like the Colorado Center for Personalized Medicine (CCPM) at the University of Colorado Denver, trust and security are paramount. CCPM has worked closely with the Google Cloud Platform (GCP) team to securely manage and analyze a complicated data set to identify  genetic patterns across a wide range of diseases and reveal new treatment options based on a patient’s unique DNA.\n\n \
+                    And the Broad Institute of MIT and Harvard has used Google Genomics for years to combine the power, security features and scale of GCP with the Broad Institute’s expertise in scientific analysis.\n\n \
+                    'At the Broad Institute we are committed to driving the pace of innovation through sharing and collaboration. Google Cloud Platform has profoundly transformed the way we build teams and conduct science and has accelerated our research,'  William Mayo, Chief Information Officer at Broad Institute told us.\n\n \
+                    To continue to offer these and other healthcare customers the tools they need, today we’re announcing support for the HL7 FHIR Foundation to help the developer community advance data interoperability efforts. The FHIR open standard defines a modern, web API-based approach to communicating healthcare data, making it easier to securely communicate across the healthcare ecosystem including hospitals, labs, applications and research studies.\n\n \
+                    'Google Cloud Platform’s commitment to support the ongoing activities of the FHIR community will help advance our goal of global health data interoperability. The future of health computing is clearly in the cloud, and our joint effort will serve to accelerate this transition,' said Grahame Grieve, Principal at Health Intersections, FHIR Product Lead\n\n \
+                    Beyond open source, we're committed to supporting a thriving ecosystem of partners whose solutions enable customers to improve patient care across the industry.\n\n \
+                    We’ve seen great success for our customers in collaboration with Kinvey, which launched its HIPAA-compliant digital health platform on GCP to leverage our cloud infrastructure and integrate its capabilities with our machine learning and analytics services.\n\n \
+                    'In the past year, we’ve seen numerous organizations in healthcare, from institutions like Thomas Jefferson University and Jefferson Health that are building apps to transform care, education and research, and startups like iTether and TempTraq that are driving innovative new solutions, turn to GCP to accelerate their journey to a new patient-centric world,” said Sravish Sridhar, CEO of Kinvey.\n\n \
+                    We’ve also published a new guide for HIPAA compliance on GCP, which describes our approach to data security on GCP and provides best-practice guidance on how to securely bring healthcare workloads to the cloud.\n\n \
+                    Stop by our booth at HIMSS to hear more about how we’re working with the healthcare industry across Google. We would love to learn how we can engage with you on your next big idea to positively transform healthcare."
+        }];
+
+        function parseText(text) {
+            console.log(text.replace(/^ +| +$/gm, ""));
+            return text.replace(/^ +| +$/gm, "");
+        }
+    }
+
+    function blogPostDirective() {
+        return {
+            scope: {
+                post: '=post'
+            },
+            templateUrl: './post.html'
+        };
+    }
 })();
 'use strict';
 

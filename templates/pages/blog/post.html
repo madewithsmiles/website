@@ -1,0 +1,13 @@
+<div class="blog-post">
+    <div class="blog-title-container">
+        <div class="blog-title">{{post.title}}</div>
+        <div class="blog-author">{{post.author}}</div>
+        <div class="blog-date">{{post.date}}</div>
+    </div>
+    <div class="blog-text-container">
+        <div class="blog-text">{{post.text}}</div>
+        <div class="blog-tags">
+            <div class="chip" ng-repeat="tag in post.tags">{{tag}}</div>
+        </div>
+    </div>
+</div>

@@ -26,6 +26,12 @@
           controller: 'ContactCtrl',
           controllerAs: 'vm'
         })
+        .state('blog', {
+          url: '/blog',
+          templateUrl: 'templates/pages/blog/index.html',
+          controller: 'BlogCtrl',
+          controllerAs: 'vm'
+        })
         .state('apply', {
             url: '/apply',
             templateUrl: 'templates/pages/apply/index.html',
