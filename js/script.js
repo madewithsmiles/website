@@ -545,30 +545,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
     angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', blogPostDirective);
 
     BlogCtrl.$inject = ['moment'];
@@ -578,11 +554,11 @@
         vm.parseText = parseText;
 
         vm.posts = [{
-            title: "Google Cloud at HIMSS: engaging with the healthcare and health IT community",
+            title: "Hack Night 2: Natural Language Processing with Stella",
             author: "Felix Su",
             date: moment(new Date()).format("MMM D, YYYY"),
             tags: ["Project Luna", "Cloud", "ML"],
-            category: "Project Luna",
+            category: "Hack Night",
             text: "At Google Cloud, we’re working closely with the healthcare industry to provide the technology and tools that help create better patient experiences, empower care teams to work together and accelerate research. We're focused on supporting the digital transformation of our healthcare customers through data management at scale and advancements in machine learning for timely and actionable insights.\n\n \
                     Next week at the HIMSS Health IT Conference, we're demonstrating the latest innovations in smart data, digital health, APIs, machine learning and real-time communications from Google Cloud, Research, Search, DeepMind and Verily. Together, we offer solutions that help enable hospital and health IT customers to tackle the rapidly evolving and long standing challenges facing the healthcare industry. Here’s a preview of the Google Cloud customers and partners who are joining us at HIMSS.\n\n \
                     For customers like the Colorado Center for Personalized Medicine (CCPM) at the University of Colorado Denver, trust and security are paramount. CCPM has worked closely with the Google Cloud Platform (GCP) team to securely manage and analyze a complicated data set to identify  genetic patterns across a wide range of diseases and reveal new treatment options based on a patient’s unique DNA.\n\n \
@@ -615,28 +591,25 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('HomeCtrl', HomeCtrl);
-  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
-  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
     var vm = this;
-
     vm.submitted = false;
-    vm.notification = { firstName: null, lastName: null, email: null };
 
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
       if (sent) {
         vm.submitted = true;
         return true;
       }
       return false;
     };
-
-    vm.team = TeamService.getAll();
-    vm.executives = TeamService.getExecutives();
-    vm.business = TeamService.getBusiness();
-    vm.developers = TeamService.getDevelopers();
   }
 })();
 'use strict';
@@ -659,5 +632,32 @@
       }
       return false;
     };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('HomeCtrl', HomeCtrl);
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
+
+  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.notification = { firstName: null, lastName: null, email: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+
+    vm.team = TeamService.getAll();
+    vm.executives = TeamService.getExecutives();
+    vm.business = TeamService.getBusiness();
+    vm.developers = TeamService.getDevelopers();
   }
 })();

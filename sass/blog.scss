@@ -10,8 +10,6 @@
 
     .blog-preview {
       .blog-preview-title-container {
-        //margin-bottom: 1em;
-
         .blog-preview-heading {
           display: inline-flex;
           width: 100%;
@@ -19,7 +17,7 @@
           padding-bottom: .5em;
           margin-bottom: .5em;
 
-          .blog-preview-category {
+          .blog-preview-author {
             text-align: left;
             width: 50%;
           }
@@ -30,28 +28,32 @@
         }
         .blog-preview-title {
           font-weight: 700;
-          font-size: 3em;
-          line-height: 1.2em;
-        }
-        .blog-preview-author-container{
-          padding: 1em 0;
-
-          .blog-preview-author {
-
-          }
-          .blog-preview-author::before {
-            content: 'By ';
-          }
+          font-size: 1.5em;
+          line-height: 1.5em;
         }
       }
       .blog-preview-text-container {
-
         .blog-preview-text {
+          margin-top: 1em;
           white-space: pre-wrap;
           font-weight: 300;
+          position: relative;
+          height: 100px;
+          overflow: hidden;
+        }
+        .blog-preview-text::after {
+          content: "";
+          position: absolute;
+          z-index: 1;
+          bottom: 0;
+          left: 0;
+          pointer-events: none;
+          background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255, 1) 90%);
+          width: 100%;
+          height: 4em;
         }
         .blog-preview-tags {
-          margin-top: 30px;
+          margin-top: 1em;
         }
       }
     }
@@ -59,23 +61,52 @@
 }
 
 .blog-post {
-  .blog-title-container {
-    .blog-title {
+  .blog-container {
+    width: 650px;
+    margin: 4em auto;
+    line-height: 2rem;
+    .blog-title-container {
+      .blog-heading {
+        display: inline-flex;
+        width: 100%;
+        border-bottom: 1px dotted #000;
+        padding-bottom: .5em;
+        margin-bottom: .5em;
 
+        .blog-category {
+          text-align: left;
+          width: 50%;
+        }
+        .blog-date {
+          text-align: right;
+          width: 50%;
+        }
+      }
+      .blog-title {
+        font-weight: 700;
+        font-size: 3em;
+        line-height: 1.2em;
+      }
+      .blog-author-container {
+        padding: 1em 0;
+
+        .blog-author {
+
+        }
+        .blog-author::before {
+          content: 'By ';
+        }
+      }
     }
-    .blog-author {
-
-    }
-    .blog-date {
-
-    }
-  }
-  .blog-text-container {
-    .blog-text {
-
-    }
-    .blog-tags {
-
+    .blog-text-container {
+      .blog-text {
+        white-space: pre-wrap;
+        font-weight: 300;
+        position: relative;
+      }
+      .blog-tags {
+        margin-top: 30px;
+      }
     }
   }
 }
