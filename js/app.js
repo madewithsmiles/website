@@ -1,5 +1,5 @@
 (function($) {
-  angular.module('MB', ['ui.router', 'ui.materialize', 'ngAnimate'])
+  angular.module('MB', ['ui.router', 'ui.materialize', 'ngAnimate', 'angularMoment'])
   .run(['$rootScope', function($rootScope) {
     $rootScope.$on('$stateChangeSuccess', function() {
        if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0)

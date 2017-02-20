@@ -1,7 +1,7 @@
 'use strict';
 
 (function ($) {
-  angular.module('MB', ['ui.router', 'ui.materialize', 'ngAnimate']).run(['$rootScope', function ($rootScope) {
+  angular.module('MB', ['ui.router', 'ui.materialize', 'ngAnimate', 'angularMoment']).run(['$rootScope', function ($rootScope) {
     $rootScope.$on('$stateChangeSuccess', function () {
       if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) setTimeout(function () {
         $('html, body').animate({ scrollTop: 0 }, 300);
@@ -47,6 +47,25 @@
 
     // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});
   });
+})();
+'use strict';
+
+(function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate
+        };
+
+        function blogDate(date) {
+            return moment(date).format("MMM D, YYYY");
+        }
+
+        return factory;
+    }
 })();
 'use strict';
 
@@ -552,17 +571,17 @@
 (function () {
     angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', blogPostDirective);
 
-    BlogCtrl.$inject = [];
+    BlogCtrl.$inject = ['moment'];
 
-    function BlogCtrl() {
+    function BlogCtrl(moment) {
         var vm = this;
         vm.parseText = parseText;
 
         vm.posts = [{
             title: "Google Cloud at HIMSS: engaging with the healthcare and health IT community",
             author: "Felix Su",
-            date: new Date(),
-            tags: ["Cloud", "ML"],
+            date: moment(new Date()).format("MMM D, YYYY"),
+            tags: ["Project Luna", "Cloud", "ML"],
             category: "Project Luna",
             text: "At Google Cloud, we’re working closely with the healthcare industry to provide the technology and tools that help create better patient experiences, empower care teams to work together and accelerate research. We're focused on supporting the digital transformation of our healthcare customers through data management at scale and advancements in machine learning for timely and actionable insights.\n\n \
                     Next week at the HIMSS Health IT Conference, we're demonstrating the latest innovations in smart data, digital health, APIs, machine learning and real-time communications from Google Cloud, Research, Search, DeepMind and Verily. Together, we offer solutions that help enable hospital and health IT customers to tackle the rapidly evolving and long standing challenges facing the healthcare industry. Here’s a preview of the Google Cloud customers and partners who are joining us at HIMSS.\n\n \
@@ -596,28 +615,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('HomeCtrl', HomeCtrl);
   HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
 
@@ -640,5 +637,27 @@
     vm.executives = TeamService.getExecutives();
     vm.business = TeamService.getBusiness();
     vm.developers = TeamService.getDevelopers();
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
   }
 })();
