@@ -22,7 +22,9 @@
           author: "=",
           date: "=",
           tags: '=',
-          category: '='
+          category: '=',
+          datePath: '=',
+          titlePath: '='
         },
         templateUrl: 'templates/pages/blog/post.html'
       };
