@@ -1,8 +1,7 @@
 'use strict';
 
 (function ($) {
-  angular.module('MB', ['ui.router', 'ui.materialize', 'ngAnimate', 'angularMoment', 'ngMeta']).run(['$rootScope', 'ngMeta', function ($rootScope, ngMeta) {
-    ngMeta.init();
+  angular.module('MB', ['ui.router', 'ui.materialize', 'ngAnimate', 'angularMoment']).run(['$rootScope', function ($rootScope) {
     $rootScope.$on('$stateChangeSuccess', function () {
       if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) setTimeout(function () {
         $('html, body').animate({ scrollTop: 0 }, 300);
@@ -13,31 +12,14 @@
 'use strict';
 
 (function () {
-  angular.module('MB').config(function ($stateProvider, $urlRouterProvider, ngMetaProvider) {
+  angular.module('MB').config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
-
-    ngMetaProvider.setDefaultTitle('Launchpad | Solving Problems with Intelligent Software');
-    ngMetaProvider.setDefaultTag('id', '1211816982245928');
-    ngMetaProvider.setDefaultTag('url', 'http://callaunchpad.org');
-    ngMetaProvider.setDefaultTag('type', 'website');
-    ngMetaProvider.setDefaultTag('description', 'We are a group of UC Berkeley students that use machine learning, AI, and data science techniques to solve problems by building intelligent software.');
-    ngMetaProvider.setDefaultTag('image', 'http://callaunchpad.org/img/og_image.png');
 
     $stateProvider.state('about', {
       url: '/',
       templateUrl: 'templates/pages/home/index.html',
       controller: 'HomeCtrl',
-      controllerAs: 'vm',
-      data: {
-        meta: {
-          id: "1211816982245928",
-          url: "http://callaunchpad.org",
-          type: "website",
-          title: "Launchpad | Solving Problems with Intelligent Software",
-          description: "We are a group of UC Berkeley students that use machine learning, AI, and data science techniques to solve problems by building intelligent software.",
-          image: "http://callaunchpad.org/img/og_image.png"
-        }
-      }
+      controllerAs: 'vm'
     }).state('projects', {
       url: '/projects',
       templateUrl: 'templates/pages/projects/index.html'
@@ -138,25 +120,6 @@
 'use strict';
 
 (function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        return factory;
-    }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').factory('DropboxService', DropboxService);
 
   DropboxService.$inject = ['Dropbox', '$http', '$log'];
@@ -179,6 +142,25 @@
 
     return factory;
   }
+})();
+'use strict';
+
+(function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        return factory;
+    }
 })();
 'use strict';
 
@@ -634,22 +616,11 @@
 (function () {
   angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
 
-  BlogCtrl.$inject = ['BlogService', '$stateParams', 'ngMeta'];
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
 
-  function BlogCtrl(BlogService, $stateParams, ngMeta) {
+  function BlogCtrl(BlogService, $stateParams) {
     var vm = this;
     vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-
-    if (vm.currentPost) {
-      var meta_url = "http://callaunchpad.org/#/" + vm.currentPost.datePath + "/" + vm.currentPost.titlePath;
-      var meta_title = vm.currentPost.title + " | Launchpad Blog";
-      var meta_preview = vm.currentPost.preview;
-      var meta_img = "http://callaunchpad.org/img/og/blog_posts/" + vm.currentPost.titlePath + ".png";
-      ngMeta.setTitle(meta_title);
-      ngMeta.setTag('url', meta_url);
-      ngMeta.setTag('description', meta_preview);
-      ngMeta.setTag('image', meta_img);
-    }
 
     vm.posts = BlogService.getPostMetaData();
   }

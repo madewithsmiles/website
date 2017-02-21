@@ -1,7 +1,6 @@
 (function($) {
-  angular.module('MB', ['ui.router', 'ui.materialize', 'ngAnimate', 'angularMoment', 'ngMeta'])
-  .run(['$rootScope', 'ngMeta', function($rootScope, ngMeta) {
-    ngMeta.init();
+  angular.module('MB', ['ui.router', 'ui.materialize', 'ngAnimate', 'angularMoment'])
+  .run(['$rootScope', function($rootScope) {
     $rootScope.$on('$stateChangeSuccess', function() {
        if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0)
         setTimeout(() => {$('html, body').animate({scrollTop:0}, 300)}, 0);
