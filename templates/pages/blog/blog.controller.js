@@ -9,24 +9,25 @@
     function BlogCtrl(URIService, BlogService, $stateParams){
         var vm = this;
         console.log($stateParams);
-        vm.currentPost = BlogService.getPost($stateParams.postId);
+        vm.currentPost = BlogService.getPostData($stateParams.postId);
         console.log(vm.currentPost);
         console.log(!vm.currentPost);
         vm.encode = URIService.encode;
         vm.decode = URIService.decode;
 
-        vm.posts = BlogService.getPosts();
+        vm.posts = BlogService.getPostMetaData();
     }
 
     function PostDir() {
       return {
+        restrict: 'E',
+        transclude: true,
         scope: {
           title: "=",
           author: "=",
-          date: "&",
+          date: "=",
           tags: '=',
-          category: '=',
-          text: '=',
+          category: '='
         },
         templateUrl: 'templates/pages/blog/post.html'
       };

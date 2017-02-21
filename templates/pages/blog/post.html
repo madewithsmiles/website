@@ -2,18 +2,18 @@
     <div class="blog-container">
         <div class="blog-title-container">
             <div class="blog-heading">
-                <div class="blog-category">{{vm.currentPost.category}}</div>
-                <div class="blog-date">{{vm.currentPost.date}}</div>
+                <div class="blog-category">{{category}}</div>
+                <div class="blog-date">{{date}}</div>
             </div>
-            <div class="blog-title">{{vm.currentPost.title}}</div>
+            <div class="blog-title">{{title}}</div>
             <div class="blog-author-container">
-                <div class="blog-author">{{vm.currentPost.author}}</div>
+                <div class="blog-author">{{author}}</div>
             </div>
         </div>
         <div class="blog-text-container">
-            <div class="blog-text">{{vm.currentPost.text}}</div>
+            <div class="blog-text"><ng-transclude></ng-transclude></div>
             <div class="blog-tags">
-                <div class="chip" ng-repeat="tag in vm.currentPost.tags">{{tag}}</div>
+                <div class="chip" ng-repeat="tag in tags">{{tag}}</div>
             </div>
         </div>
     </div>

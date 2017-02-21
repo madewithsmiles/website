@@ -42,7 +42,10 @@
           url: '/{postId}',
           controller: 'BlogCtrl',
           controllerAs: 'vm',
-          templateUrl: 'templates/pages/blog/post.html'
+          templateUrl: function (params) {
+            console.log(atob(params.postId));
+            return 'templates/pages/blog/posts/' + atob(params.postId) + '.html';
+          }
         });
 
       // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});

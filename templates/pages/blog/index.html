@@ -1,6 +1,6 @@
 <section id="blog" class="blogs">
     <div class="blog-previews-container">
-        <div class="blog-preview" ng-repeat="post in vm.posts">
+        <div class="blog-preview" ng-repeat="post in vm.posts | orderBy:'-date'">
             <div class="blog-preview-title-container">
                 <div class="blog-preview-heading">
                     <div class="blog-preview-category">{{post.category}}</div>
@@ -12,8 +12,8 @@
                 </div>
             </div>
             <div class="blog-preview-text-container">
-                <div class="blog-preview-text">{{post.text}}</div>
-                <a ui-sref="post({postId: vm.encode(post.url)})">Read More...</a>
+                <div class="blog-preview-text">{{post.preview}}</div>
+                <a ui-sref="post({postId: vm.encode(post.path)})">Read More...</a>
                 <div class="blog-preview-tags">
                     <div class="chip" ng-repeat="tag in post.tags">{{tag}}</div>
                 </div>
