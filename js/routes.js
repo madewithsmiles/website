@@ -39,12 +39,11 @@
           controllerAs: 'vm'
         })
         .state('post', {
-          url: '/{postId}',
+          url: '/{datePath}/{titlePath}',
           controller: 'BlogCtrl',
           controllerAs: 'vm',
           templateUrl: function (params) {
-            console.log(atob(params.postId));
-            return 'templates/pages/blog/posts/' + atob(params.postId) + '.html';
+            return 'templates/pages/blog/posts/' + params.datePath + "/" + params.titlePath + '.html';
           }
         });
 

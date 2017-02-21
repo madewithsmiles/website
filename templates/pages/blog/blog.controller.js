@@ -4,16 +4,11 @@
         .controller('BlogCtrl', BlogCtrl)
         .directive('blogPost', PostDir);
 
-    BlogCtrl.$inject = ['URIService', 'BlogService', '$stateParams'];
+    BlogCtrl.$inject = ['BlogService', '$stateParams'];
 
-    function BlogCtrl(URIService, BlogService, $stateParams){
+    function BlogCtrl( BlogService, $stateParams){
         var vm = this;
-        console.log($stateParams);
-        vm.currentPost = BlogService.getPostData($stateParams.postId);
-        console.log(vm.currentPost);
-        console.log(!vm.currentPost);
-        vm.encode = URIService.encode;
-        vm.decode = URIService.decode;
+        vm.currentPost = BlogService.getPostData($stateParams.titlePath);
 
         vm.posts = BlogService.getPostMetaData();
     }
@@ -23,7 +18,7 @@
         restrict: 'E',
         transclude: true,
         scope: {
-          title: "=",
+          name: "=",
           author: "=",
           date: "=",
           tags: '=',

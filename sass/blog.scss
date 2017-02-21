@@ -77,6 +77,15 @@
   padding: 30px;
   font-family: "Source Sans Pro", sans-serif;
 
+  .close-button {
+    position: fixed;
+    top: 6em;
+    left: 2em;
+    cursor: pointer;
+
+    i { vertical-align: middle; }
+  }
+
   .blog-container {
     width: 650px;
     margin: 4em auto;
@@ -118,6 +127,27 @@
       .blog-text {
         font-weight: 300;
         position: relative;
+
+        strong {
+          font-weight: 500;
+        }
+
+        code {
+          font-family: "Consolas", "Courier New", sans-serif;
+          background-color: #F7F7F7;
+          border: 1px solid #E1E1E1;
+          font-size: smaller;
+          padding: 2px 5px;
+          margin: 0 2px;
+          border-radius: 3px;
+          vertical-align: middle;
+        }
+
+        .blog-post-image {
+          width: 80%;
+          margin: 1em auto;
+          display: block;
+        }
       }
       .blog-tags {
         margin-top: 30px;

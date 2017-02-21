@@ -44,12 +44,11 @@
       controller: 'BlogCtrl',
       controllerAs: 'vm'
     }).state('post', {
-      url: '/{postId}',
+      url: '/{datePath}/{titlePath}',
       controller: 'BlogCtrl',
       controllerAs: 'vm',
       templateUrl: function templateUrl(params) {
-        console.log(atob(params.postId));
-        return 'templates/pages/blog/posts/' + atob(params.postId) + '.html';
+        return 'templates/pages/blog/posts/' + params.datePath + "/" + params.titlePath + '.html';
       }
     });
 
@@ -74,64 +73,6 @@
 
         return factory;
     }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('BlogService', BlogService);
-
-  BlogService.$inject = ['DateService', 'URIService'];
-
-  function BlogService(DateService, URIService) {
-    var factory = {
-      getPostMetaData: getPostMetaData,
-      getPostData: getPostData
-    };
-
-    var postMetaData = [{
-      path: "2-22-2017/nlp-with-stella",
-      title: "Natural Language Processing with Stella",
-      author: "Felix Su",
-      date: DateService.blogDate(2, 22, 2017),
-      tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
-      category: "Hack Night 2",
-      preview: "At Google Cloud, we’re working closely with the healthcare industry to provide the technology and tools that help create better patient experiences, empower care teams to work together and accelerate research. We're focused on supporting the digital transformation of our healthcare customers through data management at scale and advancements in machine learning for timely and actionable insights."
-    }, {
-      path: "2-26-2017/sherlock-facial-recognition",
-      title: "Sherlock Facial Recognition",
-      author: "Peter Lee",
-      date: DateService.blogDate(2, 26, 2017),
-      tags: ["Project Sherlock", "Face Recognition", "Hand Tracking", "Hack Night"],
-      category: "Tech Tutorial 3",
-      preview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor urna in facilisis dictum. Aliquam fermentum quam magna, vitae lacinia risus bibendum ac. Integer eget scelerisque purus. Donec non elementum justo. Suspendisse id est vel odio porta sollicitudin a eget odio. Quisque ultricies euismod purus eu sodales. Pellentesque sed accumsan augue. Vestibulum id ullamcorper turpis, tristique mollis elit. Mauris quis venenatis dui, non euismod nibh. Integer efficitur nulla vitae venenatis tincidunt. Integer blandit consectetur metus quis mattis. Sed tellus neque, vestibulum eu velit ut, consequat semper sapien."
-    }];
-
-    function parseText(text) {
-      return text.replace(/^ +| +$/gm, "");
-    }
-
-    function cleanPostData(post) {
-      post.preview = parseText(post.preview);
-      return post;
-    }
-
-    function getPostMetaData() {
-      var cleanData = postMetaData;
-      for (var i = 0; i < cleanData.length; i++) {
-        cleanData[i].preview = parseText(cleanData[i].preview);
-      }
-      return cleanData;
-    }
-
-    function getPostData(id) {
-      for (var i = 0; i < postMetaData.length; i++) {
-        if (id == URIService.encode(postMetaData[i].path)) return cleanPostData(postMetaData[i]);
-      }
-      return null;
-    }
-
-    return factory;
-  }
 })();
 'use strict';
 
@@ -162,151 +103,60 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('FormService', FormService);
+  angular.module('MB').factory('BlogService', BlogService);
 
-  FormService.$inject = ['$http', '$log', 'Dropbox'];
+  BlogService.$inject = ['DateService'];
 
-  function FormService($http, $log, Dropbox) {
+  function BlogService(DateService) {
     var factory = {
-      checkFullSubmit: checkFullSubmit,
-      sendMessage: sendMessage,
-      sendToSheet: sendToSheet,
-      submitApplication: submitApplication,
-      updateTextArea: updateTextArea
+      getPostMetaData: getPostMetaData,
+      getPostData: getPostData
     };
 
-    function checkFullSubmit(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) {
-          if (!object[key] && key != 'optional' && key != 'github') {
-            console.log("Invalid key: " + key);
-            return false;
-          }
-        }
-      }
-      return true;
+    var postMetaData = [{
+      datePath: "2-22-2017",
+      titlePath: "nlp-with-stella",
+      title: "Natural Language Processing with Stella",
+      author: "Felix Su",
+      date: DateService.blogDate(2, 22, 2017),
+      tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
+      category: "Hack Night 2",
+      preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
+    }
+    // {
+    //   datePath: "2-26-2017",
+    //   titlePath: "sherlock-facial-recognition",
+    //   title: "Sherlock Facial Recognition",
+    //   author: "Peter Lee",
+    //   date: DateService.blogDate(2,26,2017),
+    //   tags: ["Project Sherlock", "Face Recognition", "Hand Tracking", "Hack Night"],
+    //   category: "Tech Tutorial 3",
+    //   preview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor urna in facilisis dictum. Aliquam fermentum quam magna, vitae lacinia risus bibendum ac. Integer eget scelerisque purus. Donec non elementum justo. Suspendisse id est vel odio porta sollicitudin a eget odio. Quisque ultricies euismod purus eu sodales. Pellentesque sed accumsan augue. Vestibulum id ullamcorper turpis, tristique mollis elit. Mauris quis venenatis dui, non euismod nibh. Integer efficitur nulla vitae venenatis tincidunt. Integer blandit consectetur metus quis mattis. Sed tellus neque, vestibulum eu velit ut, consequat semper sapien."
+    // }
+    ];
+
+    function parseText(text) {
+      return text.replace(/^ +| +$/gm, "");
     }
 
-    function camelCaseToPretty(text) {
-      var spaces = text.replace(/([A-Z0-9])/g, " $1");
-      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
-      return pretty;
+    function cleanPostData(post) {
+      post.preview = parseText(post.preview);
+      return post;
     }
 
-    function renameProperty(object, oldName, newName) {
-      if (oldName == newName) {
-        return object;
+    function getPostMetaData() {
+      var cleanData = postMetaData;
+      for (var i = 0; i < cleanData.length; i++) {
+        cleanData[i].preview = parseText(cleanData[i].preview);
       }
-      if (object.hasOwnProperty(oldName)) {
-        object[newName] = object[oldName];
-        delete object[oldName];
-      }
-      return object;
-    };
-
-    function prettyObjectKeys(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
-      }
-      return object;
+      return cleanData;
     }
 
-    function sendMessage(messageObject, errorMessage, gFormURL) {
-      var okay = checkFullSubmit(messageObject);
-      var postData = $.param(messageObject);
-      console.log(postData);
-
-      if (okay) {
-        $http({
-          url: gFormURL,
-          method: "POST",
-          data: postData,
-          dataType: "json"
-        }).then(function successCallback(response) {
-          $log.debug(response);
-        }, function errorCallback(response) {
-          $log.error(response);
-        });
-        return true;
+    function getPostData(titlePath) {
+      for (var i = 0; i < postMetaData.length; i++) {
+        if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
       }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
-      var okay = checkFullSubmit(messageObject);
-      if (okay) {
-        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-          messageObject.resume = response.name;
-          sendToSheet(messageObject, sheetURL, errorMessage);
-          return true;
-        }).catch(function (error) {
-          $log.error(error);
-          return false;
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function sendToSheet(messageObject, sheetURL, errorMessage) {
-      var okay = checkFullSubmit(messageObject);
-      var message = prettyObjectKeys(messageObject);
-      var postData = $.param(messageObject);
-      if (okay) {
-        $.ajax({
-          url: sheetURL,
-          type: "post",
-          data: postData,
-          success: function success(response) {
-            $log.debug('Message Sent: ' + JSON.stringify(response));
-          },
-          error: function error(request, textStatus, errorThrown) {
-            $log.error("Status: " + textStatus);
-            $log.error("Error: " + errorThrown);
-          }
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    var isWhitespace = function isWhitespace(char) {
-      return char == ' ' || char == '\n';
-    };
-
-    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
-      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
-
-      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
-        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
-          vmObject[wordCountVar]++;
-          if (vmObject[wordCountVar] == wordLimit + 1) {
-            vmObject[wordCountVar]--;
-            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
-            return;
-          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
-            vmObject[wordCountVar] = 1;
-          }
-        }
-      }
-
-      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
+      return null;
     }
 
     return factory;
@@ -541,22 +391,151 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('URIService', URIService);
+  angular.module('MB').factory('FormService', FormService);
 
-  URIService.$inject = [];
+  FormService.$inject = ['$http', '$log', 'Dropbox'];
 
-  function URIService() {
+  function FormService($http, $log, Dropbox) {
     var factory = {
-      encode: encode,
-      decode: decode
+      checkFullSubmit: checkFullSubmit,
+      sendMessage: sendMessage,
+      sendToSheet: sendToSheet,
+      submitApplication: submitApplication,
+      updateTextArea: updateTextArea
     };
 
-    function encode(str) {
-      return btoa(str);
+    function checkFullSubmit(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) {
+          if (!object[key] && key != 'optional' && key != 'github') {
+            console.log("Invalid key: " + key);
+            return false;
+          }
+        }
+      }
+      return true;
     }
 
-    function decode(code) {
-      return atob(code);
+    function camelCaseToPretty(text) {
+      var spaces = text.replace(/([A-Z0-9])/g, " $1");
+      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
+      return pretty;
+    }
+
+    function renameProperty(object, oldName, newName) {
+      if (oldName == newName) {
+        return object;
+      }
+      if (object.hasOwnProperty(oldName)) {
+        object[newName] = object[oldName];
+        delete object[oldName];
+      }
+      return object;
+    };
+
+    function prettyObjectKeys(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
+      }
+      return object;
+    }
+
+    function sendMessage(messageObject, errorMessage, gFormURL) {
+      var okay = checkFullSubmit(messageObject);
+      var postData = $.param(messageObject);
+      console.log(postData);
+
+      if (okay) {
+        $http({
+          url: gFormURL,
+          method: "POST",
+          data: postData,
+          dataType: "json"
+        }).then(function successCallback(response) {
+          $log.debug(response);
+        }, function errorCallback(response) {
+          $log.error(response);
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
+      var okay = checkFullSubmit(messageObject);
+      if (okay) {
+        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+          messageObject.resume = response.name;
+          sendToSheet(messageObject, sheetURL, errorMessage);
+          return true;
+        }).catch(function (error) {
+          $log.error(error);
+          return false;
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function sendToSheet(messageObject, sheetURL, errorMessage) {
+      var okay = checkFullSubmit(messageObject);
+      var message = prettyObjectKeys(messageObject);
+      var postData = $.param(messageObject);
+      if (okay) {
+        $.ajax({
+          url: sheetURL,
+          type: "post",
+          data: postData,
+          success: function success(response) {
+            $log.debug('Message Sent: ' + JSON.stringify(response));
+          },
+          error: function error(request, textStatus, errorThrown) {
+            $log.error("Status: " + textStatus);
+            $log.error("Error: " + errorThrown);
+          }
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    var isWhitespace = function isWhitespace(char) {
+      return char == ' ' || char == '\n';
+    };
+
+    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
+      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
+
+      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
+        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
+          vmObject[wordCountVar]++;
+          if (vmObject[wordCountVar] == wordLimit + 1) {
+            vmObject[wordCountVar]--;
+            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
+            return;
+          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
+            vmObject[wordCountVar] = 1;
+          }
+        }
+      }
+
+      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
     }
 
     return factory;
@@ -635,60 +614,31 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir);
 
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
 
-  function CompaniesCtrl(FormService, CompanySheetURL) {
+  function BlogCtrl(BlogService, $stateParams) {
     var vm = this;
-    vm.submitted = false;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
 
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+    vm.posts = BlogService.getPostMetaData();
+  }
 
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
     };
   }
-})();
-'use strict';
-
-(function () {
-    angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir);
-
-    BlogCtrl.$inject = ['URIService', 'BlogService', '$stateParams'];
-
-    function BlogCtrl(URIService, BlogService, $stateParams) {
-        var vm = this;
-        console.log($stateParams);
-        vm.currentPost = BlogService.getPostData($stateParams.postId);
-        console.log(vm.currentPost);
-        console.log(!vm.currentPost);
-        vm.encode = URIService.encode;
-        vm.decode = URIService.decode;
-
-        vm.posts = BlogService.getPostMetaData();
-    }
-
-    function PostDir() {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {
-                title: "=",
-                author: "=",
-                date: "=",
-                tags: '=',
-                category: '='
-            },
-            templateUrl: 'templates/pages/blog/post.html'
-        };
-    }
 })();
 'use strict';
 
@@ -704,6 +654,30 @@
 
     vm.sendMessage = function () {
       var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
       if (sent) {
         vm.submitted = true;
         return true;
