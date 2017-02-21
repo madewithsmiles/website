@@ -17,19 +17,19 @@ We are a group of UC Berkeley students that build projects with a purpose throug
 
 ### Tools
 
-- Full-stack Web Development
-- Mobile Development
+- Amazon AWS
+- Kaldi
+- OpenCV
 
 ### Interdisciplinary
 
-- Machine Learning
-- Social Networks
-- Accessibility
+- Student Life
 - Education
+- Accessibility
 
 ## Spring 2017 Projects
 
-### Computer Vision: Recognition CV
+### Computer Vision: Sherlock
 
 - Web API
   - Open-source toolkit for computer vision projects on the web.
@@ -37,17 +37,8 @@ We are a group of UC Berkeley students that build projects with a purpose throug
 
 **Project Sherlock** is a Cloud-Based Machine Learning and Aritifical Intelligence API. We implement, optimize, and rigorously test powerful algorithms and then release our work to the public in the form of a documented API.
 
-### Social Networks: Lively
+### Speech Recognition: Luna
 
-- Mobile Application
-  - Update your current status and activity.
-    - View what your friends are doing and see who’s free.
+- Use Kaldi to train neural nets, S3 for hosting, EC2 for computation, and SQS for queuing
 
-We all hate those moments when we're free, but our closest friends already have plans. **Project Lively** aims to eliminate those moments by revealing your friends that are close by and immediately available. We use graph theory, machine learning, AI, and data science techniques to ensure that you spend less time scrolling through your phone and more time with your friends.
-
-###Accessibility: Whisper
-
-- Full-stack Web Application/Browser Plugin
-  - Create an accessible web through voice recognition and navigation.
-
-We find it strange that accessibility is a secondary or hidden function on most browsers and search engines. With **Project Whisper**, those who are disabled will be able to use their voices to access the full power of the internet. We use the Wit.ai API for its Natural Language, Voice Recognition, and Sentiment Analysis capabilities to build a browser that puts accessibility first.
+Speech consists of many features that are not built into personal assistants like Alexa and Google Home. We aim to build a seemless conversational personal assistant that considers prosody in speech. By feeding corpora that contain thousands of hours of annotated audio into CTC networks, our assistant will be able to adjust to speakers' uncertainty and identity.
