@@ -1,4 +1,4 @@
-# Cal Launchpad
+# Launchpad
 We are a group of UC Berkeley students that build projects with a purpose through intelligent software.
 
 ## Mission
