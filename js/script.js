@@ -58,51 +58,6 @@
 'use strict';
 
 (function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        return factory;
-    }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').factory('BlogService', BlogService);
 
   BlogService.$inject = ['DateService'];
@@ -157,6 +112,204 @@
         if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
       }
       return null;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        return factory;
+    }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('FormService', FormService);
+
+  FormService.$inject = ['$http', '$log', 'Dropbox'];
+
+  function FormService($http, $log, Dropbox) {
+    var factory = {
+      checkFullSubmit: checkFullSubmit,
+      sendMessage: sendMessage,
+      sendToSheet: sendToSheet,
+      submitApplication: submitApplication,
+      updateTextArea: updateTextArea
+    };
+
+    function checkFullSubmit(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) {
+          if (!object[key] && key != 'optional' && key != 'github') {
+            console.log("Invalid key: " + key);
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function camelCaseToPretty(text) {
+      var spaces = text.replace(/([A-Z0-9])/g, " $1");
+      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
+      return pretty;
+    }
+
+    function renameProperty(object, oldName, newName) {
+      if (oldName == newName) {
+        return object;
+      }
+      if (object.hasOwnProperty(oldName)) {
+        object[newName] = object[oldName];
+        delete object[oldName];
+      }
+      return object;
+    };
+
+    function prettyObjectKeys(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
+      }
+      return object;
+    }
+
+    function sendMessage(messageObject, errorMessage, gFormURL) {
+      var okay = checkFullSubmit(messageObject);
+      var postData = $.param(messageObject);
+      console.log(postData);
+
+      if (okay) {
+        $http({
+          url: gFormURL,
+          method: "POST",
+          data: postData,
+          dataType: "json"
+        }).then(function successCallback(response) {
+          $log.debug(response);
+        }, function errorCallback(response) {
+          $log.error(response);
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
+      var okay = checkFullSubmit(messageObject);
+      if (okay) {
+        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+          messageObject.resume = response.name;
+          sendToSheet(messageObject, sheetURL, errorMessage);
+          return true;
+        }).catch(function (error) {
+          $log.error(error);
+          return false;
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function sendToSheet(messageObject, sheetURL, errorMessage) {
+      var okay = checkFullSubmit(messageObject);
+      var message = prettyObjectKeys(messageObject);
+      var postData = $.param(messageObject);
+      if (okay) {
+        $.ajax({
+          url: sheetURL,
+          type: "post",
+          data: postData,
+          success: function success(response) {
+            $log.debug('Message Sent: ' + JSON.stringify(response));
+          },
+          error: function error(request, textStatus, errorThrown) {
+            $log.error("Status: " + textStatus);
+            $log.error("Error: " + errorThrown);
+          }
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    var isWhitespace = function isWhitespace(char) {
+      return char == ' ' || char == '\n';
+    };
+
+    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
+      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
+
+      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
+        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
+          vmObject[wordCountVar]++;
+          if (vmObject[wordCountVar] == wordLimit + 1) {
+            vmObject[wordCountVar]--;
+            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
+            return;
+          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
+            vmObject[wordCountVar] = 1;
+          }
+        }
+      }
+
+      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
     }
 
     return factory;
@@ -391,159 +544,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('FormService', FormService);
-
-  FormService.$inject = ['$http', '$log', 'Dropbox'];
-
-  function FormService($http, $log, Dropbox) {
-    var factory = {
-      checkFullSubmit: checkFullSubmit,
-      sendMessage: sendMessage,
-      sendToSheet: sendToSheet,
-      submitApplication: submitApplication,
-      updateTextArea: updateTextArea
-    };
-
-    function checkFullSubmit(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) {
-          if (!object[key] && key != 'optional' && key != 'github') {
-            console.log("Invalid key: " + key);
-            return false;
-          }
-        }
-      }
-      return true;
-    }
-
-    function camelCaseToPretty(text) {
-      var spaces = text.replace(/([A-Z0-9])/g, " $1");
-      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
-      return pretty;
-    }
-
-    function renameProperty(object, oldName, newName) {
-      if (oldName == newName) {
-        return object;
-      }
-      if (object.hasOwnProperty(oldName)) {
-        object[newName] = object[oldName];
-        delete object[oldName];
-      }
-      return object;
-    };
-
-    function prettyObjectKeys(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
-      }
-      return object;
-    }
-
-    function sendMessage(messageObject, errorMessage, gFormURL) {
-      var okay = checkFullSubmit(messageObject);
-      var postData = $.param(messageObject);
-      console.log(postData);
-
-      if (okay) {
-        $http({
-          url: gFormURL,
-          method: "POST",
-          data: postData,
-          dataType: "json"
-        }).then(function successCallback(response) {
-          $log.debug(response);
-        }, function errorCallback(response) {
-          $log.error(response);
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
-      var okay = checkFullSubmit(messageObject);
-      if (okay) {
-        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-          messageObject.resume = response.name;
-          sendToSheet(messageObject, sheetURL, errorMessage);
-          return true;
-        }).catch(function (error) {
-          $log.error(error);
-          return false;
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function sendToSheet(messageObject, sheetURL, errorMessage) {
-      var okay = checkFullSubmit(messageObject);
-      var message = prettyObjectKeys(messageObject);
-      var postData = $.param(messageObject);
-      if (okay) {
-        $.ajax({
-          url: sheetURL,
-          type: "post",
-          data: postData,
-          success: function success(response) {
-            $log.debug('Message Sent: ' + JSON.stringify(response));
-          },
-          error: function error(request, textStatus, errorThrown) {
-            $log.error("Status: " + textStatus);
-            $log.error("Error: " + errorThrown);
-          }
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    var isWhitespace = function isWhitespace(char) {
-      return char == ' ' || char == '\n';
-    };
-
-    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
-      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
-
-      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
-        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
-          vmObject[wordCountVar]++;
-          if (vmObject[wordCountVar] == wordLimit + 1) {
-            vmObject[wordCountVar]--;
-            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
-            return;
-          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
-            vmObject[wordCountVar] = 1;
-          }
-        }
-      }
-
-      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -643,28 +643,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -678,6 +656,28 @@
     vm.sendRequest = function () {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
       var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;
