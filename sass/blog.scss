@@ -164,6 +164,9 @@
   .blog-previews-container, .blog-container {
     width: 550px !important;
   }
+  .close-button {
+    display: none !important;
+  }
 }
 
 @media #{$small-and-down} {
