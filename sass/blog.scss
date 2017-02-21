@@ -178,16 +178,40 @@
 
 @media #{$small-and-down} {
   .blog-previews-container, .blog-container {
-    width: 350px !important;
+    width: 440px !important;
   }
   .blog-title {
     font-size: 2.5em !important;
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
+  .blog-post {
+    padding: 20px;
+  }
   .blog-previews-container, .blog-container {
-    width: 280px !important;
+    width: 360px !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .blog-post {
+    padding: 20px;
+  }
+  .blog-previews-container, .blog-container {
+    width: 320px !important;
+  }
+  .blog-title {
+    font-size: 2em !important;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .blog-post {
+    padding: 10px;
+  }
+  .blog-previews-container, .blog-container {
+    width: 290px !important;
   }
   .blog-title {
     font-size: 2em !important;
