@@ -171,6 +171,9 @@
   .close-button {
     display: none !important;
   }
+  .blog-post-image {
+    width: 100% !important;
+  }
 }
 
 @media #{$small-and-down} {
@@ -184,7 +187,7 @@
 
 @media only screen and (max-width: 400px) {
   .blog-previews-container, .blog-container {
-    width: 250px !important;
+    width: 280px !important;
   }
   .blog-title {
     font-size: 2em !important;
