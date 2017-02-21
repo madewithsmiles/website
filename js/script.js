@@ -544,6 +544,59 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      // http://callaunchpad.org/#/{{datePath}}/{{titlePath}}
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            console.log(href);
+            elem.html(createHTML(href));
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -614,59 +667,23 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir);
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
 
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('HomeCtrl', HomeCtrl);
-  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
-
-  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
     var vm = this;
 
     vm.submitted = false;
-    vm.notification = { firstName: null, lastName: null, email: null };
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
 
     vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;
       }
       return false;
     };
-
-    vm.team = TeamService.getAll();
-    vm.executives = TeamService.getExecutives();
-    vm.business = TeamService.getBusiness();
-    vm.developers = TeamService.getDevelopers();
   }
 })();
 'use strict';
@@ -696,22 +713,27 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+  angular.module('MB').controller('HomeCtrl', HomeCtrl);
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
 
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
     var vm = this;
 
     vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+    vm.notification = { firstName: null, lastName: null, email: null };
 
     vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;
       }
       return false;
     };
+
+    vm.team = TeamService.getAll();
+    vm.executives = TeamService.getExecutives();
+    vm.business = TeamService.getBusiness();
+    vm.developers = TeamService.getDevelopers();
   }
 })();
