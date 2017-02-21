@@ -33,16 +33,24 @@
       templateUrl: 'templates/pages/contact/index.html',
       controller: 'ContactCtrl',
       controllerAs: 'vm'
-    }).state('blog', {
-      url: '/blog',
-      templateUrl: 'templates/pages/blog/index.html',
-      controller: 'BlogCtrl',
-      controllerAs: 'vm'
     }).state('apply', {
       url: '/apply',
       templateUrl: 'templates/pages/apply/index.html',
       controller: 'ApplyCtrl',
       controllerAs: 'vm'
+    }).state('blog', {
+      url: '/blog',
+      templateUrl: 'templates/pages/blog/index.html',
+      controller: 'BlogCtrl',
+      controllerAs: 'vm'
+    }).state('post', {
+      url: '/{postId}',
+      templateUrl: function templateUrl(params) {
+        // console.log($stateParams.postId);
+        console.log(atob(params.postId));
+        // console.log(URIService.decode($stateParams.postId));
+        return 'templates/pages/blog/posts/' + atob(params.postId) + '.html';
+      }
     });
 
     // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});
@@ -66,32 +74,6 @@
 
         return factory;
     }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
-    }
-
-    return factory;
-  }
 })();
 'use strict';
 
@@ -241,6 +223,32 @@
       }
 
       if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
     }
 
     return factory;
@@ -475,6 +483,30 @@
 'use strict';
 
 (function () {
+  angular.module('MB').factory('URIService', URIService);
+
+  URIService.$inject = [];
+
+  function URIService() {
+    var factory = {
+      encode: encode,
+      decode: decode
+    };
+
+    function encode(str) {
+      return btoa(str);
+    }
+
+    function decode(code) {
+      return atob(code);
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -545,20 +577,28 @@
 'use strict';
 
 (function () {
-    angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', blogPostDirective);
+    angular.module('MB').controller('BlogCtrl', BlogCtrl);
 
-    BlogCtrl.$inject = ['moment'];
+    BlogCtrl.$inject = ['DateService', 'URIService'];
 
-    function BlogCtrl(moment) {
+    function BlogCtrl(DateService, URIService) {
         var vm = this;
         vm.parseText = parseText;
+        vm.encode = function (str) {
+            var code = URIService.encode(str);
+            console.log(code);
+            console.log(URIService.decode(code));
+            return code;
+        };
+        vm.decode = URIService.decode;
 
         vm.posts = [{
-            title: "Hack Night 2: Natural Language Processing with Stella",
+            url: "nlp-with-stella",
+            title: "Natural Language Processing with Stella",
             author: "Felix Su",
-            date: moment(new Date()).format("MMM D, YYYY"),
+            date: DateService.blogDate(new Date()),
             tags: ["Project Luna", "Cloud", "ML"],
-            category: "Hack Night",
+            category: "Hack Night 2",
             text: "At Google Cloud, we’re working closely with the healthcare industry to provide the technology and tools that help create better patient experiences, empower care teams to work together and accelerate research. We're focused on supporting the digital transformation of our healthcare customers through data management at scale and advancements in machine learning for timely and actionable insights.\n\n \
                     Next week at the HIMSS Health IT Conference, we're demonstrating the latest innovations in smart data, digital health, APIs, machine learning and real-time communications from Google Cloud, Research, Search, DeepMind and Verily. Together, we offer solutions that help enable hospital and health IT customers to tackle the rapidly evolving and long standing challenges facing the healthcare industry. Here’s a preview of the Google Cloud customers and partners who are joining us at HIMSS.\n\n \
                     For customers like the Colorado Center for Personalized Medicine (CCPM) at the University of Colorado Denver, trust and security are paramount. CCPM has worked closely with the Google Cloud Platform (GCP) team to securely manage and analyze a complicated data set to identify  genetic patterns across a wide range of diseases and reveal new treatment options based on a patient’s unique DNA.\n\n \
@@ -574,18 +614,8 @@
         }];
 
         function parseText(text) {
-            console.log(text.replace(/^ +| +$/gm, ""));
             return text.replace(/^ +| +$/gm, "");
         }
-    }
-
-    function blogPostDirective() {
-        return {
-            scope: {
-                post: '=post'
-            },
-            templateUrl: './post.html'
-        };
     }
 })();
 'use strict';

@@ -26,17 +26,26 @@
           controller: 'ContactCtrl',
           controllerAs: 'vm'
         })
+        .state('apply', {
+          url: '/apply',
+          templateUrl: 'templates/pages/apply/index.html',
+          controller: 'ApplyCtrl',
+          controllerAs: 'vm'
+        })
         .state('blog', {
           url: '/blog',
           templateUrl: 'templates/pages/blog/index.html',
           controller: 'BlogCtrl',
           controllerAs: 'vm'
         })
-        .state('apply', {
-            url: '/apply',
-            templateUrl: 'templates/pages/apply/index.html',
-            controller: 'ApplyCtrl',
-            controllerAs: 'vm'
+        .state('post', {
+          url: '/{postId}',
+          templateUrl: function (params) {
+            // console.log($stateParams.postId);
+            console.log(atob(params.postId));
+            // console.log(URIService.decode($stateParams.postId));
+            return 'templates/pages/blog/posts/' + atob(params.postId) + '.html';
+          }
         });
 
       // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});
