@@ -46,6 +46,7 @@
             if (newValue) {
               var href = newValue;
               elem.html(createHTML(href));
+              FB.XFBML.parse(elem[0]);
             } else {
               element.html("<div></div>");
             }
