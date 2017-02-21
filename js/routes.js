@@ -1,14 +1,31 @@
 (function() {
   angular.module('MB')
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function($stateProvider, $urlRouterProvider, ngMetaProvider) {
       $urlRouterProvider.otherwise('/');
+
+      ngMetaProvider.setDefaultTitle('Launchpad | Solving Problems with Intelligent Software');
+      ngMetaProvider.setDefaultTag('id', '1211816982245928');
+      ngMetaProvider.setDefaultTag('url', 'http://callaunchpad.org');
+      ngMetaProvider.setDefaultTag('type', 'website');
+      ngMetaProvider.setDefaultTag('description', 'We are a group of UC Berkeley students that use machine learning, AI, and data science techniques to solve problems by building intelligent software.');
+      ngMetaProvider.setDefaultTag('image', 'http://callaunchpad.org/img/og_image.png');
 
       $stateProvider
         .state('about', {
           url: '/',
           templateUrl: 'templates/pages/home/index.html',
           controller: 'HomeCtrl',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+          data: {
+            meta: {
+              id: "1211816982245928",
+              url: "http://callaunchpad.org",
+              type: "website",
+              title: "Launchpad | Solving Problems with Intelligent Software",
+              description: "We are a group of UC Berkeley students that use machine learning, AI, and data science techniques to solve problems by building intelligent software.",
+              image: "http://callaunchpad.org/img/og_image.png"
+            }
+          }
         })
         .state('projects', {
           url: '/projects',
