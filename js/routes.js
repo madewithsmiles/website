@@ -40,12 +40,9 @@
         })
         .state('post', {
           url: '/{postId}',
-          templateUrl: function (params) {
-            // console.log($stateParams.postId);
-            console.log(atob(params.postId));
-            // console.log(URIService.decode($stateParams.postId));
-            return 'templates/pages/blog/posts/' + atob(params.postId) + '.html';
-          }
+          controller: 'BlogCtrl',
+          controllerAs: 'vm',
+          templateUrl: 'templates/pages/blog/post.html'
         });
 
       // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});

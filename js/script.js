@@ -45,16 +45,95 @@
       controllerAs: 'vm'
     }).state('post', {
       url: '/{postId}',
-      templateUrl: function templateUrl(params) {
-        // console.log($stateParams.postId);
-        console.log(atob(params.postId));
-        // console.log(URIService.decode($stateParams.postId));
-        return 'templates/pages/blog/posts/' + atob(params.postId) + '.html';
-      }
+      controller: 'BlogCtrl',
+      controllerAs: 'vm',
+      templateUrl: 'templates/pages/blog/post.html'
     });
 
     // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});
   });
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('BlogService', BlogService);
+
+  BlogService.$inject = ['DateService', 'URIService'];
+
+  function BlogService(DateService, URIService) {
+    var factory = {
+      getPosts: getPosts,
+      getPost: getPost
+    };
+
+    var posts = [{
+      url: "nlp-with-stella",
+      title: "Natural Language Processing with Stella",
+      author: "Felix Su",
+      date: DateService.blogDate(2, 22, 2017),
+      tags: ["Project Luna", "Cloud", "ML"],
+      category: "Hack Night 2",
+      text: "At Google Cloud, we’re working closely with the healthcare industry to provide the technology and tools that help create better patient experiences, empower care teams to work together and accelerate research. We're focused on supporting the digital transformation of our healthcare customers through data management at scale and advancements in machine learning for timely and actionable insights.\n\n \
+               Next week at the HIMSS Health IT Conference, we're demonstrating the latest innovations in smart data, digital health, APIs, machine learning and real-time communications from Google Cloud, Research, Search, DeepMind and Verily. Together, we offer solutions that help enable hospital and health IT customers to tackle the rapidly evolving and long standing challenges facing the healthcare industry. Here’s a preview of the Google Cloud customers and partners who are joining us at HIMSS.\n\n \
+               For customers like the Colorado Center for Personalized Medicine (CCPM) at the University of Colorado Denver, trust and security are paramount. CCPM has worked closely with the Google Cloud Platform (GCP) team to securely manage and analyze a complicated data set to identify  genetic patterns across a wide range of diseases and reveal new treatment options based on a patient’s unique DNA.\n\n \
+               And the Broad Institute of MIT and Harvard has used Google Genomics for years to combine the power, security features and scale of GCP with the Broad Institute’s expertise in scientific analysis.\n\n \
+               'At the Broad Institute we are committed to driving the pace of innovation through sharing and collaboration. Google Cloud Platform has profoundly transformed the way we build teams and conduct science and has accelerated our research,'  William Mayo, Chief Information Officer at Broad Institute told us.\n\n \
+               To continue to offer these and other healthcare customers the tools they need, today we’re announcing support for the HL7 FHIR Foundation to help the developer community advance data interoperability efforts. The FHIR open standard defines a modern, web API-based approach to communicating healthcare data, making it easier to securely communicate across the healthcare ecosystem including hospitals, labs, applications and research studies.\n\n \
+               'Google Cloud Platform’s commitment to support the ongoing activities of the FHIR community will help advance our goal of global health data interoperability. The future of health computing is clearly in the cloud, and our joint effort will serve to accelerate this transition,' said Grahame Grieve, Principal at Health Intersections, FHIR Product Lead\n\n \
+               Beyond open source, we're committed to supporting a thriving ecosystem of partners whose solutions enable customers to improve patient care across the industry.\n\n \
+               We’ve seen great success for our customers in collaboration with Kinvey, which launched its HIPAA-compliant digital health platform on GCP to leverage our cloud infrastructure and integrate its capabilities with our machine learning and analytics services.\n\n \
+               'In the past year, we’ve seen numerous organizations in healthcare, from institutions like Thomas Jefferson University and Jefferson Health that are building apps to transform care, education and research, and startups like iTether and TempTraq that are driving innovative new solutions, turn to GCP to accelerate their journey to a new patient-centric world,” said Sravish Sridhar, CEO of Kinvey.\n\n \
+               We’ve also published a new guide for HIPAA compliance on GCP, which describes our approach to data security on GCP and provides best-practice guidance on how to securely bring healthcare workloads to the cloud.\n\n \
+               Stop by our booth at HIMSS to hear more about how we’re working with the healthcare industry across Google. We would love to learn how we can engage with you on your next big idea to positively transform healthcare."
+    }];
+
+    function parseText(text) {
+      return text.replace(/^ +| +$/gm, "");
+    }
+
+    function getPosts() {
+      var cleanPosts = posts;
+      for (var i = 0; i < cleanPosts.length; i++) {
+        cleanPosts[i].text = parseText(cleanPosts[i].text);
+      }
+      return cleanPosts;
+    }
+
+    function getPost(id) {
+      for (var i = 0; i < posts.length; i++) {
+        if (id == URIService.encode(posts[i].url)) return posts[i];
+      }
+      return null;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
+    }
+
+    return factory;
+  }
 })();
 'use strict';
 
@@ -68,8 +147,8 @@
             blogDate: blogDate
         };
 
-        function blogDate(date) {
-            return moment(date).format("MMM D, YYYY");
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
         }
 
         return factory;
@@ -223,32 +302,6 @@
       }
 
       if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
     }
 
     return factory;
@@ -577,45 +630,34 @@
 'use strict';
 
 (function () {
-    angular.module('MB').controller('BlogCtrl', BlogCtrl);
+    angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir);
 
-    BlogCtrl.$inject = ['DateService', 'URIService'];
+    BlogCtrl.$inject = ['URIService', 'BlogService', '$stateParams'];
 
-    function BlogCtrl(DateService, URIService) {
+    function BlogCtrl(URIService, BlogService, $stateParams) {
         var vm = this;
-        vm.parseText = parseText;
-        vm.encode = function (str) {
-            var code = URIService.encode(str);
-            console.log(code);
-            console.log(URIService.decode(code));
-            return code;
-        };
+        console.log($stateParams);
+        vm.currentPost = BlogService.getPost($stateParams.postId);
+        console.log(vm.currentPost);
+        console.log(!vm.currentPost);
+        vm.encode = URIService.encode;
         vm.decode = URIService.decode;
 
-        vm.posts = [{
-            url: "nlp-with-stella",
-            title: "Natural Language Processing with Stella",
-            author: "Felix Su",
-            date: DateService.blogDate(new Date()),
-            tags: ["Project Luna", "Cloud", "ML"],
-            category: "Hack Night 2",
-            text: "At Google Cloud, we’re working closely with the healthcare industry to provide the technology and tools that help create better patient experiences, empower care teams to work together and accelerate research. We're focused on supporting the digital transformation of our healthcare customers through data management at scale and advancements in machine learning for timely and actionable insights.\n\n \
-                    Next week at the HIMSS Health IT Conference, we're demonstrating the latest innovations in smart data, digital health, APIs, machine learning and real-time communications from Google Cloud, Research, Search, DeepMind and Verily. Together, we offer solutions that help enable hospital and health IT customers to tackle the rapidly evolving and long standing challenges facing the healthcare industry. Here’s a preview of the Google Cloud customers and partners who are joining us at HIMSS.\n\n \
-                    For customers like the Colorado Center for Personalized Medicine (CCPM) at the University of Colorado Denver, trust and security are paramount. CCPM has worked closely with the Google Cloud Platform (GCP) team to securely manage and analyze a complicated data set to identify  genetic patterns across a wide range of diseases and reveal new treatment options based on a patient’s unique DNA.\n\n \
-                    And the Broad Institute of MIT and Harvard has used Google Genomics for years to combine the power, security features and scale of GCP with the Broad Institute’s expertise in scientific analysis.\n\n \
-                    'At the Broad Institute we are committed to driving the pace of innovation through sharing and collaboration. Google Cloud Platform has profoundly transformed the way we build teams and conduct science and has accelerated our research,'  William Mayo, Chief Information Officer at Broad Institute told us.\n\n \
-                    To continue to offer these and other healthcare customers the tools they need, today we’re announcing support for the HL7 FHIR Foundation to help the developer community advance data interoperability efforts. The FHIR open standard defines a modern, web API-based approach to communicating healthcare data, making it easier to securely communicate across the healthcare ecosystem including hospitals, labs, applications and research studies.\n\n \
-                    'Google Cloud Platform’s commitment to support the ongoing activities of the FHIR community will help advance our goal of global health data interoperability. The future of health computing is clearly in the cloud, and our joint effort will serve to accelerate this transition,' said Grahame Grieve, Principal at Health Intersections, FHIR Product Lead\n\n \
-                    Beyond open source, we're committed to supporting a thriving ecosystem of partners whose solutions enable customers to improve patient care across the industry.\n\n \
-                    We’ve seen great success for our customers in collaboration with Kinvey, which launched its HIPAA-compliant digital health platform on GCP to leverage our cloud infrastructure and integrate its capabilities with our machine learning and analytics services.\n\n \
-                    'In the past year, we’ve seen numerous organizations in healthcare, from institutions like Thomas Jefferson University and Jefferson Health that are building apps to transform care, education and research, and startups like iTether and TempTraq that are driving innovative new solutions, turn to GCP to accelerate their journey to a new patient-centric world,” said Sravish Sridhar, CEO of Kinvey.\n\n \
-                    We’ve also published a new guide for HIPAA compliance on GCP, which describes our approach to data security on GCP and provides best-practice guidance on how to securely bring healthcare workloads to the cloud.\n\n \
-                    Stop by our booth at HIMSS to hear more about how we’re working with the healthcare industry across Google. We would love to learn how we can engage with you on your next big idea to positively transform healthcare."
-        }];
+        vm.posts = BlogService.getPosts();
+    }
 
-        function parseText(text) {
-            return text.replace(/^ +| +$/gm, "");
-        }
+    function PostDir() {
+        return {
+            scope: {
+                title: "=",
+                author: "=",
+                date: "&",
+                tags: '=',
+                category: '=',
+                text: '='
+            },
+            templateUrl: 'templates/pages/blog/post.html'
+        };
     }
 })();
 'use strict';

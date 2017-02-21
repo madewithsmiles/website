@@ -10,8 +10,8 @@
             blogDate: blogDate
         }
 
-        function blogDate(date) {
-            return moment(date).format("MMM D, YYYY");
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
         }
 
         return factory;
