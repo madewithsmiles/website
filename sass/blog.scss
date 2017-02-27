@@ -79,9 +79,7 @@
   font-family: "Source Sans Pro", sans-serif;
 
   .close-button {
-    position: fixed;
-    top: 6em;
-    left: 2em;
+    position: relative;
     cursor: pointer;
 
     i { vertical-align: middle; }
