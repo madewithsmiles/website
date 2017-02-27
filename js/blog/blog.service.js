@@ -21,17 +21,17 @@
         tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
         category: "Hack Night 2",
         preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
+      },
+      {
+        datePath: "2-26-2017",
+        titlePath: "sherlock-facial-recognition",
+        title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
+        author: "Peter Lee",
+        date: DateService.blogDate(2,26,2017),
+        tags: ["Project Sherlock", "Face Detection"],
+        category: "Computer Vision Tutorial",
+        preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
       }
-      // {
-      //   datePath: "2-26-2017",
-      //   titlePath: "sherlock-facial-recognition",
-      //   title: "Sherlock Facial Recognition",
-      //   author: "Peter Lee",
-      //   date: DateService.blogDate(2,26,2017),
-      //   tags: ["Project Sherlock", "Face Recognition", "Hand Tracking", "Hack Night"],
-      //   category: "Tech Tutorial 3",
-      //   preview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor urna in facilisis dictum. Aliquam fermentum quam magna, vitae lacinia risus bibendum ac. Integer eget scelerisque purus. Donec non elementum justo. Suspendisse id est vel odio porta sollicitudin a eget odio. Quisque ultricies euismod purus eu sodales. Pellentesque sed accumsan augue. Vestibulum id ullamcorper turpis, tristique mollis elit. Mauris quis venenatis dui, non euismod nibh. Integer efficitur nulla vitae venenatis tincidunt. Integer blandit consectetur metus quis mattis. Sed tellus neque, vestibulum eu velit ut, consequat semper sapien."
-      // }
     ];
 
     function parseText(text) {
