@@ -1,0 +1,217 @@
+.labs {
+  background-color: white;
+  padding: 30px;
+  font-family: "Source Sans Pro", sans-serif;
+
+  .lab-previews-container {
+    width: 650px;
+    margin: 4em auto;
+    line-height: 2rem;
+
+    .lab-preview {
+      width: 100%;
+      margin-bottom: 2em;
+
+      .lab-preview-title-container {
+        .lab-preview-heading {
+          display: inline-flex;
+          width: 100%;
+          border-bottom: 1px dotted #000;
+          padding-bottom: .5em;
+          margin-bottom: .5em;
+
+          .lab-preview-category {
+            text-align: left;
+            width: 50%;
+          }
+          .lab-preview-date {
+            text-align: right;
+            width: 50%;
+          }
+        }
+        .lab-preview-title {
+          font-weight: 700;
+          font-size: 1.5em;
+          line-height: 1.5em;
+        }
+        .lab-preview-authors-container {
+          //padding: 1em 0;
+
+          .lab-preview-authors {
+
+          }
+          .lab-preview-authors::before {
+            content: 'By ';
+          }
+        }
+      }
+      .lab-preview-text-container {
+        .lab-preview-text {
+          margin-top: 1em;
+          white-space: pre-wrap;
+          font-weight: 300;
+          position: relative;
+          height: 100px;
+          overflow: hidden;
+        }
+        .lab-preview-text::after {
+          content: "";
+          position: absolute;
+          z-index: 1;
+          bottom: 0;
+          left: 0;
+          pointer-events: none;
+          background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255, 1) 90%);
+          width: 100%;
+          height: 4em;
+        }
+        .lab-preview-tags {
+          margin-top: 1em;
+        }
+      }
+    }
+  }
+}
+
+.lab-experiment {
+  background-color: white;
+  padding: 30px;
+  font-family: "Source Sans Pro", sans-serif;
+
+  .close-button {
+    position: relative;
+    cursor: pointer;
+
+    i { vertical-align: middle; }
+  }
+
+  .lab-container {
+    width: 650px;
+    margin: 4em auto;
+    line-height: 2rem;
+
+    .lab-title-container {
+      .lab-heading {
+        display: inline-flex;
+        width: 100%;
+        border-bottom: 1px dotted #000;
+        padding-bottom: .5em;
+        margin-bottom: .5em;
+        font-size: 16px;
+
+        .lab-category {
+          text-align: left;
+          width: 50%;
+        }
+        .lab-date {
+          text-align: right;
+          width: 50%;
+        }
+      }
+      .lab-title {
+        font-weight: 700;
+        font-size: 3em;
+        line-height: 1.2em;
+      }
+      .lab-authors-container {
+        padding: 1em 0 0 0;
+        font-size: 16px;
+
+        .lab-authors {}
+        .lab-authors::before {
+          content: 'By ';
+        }
+      }
+    }
+    .lab-experiment-container {
+      .lab-experiment {
+        font-weight: 300;
+        position: relative;
+        font-size: 16px;
+        line-height: 2em;
+
+        strong {
+          font-weight: 500;
+        }
+
+        code {
+          font-family: "Consolas", "Courier New", sans-serif;
+          background-color: #F7F7F7;
+          border: 1px solid #E1E1E1;
+          font-size: smaller;
+          padding: 2px 5px;
+          margin: 0 2px;
+          border-radius: 3px;
+          vertical-align: middle;
+        }
+
+        .lab-experiment-image {
+          width: 80%;
+          margin: 1em auto;
+          display: block;
+        }
+      }
+      .lab-tags {
+        margin-top: 30px;
+      }
+    }
+
+    .lab-comments {
+      margin-top: 5em;
+    }
+  }
+}
+
+@media #{$medium-and-down} {
+  .lab-previews-container, .lab-container {
+    width: 550px !important;
+  }
+  .close-button {
+    display: none !important;
+  }
+  .lab-experiment-image {
+    width: 100% !important;
+  }
+}
+
+@media #{$small-and-down} {
+  .lab-previews-container, .lab-container {
+    width: 440px !important;
+  }
+  .lab-title {
+    font-size: 2.5em !important;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .lab-experiment {
+    padding: 20px;
+  }
+  .lab-previews-container, .lab-container {
+    width: 360px !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .lab-experiment {
+    padding: 20px;
+  }
+  .lab-previews-container, .lab-container {
+    width: 320px !important;
+  }
+  .lab-title {
+    font-size: 2em !important;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .lab-experiment {
+    padding: 10px;
+  }
+  .lab-previews-container, .lab-container {
+    width: 290px !important;
+  }
+  .lab-title {
+    font-size: 2em !important;
+  }
+}

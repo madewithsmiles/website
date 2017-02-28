@@ -7,10 +7,9 @@
 
     BlogCtrl.$inject = ['BlogService', '$stateParams'];
 
-    function BlogCtrl( BlogService, $stateParams){
+    function BlogCtrl(BlogService, $stateParams){
         var vm = this;
         vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-
         vm.posts = BlogService.getPostMetaData();
     }
 

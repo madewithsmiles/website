@@ -45,6 +45,20 @@
           templateUrl: function (params) {
             return 'templates/pages/blog/posts/' + params.datePath + "/" + params.titlePath + '.html';
           }
+        })
+        .state('lab', {
+          url: '/lab',
+          templateUrl: 'templates/pages/lab/index.html',
+          controller: 'LabCtrl',
+          controllerAs: 'vm'
+        })
+        .state('experiment', {
+          url: '/experiment/{titlePath}',
+          controller: 'LabCtrl',
+          controllerAs: 'vm',
+          templateUrl: function (params) {
+            return 'templates/pages/lab/experiments/' + params.titlePath + '/index.html';
+          }
         });
 
       // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});

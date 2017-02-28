@@ -21,7 +21,7 @@ gulp.task('sass', function() {
 
 gulp.task('js', function() {
     var rootStream = gulp.src('js/app.js');
-    var dependenciesStream = gulp.src(['js/**/*.js', 'templates/**/*.js', '!js/vendor/*.js', '!js/script.js', '!js/app.js']);
+    var dependenciesStream = gulp.src(['js/**/*.js', 'templates/**/*.js', '!templates/pages/experiments/lab/**/*.js', '!js/vendor/*.js', '!js/script.js', '!js/app.js']);
     var mergeStream = merge(rootStream, dependenciesStream)
         .pipe(babel({
             'presets': ['es2015']

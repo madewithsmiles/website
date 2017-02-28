@@ -50,6 +50,18 @@
       templateUrl: function templateUrl(params) {
         return 'templates/pages/blog/posts/' + params.datePath + "/" + params.titlePath + '.html';
       }
+    }).state('lab', {
+      url: '/lab',
+      templateUrl: 'templates/pages/lab/index.html',
+      controller: 'LabCtrl',
+      controllerAs: 'vm'
+    }).state('experiment', {
+      url: '/experiment/{titlePath}',
+      controller: 'LabCtrl',
+      controllerAs: 'vm',
+      templateUrl: function templateUrl(params) {
+        return 'templates/pages/lab/experiments/' + params.titlePath + '/index.html';
+      }
     });
 
     // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});
@@ -308,6 +320,54 @@
       }
 
       if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('LabService', LabService);
+
+  function LabService() {
+    var factory = {
+      getExperimentMetaData: getExperimentMetaData,
+      getExperimentData: getExperimentData
+    };
+
+    var experimentMetaData = [{
+      titlePath: "3d-face",
+      title: "3D Face Pose Estimation",
+      authors: "Peter Lee",
+      tags: ["Project Sherlock", "Computer Vision"],
+      category: "Computer Vision",
+      preview: "Experimenting with face model fitting."
+    }];
+
+    function parseText(text) {
+      // Trim whitespace
+      return text.replace(/^ +| +$/gm, "");
+    }
+
+    function cleanExperimentData(experiment) {
+      experiment.preview = parseText(experiment.preview);
+      return experiment;
+    }
+
+    function getExperimentMetaData() {
+      var cleanData = experimentMetaData;
+      for (var i = 0; i < cleanData.length; i++) {
+        cleanData[i].preview = parseText(cleanData[i].preview);
+      }
+      return cleanData;
+    }
+
+    function getExperimentData(titlePath) {
+      for (var i = 0; i < experimentMetaData.length; i++) {
+        if (titlePath == experimentMetaData[i].titlePath) return cleanExperimentData(experimentMetaData[i]);
+      }
+      return null;
     }
 
     return factory;
@@ -619,7 +679,6 @@
   function BlogCtrl(BlogService, $stateParams) {
     var vm = this;
     vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-
     vm.posts = BlogService.getPostMetaData();
   }
 
@@ -733,4 +792,32 @@
     vm.business = TeamService.getBusiness();
     vm.developers = TeamService.getDevelopers();
   }
+})();
+'use strict';
+
+(function () {
+		angular.module('MB').controller('LabCtrl', LabCtrl).directive('labExperiment', ExperimentDir);
+
+		LabCtrl.$inject = ['LabService', '$stateParams'];
+
+		function LabCtrl(LabService, $stateParams) {
+				var vm = this;
+				vm.currentLab = LabService.getExperimentData($stateParams.titlePath);
+				vm.experiments = LabService.getExperimentMetaData();
+		}
+
+		function ExperimentDir() {
+				return {
+						restrict: 'E',
+						transclude: true,
+						scope: {
+								title: "=",
+								titlePath: "=",
+								authors: "=",
+								tags: '=',
+								category: '='
+						},
+						templateUrl: 'templates/pages/lab/experiment.html'
+				};
+		}
 })();
