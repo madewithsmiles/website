@@ -19,7 +19,7 @@
 			restrict: 'E',
 			transclude: true,
 			scope: {
-        title: "=",
+        name: "=",
 			  titlePath: "=",
 			  authors: "=",
 			  tags: '=',

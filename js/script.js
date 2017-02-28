@@ -38,6 +38,19 @@
       templateUrl: 'templates/pages/apply/index.html',
       controller: 'ApplyCtrl',
       controllerAs: 'vm'
+    }).state('lab', {
+      url: '/lab',
+      templateUrl: 'templates/pages/lab/index.html',
+      controller: 'LabCtrl',
+      controllerAs: 'vm'
+    }).state('experiment', {
+      url: '/experiment/{titlePath}',
+      controller: 'LabCtrl',
+      controllerAs: 'vm',
+      templateUrl: function templateUrl(params) {
+        console.log(params.titlePath);
+        return 'templates/pages/lab/experiments/' + params.titlePath + '/index.html';
+      }
     }).state('blog', {
       url: '/blog',
       templateUrl: 'templates/pages/blog/index.html',
@@ -49,18 +62,6 @@
       controllerAs: 'vm',
       templateUrl: function templateUrl(params) {
         return 'templates/pages/blog/posts/' + params.datePath + "/" + params.titlePath + '.html';
-      }
-    }).state('lab', {
-      url: '/lab',
-      templateUrl: 'templates/pages/lab/index.html',
-      controller: 'LabCtrl',
-      controllerAs: 'vm'
-    }).state('experiment', {
-      url: '/experiment/{titlePath}',
-      controller: 'LabCtrl',
-      controllerAs: 'vm',
-      templateUrl: function templateUrl(params) {
-        return 'templates/pages/lab/experiments/' + params.titlePath + '/index.html';
       }
     });
 
@@ -672,6 +673,57 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -760,7 +812,7 @@
 						restrict: 'E',
 						transclude: true,
 						scope: {
-								title: "=",
+								name: "=",
 								titlePath: "=",
 								authors: "=",
 								tags: '=',
@@ -769,55 +821,4 @@
 						templateUrl: 'templates/pages/lab/experiment.html'
 				};
 		}
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
-    };
-  }
 })();

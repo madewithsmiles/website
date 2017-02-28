@@ -1,20 +1,20 @@
 <section id="lab" class="labs">
     <div class="lab-previews-container">
-        <div class="lab-preview" ng-repeat="experiment in vm.experiments">
+        <div class="lab-preview" ng-repeat="exp in vm.experiments">
             <div class="lab-preview-title-container">
                 <div class="lab-preview-heading">
-                    <div class="lab-preview-category">{{experiment.category}}</div>
+                    <div class="lab-preview-category">{{exp.category}}</div>
                 </div>
-                <div class="lab-preview-title">{{experiment.title}}</div>
+                <div class="lab-preview-title">{{exp.title}}</div>
                 <div class="lab-preview-authors-container">
-                    <div class="lab-preview-authors">{{experiment.authors}}</div>
+                    <div class="lab-preview-authors">{{exp.authors}}</div>
                 </div>
             </div>
             <div class="lab-preview-text-container">
-                <div class="lab-preview-text">{{experiment.preview}}</div>
-                <a ui-sref="experiment({titlePath: experiment.titlePath})">Try it out!</a>
+                <div class="lab-preview-text">{{exp.preview}}</div>
+                <a ui-sref="experiment({titlePath: exp.titlePath})">Try it out!</a>
                 <div class="lab-preview-tags">
-                    <div class="chip" ng-repeat="tag in experiment.tags">{{tag}}</div>
+                    <div class="chip" ng-repeat="tag in exp.tags">{{tag}}</div>
                 </div>
             </div>
         </div>
