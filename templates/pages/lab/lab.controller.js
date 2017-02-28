@@ -8,7 +8,7 @@
 
   function LabCtrl(LabService, $stateParams) {
     var vm = this;
-    vm.currentLab = LabService.getExperimentData(
+    vm.currentExperiment = LabService.getExperimentData(
     	$stateParams.titlePath
     );
     vm.experiments = LabService.getExperimentMetaData();
