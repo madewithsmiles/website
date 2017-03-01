@@ -4,12 +4,10 @@
   font-family: "Source Sans Pro", sans-serif;
 
   .lab-previews-container {
-    width: 650px;
-    margin: 4em auto;
+    padding: 0.8em;
     line-height: 2rem;
 
     .lab-preview {
-      width: 100%;
       margin-bottom: 2em;
 
       .lab-preview-title-container {
@@ -150,9 +148,6 @@
 }
 
 @media #{$medium-and-down} {
-  .lab-previews-container, .lab-container {
-    width: 550px !important;
-  }
   .close-button {
     display: none !important;
   }
@@ -162,9 +157,6 @@
 }
 
 @media #{$small-and-down} {
-  .lab-previews-container, .lab-container {
-    width: 440px !important;
-  }
   .lab-title {
     font-size: 2.5em !important;
   }
@@ -174,17 +166,11 @@
   .lab-experiment {
     padding: 20px;
   }
-  .lab-previews-container, .lab-container {
-    width: 360px !important;
-  }
 }
 
 @media only screen and (max-width: 400px) {
   .lab-experiment {
     padding: 20px;
-  }
-  .lab-previews-container, .lab-container {
-    width: 320px !important;
   }
   .lab-title {
     font-size: 2em !important;
@@ -194,9 +180,6 @@
 @media only screen and (max-width: 350px) {
   .lab-experiment {
     padding: 10px;
-  }
-  .lab-previews-container, .lab-container {
-    width: 290px !important;
   }
   .lab-title {
     font-size: 2em !important;

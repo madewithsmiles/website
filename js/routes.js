@@ -43,7 +43,6 @@
           controller: 'LabCtrl',
           controllerAs: 'vm',
           templateUrl: function (params) {
-            console.log(params.titlePath);
             return 'templates/pages/lab/experiments/' + params.titlePath + '/index.html';
           }
         })
