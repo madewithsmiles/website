@@ -1,4 +1,35 @@
 <lab-experiment category="vm.currentExperiment.category" name="vm.currentExperiment.title" authors="vm.currentExperiment.authors" tags="vm.currentExperiment.tags" title-path="vm.currentExperiment.titlePath">
+	<video id="video" style="float: left; margin-right: 1em;"></video>
+	<div class="glass-container">
+		<div id="list" class="glass-list">
+			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_0.png" style="width: 117px;">
+			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_1.png" style="width: 117px;">
+			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_2.png" style="width: 117px;">
+			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_3.png" style="width: 117px;">
+			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_4.png" style="width: 117px;">
+			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_5.png" style="width: 117px;">
+			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_6.png" style="width: 117px;">
+			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_7.png" style="width: 117px;">
+		</div>
+	</div>
+	
+	<img id="glasses" src="templates/pages/lab/experiments/glasses/media/sunglasses_0.png" style="position: absolute; display: block; opacity: 0">
+	<style type="text/css">
+		.glass-container {
+			position: relative;
+			width: 100%;
+		}
+		.glass-list {
+			display: inline-block;
+			position: relative;
+			left: 50%;
+			transform: translateX(-45%);
+		}
+		.glass {
+			margin: 0.8em;
+		}
+	</style>
+	
 	<script src="templates/pages/lab/experiments/glasses/js/compatibility.js"></script>
 	<script src="templates/pages/lab/experiments/glasses/js/smoother.js"></script>
 	
@@ -74,35 +105,4 @@
 		});
 	};
     </script>
-
-	<video id="video" style="float: left; margin-right: 1em;"></video>
-	<div class="glass-container">
-		<div id="list" class="glass-list">
-			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_0.png" style="width: 117px;">
-			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_1.png" style="width: 117px;">
-			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_2.png" style="width: 117px;">
-			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_3.png" style="width: 117px;">
-			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_4.png" style="width: 117px;">
-			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_5.png" style="width: 117px;">
-			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_6.png" style="width: 117px;">
-			<img class="glass" src="templates/pages/lab/experiments/glasses/media/sunglasses_7.png" style="width: 117px;">
-		</div>
-	</div>
-	
-	<img id="glasses" src="templates/pages/lab/experiments/glasses/media/sunglasses_0.png" style="position: absolute; display: block; opacity: 0">
-	<style type="text/css">
-		.glass-container {
-			position: relative;
-			width: 100%;
-		}
-		.glass-list {
-			display: inline-block;
-			position: relative;
-			left: 50%;
-			transform: translateX(-45%);
-		}
-		.glass {
-			margin: 0.8em;
-		}
-	</style>
 </lab-experiment>
