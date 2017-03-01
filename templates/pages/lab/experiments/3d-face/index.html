@@ -119,8 +119,6 @@
         <img id="audrey" class="masks" src="templates/pages/lab/experiments/3d-face/media/audrey.jpg"></img>
         <img id="cage2" class="masks" src="templates/pages/lab/experiments/3d-face/media/cage.jpg"></img>
 
-
-
         <script>
             var vid = document.getElementById('videoel');
             var overlay = document.getElementById('overlay');
@@ -148,9 +146,6 @@
                 if (!webGLContext || !webGLContext.getExtension('OES_texture_float')) {
                     webGLContext = null;
                 }
-            }
-            if (webGLContext == null) {
-                alert("Your browser does not seem to support WebGL. Unfortunately this face mask example depends on WebGL, so you'll have to try it in another browser. :(");
             }
 
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
