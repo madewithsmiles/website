@@ -337,8 +337,8 @@
     };
 
     var experimentMetaData = [{
-      titlePath: "3d-face",
-      title: "3D Face Pose Estimation",
+      titlePath: "glasses",
+      title: "Glasses with Face Recognition",
       authors: "Peter Lee",
       tags: ["Project Sherlock", "Computer Vision"],
       category: "Computer Vision",
@@ -723,28 +723,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -758,6 +736,28 @@
     vm.sendRequest = function () {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
       var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;
@@ -796,59 +796,44 @@
 'use strict';
 
 (function () {
-    angular.module('MB').controller('LabCtrl', LabCtrl).directive('labExperiment', ExperimentDir);
+  angular.module('MB').controller('LabCtrl', LabCtrl).directive('labExperiment', ExperimentDir);
 
-    LabCtrl.$inject = ['LabService', '$stateParams', '$scope', '$window', '$rootScope'];
+  LabCtrl.$inject = ['LabService', '$stateParams', '$scope', '$window', '$rootScope'];
 
-    function LabCtrl(LabService, $stateParams, $scope, $window, $rootScope) {
-        var vm = this;
-        vm.currentExperiment = LabService.getExperimentData($stateParams.titlePath);
-        vm.experiments = LabService.getExperimentMetaData();
+  function LabCtrl(LabService, $stateParams, $scope, $window, $rootScope) {
+    var vm = this;
+    vm.currentExperiment = LabService.getExperimentData($stateParams.titlePath);
+    vm.experiments = LabService.getExperimentMetaData();
 
-        function getLastWord(str) {
-            var extracted = str.split("/");
-            if (extracted[extracted.length - 1].length > 0) return extracted[extracted.length - 1];else return extracted[extracted.length - 2];
-        }
-
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            var currentPage = getLastWord(current);
-            if (currentPage == '3d-face') {
-                $window.location.reload();
-                // TODO: Attempt to disable webcam instead of reloading.
-                /*navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-                      window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
-                       if (navigator.getUserMedia) {
-                          var videoSelector = {
-                              video: true
-                          };
-                          if (window.navigator.appVersion.match(/Chrome\/(.*?) /)) {
-                              var chromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
-                              if (chromeVersion < 20) {
-                                  videoSelector = "video";
-                              }
-                          };
-                           navigator.getUserMedia(videoSelector, function(stream) {
-                          	console.log(stream.getTracks()[0]);
-                          	stream.getTracks()[0].stop();
-                          	console.log(stream.getTracks()[0]);
-                          }, function() {});
-                      }*/
-            }
-        });
+    function getLastWord(str) {
+      var extracted = str.split("/");
+      if (extracted[extracted.length - 1].length > 0) return extracted[extracted.length - 1];else return extracted[extracted.length - 2];
     }
 
-    function ExperimentDir() {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: {
-                name: "=",
-                titlePath: "=",
-                authors: "=",
-                tags: '=',
-                category: '='
-            },
-            templateUrl: 'templates/pages/lab/experiment.html'
-        };
-    }
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+      var currentPage = getLastWord(current);
+      if (currentPage == 'glasses') {
+        $window.location.reload();
+      }
+      var nextPage = getLastWord(next);
+      if (nextPage == 'glasses') {
+        $window.location.reload();
+      }
+    });
+  }
+
+  function ExperimentDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        titlePath: "=",
+        authors: "=",
+        tags: '=',
+        category: '='
+      },
+      templateUrl: 'templates/pages/lab/experiment.html'
+    };
+  }
 })();

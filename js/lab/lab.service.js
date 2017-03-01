@@ -11,8 +11,8 @@
 
     var experimentMetaData = [
       {
-        titlePath: "3d-face",
-        title: "3D Face Pose Estimation",
+        titlePath: "glasses",
+        title: "Glasses with Face Recognition",
         authors: "Peter Lee",
         tags: ["Project Sherlock", "Computer Vision"],
         category: "Computer Vision",
