@@ -16,7 +16,7 @@
         authors: "Peter Lee",
         tags: ["Project Sherlock", "Computer Vision"],
         category: "Computer Vision",
-        preview: "Experimenting with face model fitting."
+        preview: "Experimenting with Haar Cascades for real-time face detection."
       }
     ];
 
