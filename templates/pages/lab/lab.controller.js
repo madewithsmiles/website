@@ -40,7 +40,6 @@
 			scope: {
         name: "=",
 			  titlePath: "=",
-			  authors: "=",
 			  tags: '=',
 			  category: '='
 			},

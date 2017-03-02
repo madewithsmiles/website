@@ -13,7 +13,6 @@
       {
         titlePath: "glasses",
         title: "Glasses with Face Recognition",
-        authors: "Peter Lee",
         tags: ["Project Sherlock", "Computer Vision"],
         category: "Computer Vision",
         preview: "Experimenting with Haar Cascades for real-time face detection."
