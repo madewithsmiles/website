@@ -1,0 +1,121 @@
+<lab-experiment category="vm.currentExperiment.category" name="vm.currentExperiment.title" tags="vm.currentExperiment.tags" title-path="vm.currentExperiment.titlePath">
+	<button id="startButton" class="btn blue darken-2" onclick="startDemo()">Begin!</button>
+	<script src="./node_modules/matter-0.8.0.js" type="text/javascript"></script>
+	<script src="./node_modules/jshg/gestureRecognizer.js"></script>
+	<script src="./node_modules/jshg/jquery-1.11.0.min.js"></script>
+	<script src="./node_modules/jshg/compatibility.js"></script>
+	<script src="./node_modules/jshg/jshg.js"></script>
+	<div id="canvas-container"></div>
+	<!-- <canvas id="gestureShownHere"></canvas> -->
+	<div id="gestureShownHere"></div>
+
+	<script>
+	function startDemo() {
+		$('#startButton').hide();
+
+		///////////////////PHYSICS ENGINE/////////////////////////////////////
+		// module aliases
+		// var Engine = Matter.Engine,
+		//     Render = Matter.Render,
+		//     World = Matter.World,
+		//     MouseConstraint = Matter.MouseConstraint,
+  //       	Mouse = Matter.Mouse,
+  //       	Events = Matter.Events,
+		//     Bodies = Matter.Bodies;
+
+		// // create an engine
+		// var engine = Engine.create(document.getElementById("canvas-container"), {
+  //       options: {
+  //         width: 600,
+  //         height: 500,                 
+  //         showAngleIndicator: true,
+  //         showVelocity: true,
+  //         wireframes: false
+  //     		}
+  //   	});
+
+		// //create blocks and add them to bodies array
+		// var bodies = [];
+		// for (i = 0; i < 50; i++) {
+		// 	if (i % 2 == 0) { 
+  //   			bodies.push(Bodies.rectangle(350 + i, 50 - i * 20, 50, 80));
+  //  			}else {
+  //  				bodies.push(Bodies.rectangle(450 - i, 50 + i * 10, 40, 40));
+  //  			}
+		// }
+
+		// //create pentagons and push them to bodies array
+		// for (i = 0; i < 8; i++) {
+		// 	bodies.push(Bodies.polygon(400, 30, 5, 50));
+		// }
+
+		// //add walls & ground to the world(just static rectangles)
+		// World.add(engine.world, [
+  //       // ground
+  //       Bodies.rectangle(400, 600, 800, 20, { isStatic: true }),
+  //       //walls(L & R)
+  //       Bodies.rectangle(800, 300, 20, 600, { isStatic: true }),
+  //       Bodies.rectangle(0, 300, 20, 600, { isStatic: true })
+  //   	]);
+
+		// // add all of the bodies to the world
+		// World.add(engine.world, bodies);
+
+		// // add mouse control
+  //       var mouseConstraint = MouseConstraint.create(engine, {
+  //           constraint: {
+  //               stiffness: 0.2,
+  //               render: {
+  //       			visible: false,
+  //   				}
+  //           }
+  //       });
+  //   	World.add(engine.world, mouseConstraint);
+
+		// // run the engine
+		// Engine.run(engine);
+
+		/////////////////////HAND TRACKING/////////////////////////////////////
+
+		//init callBack function for events
+		var actionMapper = function(gesture) {
+			console.log(gesture.handPos)
+			if(gesture.nFingers > 0) {
+				console.log("NumFin: " + gesture.nFingers);
+			}
+	
+    		if (gesture.isLeft) { 
+        		console.log("Hey, your hand is on the left side");
+        	}else if (gesture.isRight) {
+        		console.log("Hey, your hand is on the right side");
+        	}
+		}
+
+		var finishLearning = function() {
+    		JSHG.run()
+		}
+
+		//init hand-tracking engine
+		JSHG.init({
+    		"actionCallback": actionMapper, 
+    		"learnCallback": finishLearning,
+    		"learnDivId": "gestureShownHere",
+    		"gestureDivId": "gestureShownHere",
+    		"settings": {
+    			"learningCountDown_": 10,
+        		"cameraWidth": 500, 
+        		"cameraHeight": 400, 
+        		"gestureDisplayWidth": 300, 
+        		"gestureDisplayHeight": 300
+    		},
+		});
+
+		//run hand-tracking engine
+		// console.log("Tracking!");
+		// console.log(JSHG.isRunning());
+		JSHG.learnSkinColor()
+		// JSHG.run()
+		// console.log(JSHG.isRunning());
+	};
+    </script>
+</lab-experiment>

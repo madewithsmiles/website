@@ -16,6 +16,13 @@
         tags: ["Project Sherlock", "Computer Vision"],
         category: "Computer Vision",
         preview: "Experimenting with Haar Cascades for real-time face detection."
+      },
+      {
+        titlePath: "interactive-physics-engine",
+        title: "Interactive Physics Engine",
+        tags: ["Javascript", "Computer Vision", "Physics-Engine"],
+        category: "Computer Vision",
+        preview: "Experimenting with javascript physics engine and hand tracking."
       }
     ];
 
