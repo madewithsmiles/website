@@ -32,20 +32,6 @@
           controller: 'ApplyCtrl',
           controllerAs: 'vm'
         })
-        .state('lab', {
-          url: '/lab',
-          templateUrl: 'templates/pages/lab/index.html',
-          controller: 'LabCtrl',
-          controllerAs: 'vm'
-        })
-        .state('experiment', {
-          url: '/experiment/{titlePath}',
-          controller: 'LabCtrl',
-          controllerAs: 'vm',
-          templateUrl: function (params) {
-            return 'templates/pages/lab/experiments/' + params.titlePath + '/index.html';
-          }
-        })
         .state('blog', {
           url: '/blog',
           templateUrl: 'templates/pages/blog/index.html',

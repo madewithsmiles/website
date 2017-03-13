@@ -38,18 +38,6 @@
       templateUrl: 'templates/pages/apply/index.html',
       controller: 'ApplyCtrl',
       controllerAs: 'vm'
-    }).state('lab', {
-      url: '/lab',
-      templateUrl: 'templates/pages/lab/index.html',
-      controller: 'LabCtrl',
-      controllerAs: 'vm'
-    }).state('experiment', {
-      url: '/experiment/{titlePath}',
-      controller: 'LabCtrl',
-      controllerAs: 'vm',
-      templateUrl: function templateUrl(params) {
-        return 'templates/pages/lab/experiments/' + params.titlePath + '/index.html';
-      }
     }).state('blog', {
       url: '/blog',
       templateUrl: 'templates/pages/blog/index.html',
@@ -320,53 +308,6 @@
       }
 
       if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('LabService', LabService);
-
-  function LabService() {
-    var factory = {
-      getExperimentMetaData: getExperimentMetaData,
-      getExperimentData: getExperimentData
-    };
-
-    var experimentMetaData = [{
-      titlePath: "glasses",
-      title: "Glasses with Face Recognition",
-      tags: ["Project Sherlock", "Computer Vision"],
-      category: "Computer Vision",
-      preview: "Experimenting with Haar Cascades for real-time face detection."
-    }];
-
-    function parseText(text) {
-      // Trim whitespace
-      return text.replace(/^ +| +$/gm, "");
-    }
-
-    function cleanExperimentData(experiment) {
-      experiment.preview = parseText(experiment.preview);
-      return experiment;
-    }
-
-    function getExperimentMetaData() {
-      var cleanData = experimentMetaData;
-      for (var i = 0; i < cleanData.length; i++) {
-        cleanData[i].preview = parseText(cleanData[i].preview);
-      }
-      return cleanData;
-    }
-
-    function getExperimentData(titlePath) {
-      for (var i = 0; i < experimentMetaData.length; i++) {
-        if (titlePath == experimentMetaData[i].titlePath) return cleanExperimentData(experimentMetaData[i]);
-      }
-      return null;
     }
 
     return factory;
@@ -722,6 +663,28 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -735,28 +698,6 @@
     vm.sendRequest = function () {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
       var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;
@@ -790,48 +731,5 @@
     vm.executives = TeamService.getExecutives();
     vm.business = TeamService.getBusiness();
     vm.developers = TeamService.getDevelopers();
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('LabCtrl', LabCtrl).directive('labExperiment', ExperimentDir);
-
-  LabCtrl.$inject = ['LabService', '$stateParams', '$scope', '$window', '$rootScope'];
-
-  function LabCtrl(LabService, $stateParams, $scope, $window, $rootScope) {
-    var vm = this;
-    vm.currentExperiment = LabService.getExperimentData($stateParams.titlePath);
-    vm.experiments = LabService.getExperimentMetaData();
-
-    function getLastWord(str) {
-      var extracted = str.split("/");
-      if (extracted[extracted.length - 1].length > 0) return extracted[extracted.length - 1];else return extracted[extracted.length - 2];
-    }
-
-    $rootScope.$on('$locationChangeStart', function (event, next, current) {
-      var currentPage = getLastWord(current);
-      if (currentPage == 'glasses') {
-        $window.location.reload();
-      }
-      var nextPage = getLastWord(next);
-      if (nextPage == 'glasses') {
-        $window.location.reload();
-      }
-    });
-  }
-
-  function ExperimentDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        titlePath: "=",
-        tags: '=',
-        category: '='
-      },
-      templateUrl: 'templates/pages/lab/experiment.html'
-    };
   }
 })();
