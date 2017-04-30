@@ -4,12 +4,10 @@
   font-family: "Source Sans Pro", sans-serif;
 
   .lab-previews-container {
-    width: 650px;
-    margin: 4em auto;
+    padding: 0.8em;
     line-height: 2rem;
 
     .lab-preview {
-      width: 100%;
       margin-bottom: 2em;
 
       .lab-preview-title-container {
@@ -47,23 +45,10 @@
       }
       .lab-preview-text-container {
         .lab-preview-text {
-          margin-top: 1em;
           white-space: pre-wrap;
           font-weight: 300;
           position: relative;
-          height: 100px;
           overflow: hidden;
-        }
-        .lab-preview-text::after {
-          content: "";
-          position: absolute;
-          z-index: 1;
-          bottom: 0;
-          left: 0;
-          pointer-events: none;
-          background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255, 1) 90%);
-          width: 100%;
-          height: 4em;
         }
         .lab-preview-tags {
           margin-top: 1em;
@@ -75,7 +60,8 @@
 
 .lab-experiment {
   background-color: white;
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   font-family: "Source Sans Pro", sans-serif;
 
   .close-button {
@@ -163,9 +149,6 @@
 }
 
 @media #{$medium-and-down} {
-  .lab-previews-container, .lab-container {
-    width: 550px !important;
-  }
   .close-button {
     display: none !important;
   }
@@ -175,9 +158,6 @@
 }
 
 @media #{$small-and-down} {
-  .lab-previews-container, .lab-container {
-    width: 440px !important;
-  }
   .lab-title {
     font-size: 2.5em !important;
   }
@@ -187,17 +167,11 @@
   .lab-experiment {
     padding: 20px;
   }
-  .lab-previews-container, .lab-container {
-    width: 360px !important;
-  }
 }
 
 @media only screen and (max-width: 400px) {
   .lab-experiment {
     padding: 20px;
-  }
-  .lab-previews-container, .lab-container {
-    width: 320px !important;
   }
   .lab-title {
     font-size: 2em !important;
@@ -207,9 +181,6 @@
 @media only screen and (max-width: 350px) {
   .lab-experiment {
     padding: 10px;
-  }
-  .lab-previews-container, .lab-container {
-    width: 290px !important;
   }
   .lab-title {
     font-size: 2em !important;
