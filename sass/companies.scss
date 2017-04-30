@@ -24,21 +24,27 @@ section.companies {
 
   .sponsor.title {
     height: 80px;
-    display: block;
-    margin: 25px auto 0 auto;
+    display: inline-block;
+    margin: 25px 25px 0 25px;
   }
 
   .sponsor {
     height: 35px;
     margin: 25px 15px;
     opacity: 0.6;
+    transition: opacity 0.2s;
+    -webkit-transition: opacity .2s;
   }
 
-  .sponsor-very-small {
+  .sponsor:hover {
+    opacity: 1;
+  }
+
+  .sponsor.sponsor-very-small {
     height: 60px;
   }
 
-  .sponsor-too-small {
+  .sponsor.sponsor-too-small {
     height: 45px;
   }
 
