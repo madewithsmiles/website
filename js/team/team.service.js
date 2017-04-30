@@ -9,10 +9,94 @@
     var factory = {
       getAll: getAll,
       getExecutives: getExecutives,
+      getProjectLeaders: getProjectLeaders,
+      getHackathonOfficers: getHackathonOfficers,
       getBusiness: getBusiness,
       getDevelopers: getDevelopers,
+      getOfficers: getOfficers,
       getMembers: getMembers
     }
+
+    // var team = {
+    //   executives: [
+    //     {
+    //       "name": "Felix Su",
+    //       "position": "President / Project Leader",
+    //       "website": "http://felixsu.com",
+    //       "header": "Amazon SDE Intern",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/felix_su.png",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Peter Lee",
+    //       "position": "President / Project Leader",
+    //       "website": "http://peterlee.tech",
+    //       "header": "Microsoft SDE Intern",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/peter_lee.png",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Caleb Siu",
+    //       "position": "Vice President of Technology",
+    //       "website": "https://www.linkedin.com/in/calebsiu",
+    //       "header": "Software Intern at Ryde.ai",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/caleb_siu.jpg",
+    //       "semester": "Fall 2017"
+    //     }
+    //   ],
+    //   projectLeaders: [
+    //     {
+    //       "name": "Nipun Ramakrishnan",
+    //       "position": "Project Leader",
+    //       "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
+    //       "header": "Software Engineering Intern at Texas Instruments",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/nipun_ramakrishnan.jpg",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Hank O'Brien",
+    //       "position": "Project Developer",
+    //       "website": "https://github.com/hjobrien",
+    //       "header": "",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/hank_obrien.jpg",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Arsh Zahed",
+    //       "position": "Project Developer",
+    //       "website": "https://github.com/azahed98",
+    //       "header": "",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/arsh_zahed.jpg",
+    //       "semester": "Fall 2017"
+    //     }
+    //   ],
+    //   hackathonOfficers: [
+    //     {
+    //       "name": "Michael Fan",
+    //       "position": "Hackathon Officer",
+    //       "website": "https://github.com/mqfan",
+    //       "header": "Software Engineering Intern at Workday",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/michael_fan.jpg",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Nina Chang",
+    //       "position": "Hackathon Officer",
+    //       "website": "https://www.linkedin.com/in/nina-chang-100133118",
+    //       "header": "",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/nina_chang.jpg",
+    //       "semester": "Fall 2017"
+    //     }
+    //   ]
+    // }
 
     var team = {
       executives: [
@@ -22,7 +106,7 @@
           "website": "http://felixsu.com",
           "header": "Amazon SDE Intern",
           "subheader": "",
-          "image": "/img/team/executives/felix_su.png",
+          "image": "/img/team/officers/felix_su.png",
           "semester": "Spring 2017"
         },
         {
@@ -31,7 +115,7 @@
           "website": "http://peterlee.tech",
           "header": "Microsoft SDE Intern",
           "subheader": "",
-          "image": "/img/team/executives/peter_lee.png",
+          "image": "/img/team/officers/peter_lee.png",
           "semester": "Spring 2017"
         },
         {
@@ -40,7 +124,7 @@
           "website": "http://linkedin.com/in/katienli",
           "header": "Project Manager at",
           "subheader": "",
-          "image": "/img/team/executives/katie_li.jpg",
+          "image": "/img/team/alumni/katie_li.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -49,7 +133,7 @@
           "website": "http://linkedin.com/in/michellerhuang",
           "header": "Business Analyst at",
           "subheader": "",
-          "image": "/img/team/executives/michelle_huang.jpg",
+          "image": "/img/team/alumni/michelle_huang.jpg",
           "semester": "Spring 2017"
         }
       ],
@@ -60,7 +144,7 @@
           "website": "https://www.linkedin.com/in/adigandhi1",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/business/aditya_gandhi.jpg",
+          "image": "/img/team/alumni/aditya_gandhi.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -69,7 +153,7 @@
           "website": "https://www.linkedin.com/in/zijingxu",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/business/jim_xu.jpg",
+          "image": "/img/team/alumni/jim_xu.jpg",
           "semester": "Spring 2017"
         }
       ],
@@ -81,7 +165,7 @@
           "website": "https://www.linkedin.com/in/annieyueyiwang",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/annie_wang.jpg",
+          "image": "/img/team/alumni/annie_wang.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -90,7 +174,7 @@
           "website": "https://github.com/azahed98",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/arsh_zahed.jpg",
+          "image": "/img/team/officers/arsh_zahed.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -99,7 +183,7 @@
           "website": "https://www.linkedin.com/in/calebsiu",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/caleb_siu.jpg",
+          "image": "/img/team/officers/caleb_siu.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -117,7 +201,7 @@
           "website": "http://evanlimanto.github.io/",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/evan_limanto.jpg",
+          "image": "/img/team/alumni/evan_limanto.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -135,7 +219,7 @@
           "website": "https://github.com/hjobrien",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/hank_obrien.jpg",
+          "image": "/img/team/officers/hank_obrien.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -153,16 +237,16 @@
           "website": "http://lennyd.me/",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/lenny_dong.jpg",
+          "image": "/img/team/alumni/lenny_dong.jpg",
           "semester": "Spring 2017"
         },
         {
           "name": "Michael Fan",
           "position": "Project Developer",
-          "website": "https://github.com/RI5E",
+          "website": "https://github.com/mqfan",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/michael_fan.jpg",
+          "image": "/img/team/officers/michael_fan.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -189,7 +273,7 @@
           "website": "https://www.linkedin.com/in/nina-chang-100133118",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/nina_chang.jpg",
+          "image": "/img/team/officers/nina_chang.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -198,7 +282,7 @@
           "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
           "header": "",
           "subheader": "",
-          "image": "/img/team/members/developers/nipun_ramakrishnan.jpg",
+          "image": "/img/team/officers/nipun_ramakrishnan.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -227,12 +311,32 @@
       return team.executives;
     }
 
+    function getProjectLeaders() {
+      return team.projectLeaders;
+    }
+
+    function getHackathonOfficers() {
+      return team.hackathonOfficers;
+    }
+
     function getBusiness() {
       return team.business;
     }
 
     function getDevelopers() {
       return team.developers;
+    }
+
+    function getOfficers() {
+      var result = [];
+      for (var key in team) {
+        if (team.hasOwnProperty(key)) {
+          if (key == "executives" || key == "projectLeaders" || key == "hackathonOfficers") {
+            result = result.concat(team[key]);
+          }
+        }
+      }
+      return result;
     }
 
     function getMembers() {

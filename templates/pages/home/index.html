@@ -183,51 +183,11 @@
 
 <section id="team-display" class="overview">
 	<div class="container">
-		<h1 class="center-align team-heading">Executive Team</h1>
-		<div class="row">
-			<div class="member col s6 m4 l3" ng-repeat="member in vm.executives">
-				<a ng-href="{{member.website}}" target="_blank">
-					<div class="image-wrapper" ng-style="{'background-image':'url({{member.image}})'}">
-						<div class="overlay">
-							<h1>{{member.semester}}</h1>
-							<h2>{{member.position}}</h2>
-						</div>
-					</div>
-				</a>
-				<h2 class="tagline-header">{{member.name}}</h2>
-				<h2 class="tagline-subheader" ng-if="member.subheader">{{member.subheader}}</h2>
-			</div>
-		</div>
-		<h1 class="center-align team-heading">Business Developers</h1>
-		<div class="row">
-			<div class="member col s6 m4 l3" ng-repeat="member in vm.business">
-				<a ng-href="{{member.website}}" target="_blank">
-					<div class="image-wrapper" ng-style="{'background-image':'url({{member.image}})'}">
-						<div class="overlay">
-							<h1>{{member.semester}}</h1>
-							<h2>{{member.position}}</h2>
-						</div>
-					</div>
-				</a>
-				<h2 class="tagline-header">{{member.name}}</h2>
-				<h2 class="tagline-subheader" ng-if="member.subheader">{{member.subheader}}</h2>
-			</div>
-		</div>
-		<h1 class="center-align team-heading">Project Developers</h1>
-		<div class="row">
-			<div class="member col s6 m4 l3" ng-repeat="member in vm.developers">
-				<a ng-href="{{member.website}}" target="_blank">
-					<div class="image-wrapper" ng-style="{'background-image':'url({{member.image}})'}">
-						<div class="overlay">
-							<h1>{{member.semester}}</h1>
-							<h2>{{member.position}}</h2>
-						</div>
-					</div>
-				</a>
-				<h2 class="tagline-header">{{member.name}}</h2>
-				<h2 class="tagline-subheader" ng-if="member.subheader">{{member.subheader}}</h2>
-			</div>
-		</div>
+		<members-list name="Executive Team" list="vm.executives"></members-list>
+		<!-- <members-list name="Project Leaders" list="vm.projectLeaders"></members-list>
+		<members-list name="Hackathon Officers" list="vm.hackathonOfficers"></members-list> -->
+		<members-list name="Business Associates" list="vm.business"></members-list>
+		<members-list name="Project Developers" list="vm.developers"></members-list>
 	</div>
 </section>
 <section class="companies">

@@ -324,10 +324,94 @@
     var factory = {
       getAll: getAll,
       getExecutives: getExecutives,
+      getProjectLeaders: getProjectLeaders,
+      getHackathonOfficers: getHackathonOfficers,
       getBusiness: getBusiness,
       getDevelopers: getDevelopers,
+      getOfficers: getOfficers,
       getMembers: getMembers
     };
+
+    // var team = {
+    //   executives: [
+    //     {
+    //       "name": "Felix Su",
+    //       "position": "President / Project Leader",
+    //       "website": "http://felixsu.com",
+    //       "header": "Amazon SDE Intern",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/felix_su.png",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Peter Lee",
+    //       "position": "President / Project Leader",
+    //       "website": "http://peterlee.tech",
+    //       "header": "Microsoft SDE Intern",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/peter_lee.png",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Caleb Siu",
+    //       "position": "Vice President of Technology",
+    //       "website": "https://www.linkedin.com/in/calebsiu",
+    //       "header": "Software Intern at Ryde.ai",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/caleb_siu.jpg",
+    //       "semester": "Fall 2017"
+    //     }
+    //   ],
+    //   projectLeaders: [
+    //     {
+    //       "name": "Nipun Ramakrishnan",
+    //       "position": "Project Leader",
+    //       "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
+    //       "header": "Software Engineering Intern at Texas Instruments",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/nipun_ramakrishnan.jpg",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Hank O'Brien",
+    //       "position": "Project Developer",
+    //       "website": "https://github.com/hjobrien",
+    //       "header": "",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/hank_obrien.jpg",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Arsh Zahed",
+    //       "position": "Project Developer",
+    //       "website": "https://github.com/azahed98",
+    //       "header": "",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/arsh_zahed.jpg",
+    //       "semester": "Fall 2017"
+    //     }
+    //   ],
+    //   hackathonOfficers: [
+    //     {
+    //       "name": "Michael Fan",
+    //       "position": "Hackathon Officer",
+    //       "website": "https://github.com/mqfan",
+    //       "header": "Software Engineering Intern at Workday",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/michael_fan.jpg",
+    //       "semester": "Fall 2017"
+    //     },
+    //     {
+    //       "name": "Nina Chang",
+    //       "position": "Hackathon Officer",
+    //       "website": "https://www.linkedin.com/in/nina-chang-100133118",
+    //       "header": "",
+    //       "subheader": "",
+    //       "image": "/img/team/officers/nina_chang.jpg",
+    //       "semester": "Fall 2017"
+    //     }
+    //   ]
+    // }
 
     var team = {
       executives: [{
@@ -336,7 +420,7 @@
         "website": "http://felixsu.com",
         "header": "Amazon SDE Intern",
         "subheader": "",
-        "image": "/img/team/executives/felix_su.png",
+        "image": "/img/team/officers/felix_su.png",
         "semester": "Spring 2017"
       }, {
         "name": "Peter Lee",
@@ -344,7 +428,7 @@
         "website": "http://peterlee.tech",
         "header": "Microsoft SDE Intern",
         "subheader": "",
-        "image": "/img/team/executives/peter_lee.png",
+        "image": "/img/team/officers/peter_lee.png",
         "semester": "Spring 2017"
       }, {
         "name": "Katie Li",
@@ -352,7 +436,7 @@
         "website": "http://linkedin.com/in/katienli",
         "header": "Project Manager at",
         "subheader": "",
-        "image": "/img/team/executives/katie_li.jpg",
+        "image": "/img/team/alumni/katie_li.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Michelle Huang",
@@ -360,7 +444,7 @@
         "website": "http://linkedin.com/in/michellerhuang",
         "header": "Business Analyst at",
         "subheader": "",
-        "image": "/img/team/executives/michelle_huang.jpg",
+        "image": "/img/team/alumni/michelle_huang.jpg",
         "semester": "Spring 2017"
       }],
       business: [{
@@ -369,7 +453,7 @@
         "website": "https://www.linkedin.com/in/adigandhi1",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/business/aditya_gandhi.jpg",
+        "image": "/img/team/alumni/aditya_gandhi.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Jim Xu",
@@ -377,7 +461,7 @@
         "website": "https://www.linkedin.com/in/zijingxu",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/business/jim_xu.jpg",
+        "image": "/img/team/alumni/jim_xu.jpg",
         "semester": "Spring 2017"
       }],
       designers: [],
@@ -387,7 +471,7 @@
         "website": "https://www.linkedin.com/in/annieyueyiwang",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/annie_wang.jpg",
+        "image": "/img/team/alumni/annie_wang.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Arsh Zahed",
@@ -395,7 +479,7 @@
         "website": "https://github.com/azahed98",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/arsh_zahed.jpg",
+        "image": "/img/team/officers/arsh_zahed.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Caleb Siu",
@@ -403,7 +487,7 @@
         "website": "https://www.linkedin.com/in/calebsiu",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/caleb_siu.jpg",
+        "image": "/img/team/officers/caleb_siu.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Darren Lee",
@@ -419,7 +503,7 @@
         "website": "http://evanlimanto.github.io/",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/evan_limanto.jpg",
+        "image": "/img/team/alumni/evan_limanto.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "George Zhang",
@@ -435,7 +519,7 @@
         "website": "https://github.com/hjobrien",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/hank_obrien.jpg",
+        "image": "/img/team/officers/hank_obrien.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Harika Kalidhindi",
@@ -451,15 +535,15 @@
         "website": "http://lennyd.me/",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/lenny_dong.jpg",
+        "image": "/img/team/alumni/lenny_dong.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Michael Fan",
         "position": "Project Developer",
-        "website": "https://github.com/RI5E",
+        "website": "https://github.com/mqfan",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/michael_fan.jpg",
+        "image": "/img/team/officers/michael_fan.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Nate Young",
@@ -483,7 +567,7 @@
         "website": "https://www.linkedin.com/in/nina-chang-100133118",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nina_chang.jpg",
+        "image": "/img/team/officers/nina_chang.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Nipun Ramakrishnan",
@@ -491,7 +575,7 @@
         "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nipun_ramakrishnan.jpg",
+        "image": "/img/team/officers/nipun_ramakrishnan.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Vishal Satish",
@@ -518,12 +602,32 @@
       return team.executives;
     }
 
+    function getProjectLeaders() {
+      return team.projectLeaders;
+    }
+
+    function getHackathonOfficers() {
+      return team.hackathonOfficers;
+    }
+
     function getBusiness() {
       return team.business;
     }
 
     function getDevelopers() {
       return team.developers;
+    }
+
+    function getOfficers() {
+      var result = [];
+      for (var key in team) {
+        if (team.hasOwnProperty(key)) {
+          if (key == "executives" || key == "projectLeaders" || key == "hackathonOfficers") {
+            result = result.concat(team[key]);
+          }
+        }
+      }
+      return result;
     }
 
     function getMembers() {
@@ -612,30 +716,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
 
   BlogCtrl.$inject = ['BlogService', '$stateParams'];
@@ -687,28 +767,25 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('HomeCtrl', HomeCtrl);
-  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
-  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
     var vm = this;
-
     vm.submitted = false;
-    vm.notification = { firstName: null, lastName: null, email: null };
 
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
       if (sent) {
         vm.submitted = true;
         return true;
       }
       return false;
     };
-
-    vm.team = TeamService.getAll();
-    vm.executives = TeamService.getExecutives();
-    vm.business = TeamService.getBusiness();
-    vm.developers = TeamService.getDevelopers();
   }
 })();
 'use strict';
@@ -730,6 +807,48 @@
         return true;
       }
       return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
+
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
+
+  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.notification = { firstName: null, lastName: null, email: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+
+    vm.team = TeamService.getAll();
+    vm.executives = TeamService.getExecutives();
+    vm.projectLeaders = TeamService.getProjectLeaders();
+    vm.hackathonOfficers = TeamService.getHackathonOfficers();
+    vm.business = TeamService.getBusiness();
+    vm.developers = TeamService.getDevelopers();
+  }
+
+  function MembersList() {
+    return {
+      restrict: 'E',
+      // transclude: true,
+      scope: {
+        name: "@",
+        list: "="
+      },
+      templateUrl: 'templates/pages/home/members-list.html'
     };
   }
 })();
