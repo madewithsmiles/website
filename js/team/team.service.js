@@ -8,98 +8,14 @@
   function TeamService(Dropbox, $http, $log){
     var factory = {
       getAll: getAll,
-      getExecutives: getExecutives,
-      getProjectLeaders: getProjectLeaders,
-      getHackathonOfficers: getHackathonOfficers,
-      getBusiness: getBusiness,
-      getDevelopers: getDevelopers,
       getOfficers: getOfficers,
-      getMembers: getMembers
+      getDevelopers: getDevelopers,
+      getAlumni: getAlumni,
+      getPastMembers: getPastMembers
     }
 
-    // var team = {
-    //   executives: [
-    //     {
-    //       "name": "Felix Su",
-    //       "position": "President / Project Leader",
-    //       "website": "http://felixsu.com",
-    //       "header": "Amazon SDE Intern",
-    //       "subheader": "",
-    //       "image": "/img/team/officers/felix_su.png",
-    //       "semester": "Fall 2017"
-    //     },
-    //     {
-    //       "name": "Peter Lee",
-    //       "position": "President / Project Leader",
-    //       "website": "http://peterlee.tech",
-    //       "header": "Microsoft SDE Intern",
-    //       "subheader": "",
-    //       "image": "/img/team/officers/peter_lee.png",
-    //       "semester": "Fall 2017"
-    //     },
-    //     {
-    //       "name": "Caleb Siu",
-    //       "position": "Vice President of Technology",
-    //       "website": "https://www.linkedin.com/in/calebsiu",
-    //       "header": "Software Intern at Ryde.ai",
-    //       "subheader": "",
-    //       "image": "/img/team/officers/caleb_siu.jpg",
-    //       "semester": "Fall 2017"
-    //     }
-    //   ],
-    //   projectLeaders: [
-    //     {
-    //       "name": "Nipun Ramakrishnan",
-    //       "position": "Project Leader",
-    //       "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
-    //       "header": "Software Engineering Intern at Texas Instruments",
-    //       "subheader": "",
-    //       "image": "/img/team/officers/nipun_ramakrishnan.jpg",
-    //       "semester": "Fall 2017"
-    //     },
-    //     {
-    //       "name": "Hank O'Brien",
-    //       "position": "Project Developer",
-    //       "website": "https://github.com/hjobrien",
-    //       "header": "",
-    //       "subheader": "",
-    //       "image": "/img/team/officers/hank_obrien.jpg",
-    //       "semester": "Fall 2017"
-    //     },
-    //     {
-    //       "name": "Arsh Zahed",
-    //       "position": "Project Developer",
-    //       "website": "https://github.com/azahed98",
-    //       "header": "",
-    //       "subheader": "",
-    //       "image": "/img/team/officers/arsh_zahed.jpg",
-    //       "semester": "Fall 2017"
-    //     }
-    //   ],
-    //   hackathonOfficers: [
-    //     {
-    //       "name": "Michael Fan",
-    //       "position": "Hackathon Officer",
-    //       "website": "https://github.com/mqfan",
-    //       "header": "Software Engineering Intern at Workday",
-    //       "subheader": "",
-    //       "image": "/img/team/officers/michael_fan.jpg",
-    //       "semester": "Fall 2017"
-    //     },
-    //     {
-    //       "name": "Nina Chang",
-    //       "position": "Hackathon Officer",
-    //       "website": "https://www.linkedin.com/in/nina-chang-100133118",
-    //       "header": "",
-    //       "subheader": "",
-    //       "image": "/img/team/officers/nina_chang.jpg",
-    //       "semester": "Fall 2017"
-    //     }
-    //   ]
-    // }
-
     var team = {
-      executives: [
+      officers: [
         {
           "name": "Felix Su",
           "position": "President / Project Leader",
@@ -107,8 +23,48 @@
           "header": "Amazon SDE Intern",
           "subheader": "",
           "image": "/img/team/officers/felix_su.png",
-          "semester": "Spring 2017"
+          "semester": "Fall 2017"
         },
+        {
+          "name": "Caleb Siu",
+          "position": "VP of Technology",
+          "website": "https://www.linkedin.com/in/calebsiu",
+          "header": "",
+          "subheader": "",
+          "image": "/img/team/officers/caleb_siu.jpg",
+          "semester": "Fall 2017"
+        },
+        {
+          "name": "Nipun Ramakrishnan",
+          "position": "Project Leader",
+          "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
+          "header": "",
+          "subheader": "",
+          "image": "/img/team/officers/nipun_ramakrishnan.jpg",
+          "semester": "Fall 2017"
+        },
+        {
+          "name": "Hank O'Brien",
+          "position": "Project Leader",
+          "website": "https://github.com/hjobrien",
+          "header": "",
+          "subheader": "",
+          "image": "/img/team/officers/hank_obrien.jpg",
+          "semester": "Fall 2017"
+        },
+        {
+          "name": "Arsh Zahed",
+          "position": "Project Leader",
+          "website": "https://github.com/azahed98",
+          "header": "",
+          "subheader": "",
+          "image": "/img/team/officers/arsh_zahed.jpg",
+          "semester": "Fall 2017"
+        }
+      ],
+      developers: [
+      ],
+      alumni: [
         {
           "name": "Peter Lee",
           "position": "President / Project Leader",
@@ -137,7 +93,7 @@
           "semester": "Spring 2017"
         }
       ],
-      business: [
+      pastMembers: [
         {
           "name": "Aditya Gandhi",
           "position": "Business Developer",
@@ -155,10 +111,7 @@
           "subheader": "",
           "image": "/img/team/alumni/jim_xu.jpg",
           "semester": "Spring 2017"
-        }
-      ],
-      designers: [],
-      developers: [
+        },
         {
           "name": "Annie Wang",
           "position": "Project Developer",
@@ -166,24 +119,6 @@
           "header": "",
           "subheader": "",
           "image": "/img/team/alumni/annie_wang.jpg",
-          "semester": "Spring 2017"
-        },
-        {
-          "name": "Arsh Zahed",
-          "position": "Project Developer",
-          "website": "https://github.com/azahed98",
-          "header": "",
-          "subheader": "",
-          "image": "/img/team/officers/arsh_zahed.jpg",
-          "semester": "Spring 2017"
-        },
-        {
-          "name": "Caleb Siu",
-          "position": "Project Developer",
-          "website": "https://www.linkedin.com/in/calebsiu",
-          "header": "",
-          "subheader": "",
-          "image": "/img/team/officers/caleb_siu.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -211,15 +146,6 @@
           "header": "",
           "subheader": "",
           "image": "/img/team/members/developers/george_zhang.jpg",
-          "semester": "Spring 2017"
-        },
-        {
-          "name": "Hank O'Brien",
-          "position": "Project Developer",
-          "website": "https://github.com/hjobrien",
-          "header": "",
-          "subheader": "",
-          "image": "/img/team/officers/hank_obrien.jpg",
           "semester": "Spring 2017"
         },
         {
@@ -277,15 +203,6 @@
           "semester": "Spring 2017"
         },
         {
-          "name": "Nipun Ramakrishnan",
-          "position": "Project Developer",
-          "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
-          "header": "",
-          "subheader": "",
-          "image": "/img/team/officers/nipun_ramakrishnan.jpg",
-          "semester": "Spring 2017"
-        },
-        {
           "name": "Vishal Satish",
           "position": "Project Developer",
           "website": "https://github.com/visatish",
@@ -307,43 +224,27 @@
       return result;
     }
 
-    function getExecutives() {
-      return team.executives;
+    function getAlumni() {
+      return team.alumni;
     }
 
-    function getProjectLeaders() {
-      return team.projectLeaders;
-    }
-
-    function getHackathonOfficers() {
-      return team.hackathonOfficers;
-    }
-
-    function getBusiness() {
-      return team.business;
+    function getOfficers() {
+      return team.officers
     }
 
     function getDevelopers() {
       return team.developers;
     }
 
-    function getOfficers() {
-      var result = [];
-      for (var key in team) {
-        if (team.hasOwnProperty(key)) {
-          if (key == "executives" || key == "projectLeaders" || key == "hackathonOfficers") {
-            result = result.concat(team[key]);
-          }
-        }
-      }
-      return result;
+    function getPastMembers() {
+      return team.pastMembers;
     }
 
     function getMembers() {
       var result = [];
       for (var key in team) {
         if (team.hasOwnProperty(key)) {
-          if (key != "executives") result = result.concat(team[key]);
+          if (key != "officers" && key != "alumni" && key != "pastMembers") result = result.concat(team[key]);
         }
       }
       return result;

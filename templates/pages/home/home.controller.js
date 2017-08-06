@@ -22,11 +22,9 @@
     };
 
     vm.team = TeamService.getAll();
-    vm.executives = TeamService.getExecutives();
-    vm.projectLeaders = TeamService.getProjectLeaders();
-    vm.hackathonOfficers = TeamService.getHackathonOfficers();
-    vm.business = TeamService.getBusiness();
+    vm.officers = TeamService.getOfficers();
     vm.developers = TeamService.getDevelopers();
+    vm.alumni = TeamService.getAlumni();
   }
 
   function MembersList() {
