@@ -552,7 +552,7 @@
 
   function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
     var vm = this;
-    var temp_deadline = new Date(Date.UTC(2017, 0, 28, 23, 59, 0));
+    var temp_deadline = new Date(Date.UTC(2017, 8, 1, 23, 59, 0));
     temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
     var APP_DEADLINE = temp_deadline;
     var WORD_LIMIT = 200;
