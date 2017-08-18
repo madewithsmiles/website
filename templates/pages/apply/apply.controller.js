@@ -3,15 +3,14 @@
   .module('MB')
   .controller('ApplyCtrl', ApplyCtrl);
 
-  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL', 'Semester'];
+  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
 
-  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL, Semester){
+  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL){
     var vm = this;
     var temp_deadline = new Date(Date.UTC(2017, 8, 1, 23, 59, 0));
     temp_deadline.setTime( temp_deadline.getTime() + temp_deadline.getTimezoneOffset()*60*1000 );
     const APP_DEADLINE = temp_deadline;
     const WORD_LIMIT = 200;
-    vm.semester = Semester
     vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
     vm.positions = ["Project Developer", "Project Leader", "Designer", "Business Developer"];
 
