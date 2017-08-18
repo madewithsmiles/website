@@ -58,111 +58,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('BlogService', BlogService);
-
-  BlogService.$inject = ['DateService'];
-
-  function BlogService(DateService) {
-    var factory = {
-      getPostMetaData: getPostMetaData,
-      getPostData: getPostData
-    };
-
-    var postMetaData = [{
-      datePath: "2-22-2017",
-      titlePath: "nlp-with-stella",
-      title: "Natural Language Processing with Stella",
-      author: "Felix Su",
-      date: DateService.blogDate(2, 22, 2017),
-      tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
-      category: "Hack Night 2",
-      preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
-    }, {
-      datePath: "2-26-2017",
-      titlePath: "sherlock-facial-recognition",
-      title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
-      author: "Peter Lee",
-      date: DateService.blogDate(2, 26, 2017),
-      tags: ["Project Sherlock", "Face Detection"],
-      category: "Computer Vision Tutorial",
-      preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
-    }];
-
-    function parseText(text) {
-      return text.replace(/^ +| +$/gm, "");
-    }
-
-    function cleanPostData(post) {
-      post.preview = parseText(post.preview);
-      return post;
-    }
-
-    function getPostMetaData() {
-      var cleanData = postMetaData;
-      for (var i = 0; i < cleanData.length; i++) {
-        cleanData[i].preview = parseText(cleanData[i].preview);
-      }
-      return cleanData;
-    }
-
-    function getPostData(titlePath) {
-      for (var i = 0; i < postMetaData.length; i++) {
-        if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
-      }
-      return null;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        return factory;
-    }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').factory('FormService', FormService);
 
   FormService.$inject = ['$http', '$log', 'Dropbox'];
@@ -308,6 +203,111 @@
       }
 
       if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('BlogService', BlogService);
+
+  BlogService.$inject = ['DateService'];
+
+  function BlogService(DateService) {
+    var factory = {
+      getPostMetaData: getPostMetaData,
+      getPostData: getPostData
+    };
+
+    var postMetaData = [{
+      datePath: "2-22-2017",
+      titlePath: "nlp-with-stella",
+      title: "Natural Language Processing with Stella",
+      author: "Felix Su",
+      date: DateService.blogDate(2, 22, 2017),
+      tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
+      category: "Hack Night 2",
+      preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
+    }, {
+      datePath: "2-26-2017",
+      titlePath: "sherlock-facial-recognition",
+      title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
+      author: "Peter Lee",
+      date: DateService.blogDate(2, 26, 2017),
+      tags: ["Project Sherlock", "Face Detection"],
+      category: "Computer Vision Tutorial",
+      preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
+    }];
+
+    function parseText(text) {
+      return text.replace(/^ +| +$/gm, "");
+    }
+
+    function cleanPostData(post) {
+      post.preview = parseText(post.preview);
+      return post;
+    }
+
+    function getPostMetaData() {
+      var cleanData = postMetaData;
+      for (var i = 0; i < cleanData.length; i++) {
+        cleanData[i].preview = parseText(cleanData[i].preview);
+      }
+      return cleanData;
+    }
+
+    function getPostData(titlePath) {
+      for (var i = 0; i < postMetaData.length; i++) {
+        if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
+      }
+      return null;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        return factory;
+    }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
     }
 
     return factory;
@@ -616,57 +616,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -680,28 +629,6 @@
     vm.sendRequest = function () {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
       var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;
@@ -747,6 +674,79 @@
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
     };
   }
 })();
