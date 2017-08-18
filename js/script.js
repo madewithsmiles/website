@@ -118,6 +118,25 @@
 'use strict';
 
 (function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        return factory;
+    }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').factory('DropboxService', DropboxService);
 
   DropboxService.$inject = ['Dropbox', '$http', '$log'];
@@ -140,25 +159,6 @@
 
     return factory;
   }
-})();
-'use strict';
-
-(function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        return factory;
-    }
 })();
 'use strict';
 
@@ -548,14 +548,15 @@
 (function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
-  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
+  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL', 'Semester'];
 
-  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
+  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL, Semester) {
     var vm = this;
     var temp_deadline = new Date(Date.UTC(2017, 8, 1, 23, 59, 0));
     temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
     var APP_DEADLINE = temp_deadline;
     var WORD_LIMIT = 200;
+    vm.semester = Semester;
     vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
     vm.positions = ["Project Developer", "Project Leader", "Designer", "Business Developer"];
 
