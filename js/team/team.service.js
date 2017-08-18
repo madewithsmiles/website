@@ -18,7 +18,7 @@
       officers: [
         {
           "name": "Felix Su",
-          "position": "President / Project Leader",
+          "position": "Founder / President",
           "website": "http://felixsu.com",
           "header": "Amazon SDE Intern",
           "subheader": "",
@@ -27,7 +27,7 @@
         },
         {
           "name": "Caleb Siu",
-          "position": "VP of Technology",
+          "position": "Vice President of Technology",
           "website": "https://www.linkedin.com/in/calebsiu",
           "header": "",
           "subheader": "",

@@ -7,7 +7,7 @@
         $('html, body').animate({ scrollTop: 0 }, 300);
       }, 0);
     });
-  }]).constant('Dropbox', new Dropbox({ accessToken: 'jxFO4XmR3oAAAAAAAAAADo6UZ3wEVJac19ppbs7teOK0kOuzfHIa1xvBID-FxSkG' })).constant('ContactSheetURL', 'https://script.google.com/macros/s/AKfycbwgfI7poKThVxhWtYTDCqAKJw5oqo_6sJMR46EGaoGiKZ92VRG-/exec').constant('ApplicationSheetURL', 'https://script.google.com/macros/s/AKfycbyWPGobTkBaiFxAqRsO4RgbVTqarcCPUm0fE4yZUGsv4ZsJR3k/exec').constant('CompanySheetURL', 'https://script.google.com/macros/s/AKfycbz94-rrAQFMYWIi98g96MZVF7pk6K0AIjJM7PzjH0NzJI7ZiA3g/exec').constant('NotificationSheetURL', 'https://script.google.com/macros/s/AKfycbw-Q19a8MpvSRHSUr-litBtbZ74CQkgakAN-C-J1tvIs4k-OVva/exec');
+  }]).constant('Semester', 'Fall 2017').constant('Dropbox', new Dropbox({ accessToken: 'jxFO4XmR3oAAAAAAAAAADo6UZ3wEVJac19ppbs7teOK0kOuzfHIa1xvBID-FxSkG' })).constant('ContactSheetURL', 'https://script.google.com/macros/s/AKfycbwgfI7poKThVxhWtYTDCqAKJw5oqo_6sJMR46EGaoGiKZ92VRG-/exec').constant('ApplicationSheetURL', 'https://script.google.com/macros/s/AKfycbyWPGobTkBaiFxAqRsO4RgbVTqarcCPUm0fE4yZUGsv4ZsJR3k/exec').constant('CompanySheetURL', 'https://script.google.com/macros/s/AKfycbz94-rrAQFMYWIi98g96MZVF7pk6K0AIjJM7PzjH0NzJI7ZiA3g/exec').constant('NotificationSheetURL', 'https://script.google.com/macros/s/AKfycbw-Q19a8MpvSRHSUr-litBtbZ74CQkgakAN-C-J1tvIs4k-OVva/exec');
 })(jQuery);
 'use strict';
 
@@ -54,6 +54,111 @@
 
     // $locationProvider.html5Mode({enabled: true, requireBase: false, rewriteLinks: false});
   });
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('BlogService', BlogService);
+
+  BlogService.$inject = ['DateService'];
+
+  function BlogService(DateService) {
+    var factory = {
+      getPostMetaData: getPostMetaData,
+      getPostData: getPostData
+    };
+
+    var postMetaData = [{
+      datePath: "2-22-2017",
+      titlePath: "nlp-with-stella",
+      title: "Natural Language Processing with Stella",
+      author: "Felix Su",
+      date: DateService.blogDate(2, 22, 2017),
+      tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
+      category: "Hack Night 2",
+      preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
+    }, {
+      datePath: "2-26-2017",
+      titlePath: "sherlock-facial-recognition",
+      title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
+      author: "Peter Lee",
+      date: DateService.blogDate(2, 26, 2017),
+      tags: ["Project Sherlock", "Face Detection"],
+      category: "Computer Vision Tutorial",
+      preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
+    }];
+
+    function parseText(text) {
+      return text.replace(/^ +| +$/gm, "");
+    }
+
+    function cleanPostData(post) {
+      post.preview = parseText(post.preview);
+      return post;
+    }
+
+    function getPostMetaData() {
+      var cleanData = postMetaData;
+      for (var i = 0; i < cleanData.length; i++) {
+        cleanData[i].preview = parseText(cleanData[i].preview);
+      }
+      return cleanData;
+    }
+
+    function getPostData(titlePath) {
+      for (var i = 0; i < postMetaData.length; i++) {
+        if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
+      }
+      return null;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        return factory;
+    }
 })();
 'use strict';
 
@@ -211,111 +316,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('BlogService', BlogService);
-
-  BlogService.$inject = ['DateService'];
-
-  function BlogService(DateService) {
-    var factory = {
-      getPostMetaData: getPostMetaData,
-      getPostData: getPostData
-    };
-
-    var postMetaData = [{
-      datePath: "2-22-2017",
-      titlePath: "nlp-with-stella",
-      title: "Natural Language Processing with Stella",
-      author: "Felix Su",
-      date: DateService.blogDate(2, 22, 2017),
-      tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
-      category: "Hack Night 2",
-      preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
-    }, {
-      datePath: "2-26-2017",
-      titlePath: "sherlock-facial-recognition",
-      title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
-      author: "Peter Lee",
-      date: DateService.blogDate(2, 26, 2017),
-      tags: ["Project Sherlock", "Face Detection"],
-      category: "Computer Vision Tutorial",
-      preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
-    }];
-
-    function parseText(text) {
-      return text.replace(/^ +| +$/gm, "");
-    }
-
-    function cleanPostData(post) {
-      post.preview = parseText(post.preview);
-      return post;
-    }
-
-    function getPostMetaData() {
-      var cleanData = postMetaData;
-      for (var i = 0; i < cleanData.length; i++) {
-        cleanData[i].preview = parseText(cleanData[i].preview);
-      }
-      return cleanData;
-    }
-
-    function getPostData(titlePath) {
-      for (var i = 0; i < postMetaData.length; i++) {
-        if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
-      }
-      return null;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        return factory;
-    }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').factory('TeamService', TeamService);
 
   TeamService.$inject = ['$http', '$log'];
@@ -332,7 +332,7 @@
     var team = {
       officers: [{
         "name": "Felix Su",
-        "position": "President / Project Leader",
+        "position": "Founder / President",
         "website": "http://felixsu.com",
         "header": "Amazon SDE Intern",
         "subheader": "",
@@ -340,7 +340,7 @@
         "semester": "Fall 2017"
       }, {
         "name": "Caleb Siu",
-        "position": "VP of Technology",
+        "position": "Vice President of Technology",
         "website": "https://www.linkedin.com/in/calebsiu",
         "header": "",
         "subheader": "",
@@ -640,68 +640,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
-
-  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
-
-  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.notification = { firstName: null, lastName: null, email: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-
-    vm.team = TeamService.getAll();
-    vm.officers = TeamService.getOfficers();
-    vm.developers = TeamService.getDevelopers();
-    vm.alumni = TeamService.getAlumni();
-  }
-
-  function MembersList() {
-    return {
-      restrict: 'E',
-      // transclude: true,
-      scope: {
-        name: "@",
-        list: "="
-      },
-      templateUrl: 'templates/pages/home/members-list.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
 
   BlogCtrl.$inject = ['BlogService', '$stateParams'];
@@ -747,6 +685,68 @@
           }
         });
       }
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
+
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
+
+  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.notification = { firstName: null, lastName: null, email: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+
+    vm.team = TeamService.getAll();
+    vm.officers = TeamService.getOfficers();
+    vm.developers = TeamService.getDevelopers();
+    vm.alumni = TeamService.getAlumni();
+  }
+
+  function MembersList() {
+    return {
+      restrict: 'E',
+      // transclude: true,
+      scope: {
+        name: "@",
+        list: "="
+      },
+      templateUrl: 'templates/pages/home/members-list.html'
     };
   }
 })();
