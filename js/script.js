@@ -89,12 +89,12 @@
     }, {
       datePath: "8-21-2017",
       titlePath: "stock_prediction",
-      title: "Launchpad: LSTM Stock Prediction",
+      title: "Launchpad: Stock Prediction Attempt using LSTMs",
       author: "Caleb Siu",
       date: DateService.blogDate(8, 21, 2017),
       tags: ["Demo", "LSTM"],
       category: "Demo",
-      preview: "Testing 1 2 3"
+      preview: "Using the predictive powers of LSTM on the stock market..."
     }];
 
     function parseText(text) {
