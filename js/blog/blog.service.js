@@ -31,6 +31,16 @@
         tags: ["Project Sherlock", "Face Detection"],
         category: "Computer Vision Tutorial",
         preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
+      },
+      {
+        datePath: "8-21-2017",
+        titlePath: "stock_prediction",
+        title: "Launchpad: LSTM Stock Prediction",
+        author: "Caleb Siu",
+        date: DateService.blogDate(8,21,2017),
+        tags: ["Demo", "LSTM"],
+        category: "Demo",
+        preview: "Testing 1 2 3"
       }
     ];
 
