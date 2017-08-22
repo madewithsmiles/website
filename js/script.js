@@ -74,6 +74,7 @@
       title: "Natural Language Processing with Stella",
       author: "Felix Su",
       date: DateService.blogDate(2, 22, 2017),
+      timestamp: DateService.timestamp(2, 22, 2017),
       tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
       category: "Hack Night 2",
       preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
@@ -83,9 +84,20 @@
       title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
       author: "Peter Lee",
       date: DateService.blogDate(2, 26, 2017),
+      timestamp: DateService.timestamp(2, 26, 2017),
       tags: ["Project Sherlock", "Face Detection"],
       category: "Computer Vision Tutorial",
       preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
+    }, {
+      datePath: "8-21-2017",
+      titlePath: "music-autoencoders",
+      title: "Autoencoders and Music Generation",
+      author: "Arsh Zahed",
+      date: DateService.blogDate(8, 21, 2017),
+      timestamp: DateService.timestamp(8, 21, 2017),
+      tags: ["DeepBeat", "Music", "Autoencoder", "Magenta"],
+      category: "Preseason Demo",
+      preview: "Google Brain recently added a new model to Magenta, their open-source project for generating music, audio and drawings. The key to Magenta is the use of Auto-Encoders, a special Neural Network architecture. In this tutorial, we will explore the fundamental concepts and implement some code to get a basic auto-encoder up an running."
     }, {
       datePath: "8-22-2017",
       titlePath: "stock-prediction",
@@ -127,6 +139,30 @@
 'use strict';
 
 (function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate,
+            timestamp: timestamp
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        function timestamp(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("x");
+        }
+
+        return factory;
+    }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').factory('DropboxService', DropboxService);
 
   DropboxService.$inject = ['Dropbox', '$http', '$log'];
@@ -149,25 +185,6 @@
 
     return factory;
   }
-})();
-'use strict';
-
-(function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        return factory;
-    }
 })();
 'use strict';
 
@@ -700,6 +717,28 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
 
   HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
@@ -734,28 +773,6 @@
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
     };
   }
 })();
