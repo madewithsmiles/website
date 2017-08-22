@@ -64,11 +64,16 @@
 
     function DateService(moment) {
         var factory = {
-            blogDate: blogDate
+            blogDate: blogDate,
+            timestamp: timestamp
         };
 
         function blogDate(month, day, year) {
             return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        function timestamp(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("x");
         }
 
         return factory;
@@ -93,6 +98,7 @@
       title: "Natural Language Processing with Stella",
       author: "Felix Su",
       date: DateService.blogDate(2, 22, 2017),
+      timestamp: DateService.timestamp(2, 22, 2017),
       tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
       category: "Hack Night 2",
       preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
@@ -102,6 +108,7 @@
       title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
       author: "Peter Lee",
       date: DateService.blogDate(2, 26, 2017),
+      timestamp: DateService.timestamp(2, 26, 2017),
       tags: ["Project Sherlock", "Face Detection"],
       category: "Computer Vision Tutorial",
       preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
@@ -111,6 +118,7 @@
       title: "Autoencoders and Music Generation",
       author: "Arsh Zahed",
       date: DateService.blogDate(8, 21, 2017),
+      timestamp: DateService.timestamp(8, 21, 2017),
       tags: ["DeepBeat", "Music", "Autoencoder", "Magenta"],
       category: "Preseason Demo",
       preview: "Google Brain recently added a new model to Magenta, their open-source project for generating music, audio and drawings. The key to Magenta is the use of Auto-Encoders, a special Neural Network architecture. In this tutorial, we will explore the fundamental concepts and implement some code to get a basic auto-encoder up an running."
@@ -625,30 +633,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
 
   BlogCtrl.$inject = ['BlogService', '$stateParams'];
@@ -694,6 +678,30 @@
           }
         });
       }
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
     };
   }
 })();
