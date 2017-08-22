@@ -50,7 +50,7 @@ X = tf.placeholder("float", [None, n_input])
 Note how the hidden layers of the encoder and decorder are "mirrored".
 """
 weights = {
-	'e_1' : tf.Variable(tf.random_normal([n_input, n_hidden_1])),
+    'e_1' : tf.Variable(tf.random_normal([n_input, n_hidden_1])),
 	'e_2' : tf.Variable(tf.random_normal([n_hidden_1, n_hidden_2])),
 	'd_1' : tf.Variable(tf.random_normal([n_hidden_2, n_hidden_1])),
 	'd_2' : tf.Variable(tf.random_normal([n_hidden_1, n_input]))
