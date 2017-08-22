@@ -58,6 +58,32 @@
 'use strict';
 
 (function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').factory('BlogService', BlogService);
 
   BlogService.$inject = ['DateService'];
@@ -122,32 +148,6 @@
         if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
       }
       return null;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
     }
 
     return factory;
@@ -563,6 +563,57 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -633,46 +684,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
-
-  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
-
-  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.notification = { firstName: null, lastName: null, email: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-
-    vm.team = TeamService.getAll();
-    vm.officers = TeamService.getOfficers();
-    vm.developers = TeamService.getDevelopers();
-    vm.alumni = TeamService.getAlumni();
-  }
-
-  function MembersList() {
-    return {
-      restrict: 'E',
-      // transclude: true,
-      scope: {
-        name: "@",
-        list: "="
-      },
-      templateUrl: 'templates/pages/home/members-list.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -719,51 +730,40 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+  angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
 
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
 
-  function BlogCtrl(BlogService, $stateParams) {
+  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
     var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
 
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
+    vm.submitted = false;
+    vm.notification = { firstName: null, lastName: null, email: null };
 
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
       }
+      return false;
+    };
+
+    vm.team = TeamService.getAll();
+    vm.officers = TeamService.getOfficers();
+    vm.developers = TeamService.getDevelopers();
+    vm.alumni = TeamService.getAlumni();
+  }
+
+  function MembersList() {
+    return {
+      restrict: 'E',
+      // transclude: true,
+      scope: {
+        name: "@",
+        list: "="
+      },
+      templateUrl: 'templates/pages/home/members-list.html'
     };
   }
 })();
