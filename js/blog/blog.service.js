@@ -40,7 +40,7 @@
         date: DateService.blogDate(8,21,2017),
         tags: ["Demo", "LSTM"],
         category: "Demo",
-        preview: "Using the predictive powers of LSTM on the stock market..."
+        preview: "One of the latest models to rise to prominence in the deep learning community has been the Long Short Term Memory network, more commonly known as LSTMs. The model is unique in that it is able to handle long-term dependencies. This is especially useful in solving problems that rely on contextual knowledge based on past inputs. More of what LSTMs are capable of can be read on Andrej Karpathy’s blog post, The Unreasonable Effectiveness of Recurrent Neural Networks."
       }
     ];
 
