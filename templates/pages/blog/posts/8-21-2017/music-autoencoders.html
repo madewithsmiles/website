@@ -58,7 +58,7 @@ biases = {
 }</code>
 
 	<p>Now that our parameters and variables are set up, we can make the encoder and decoder. For our activation functions, we will opt for the sigmoid function. While ReLU is probably more used than sigmoid in most modern architectures, ReLU is not suited for this autoencoder because of it's lack of an upperboud and its vanishing gradient.</p>
-	<p>Additionally we'll be using Minimal Square Error for our cost.</p>
+	<p>Additionally we'll be using Minimum Mean Square Error for our cost.</p>
 	<code style="display:block;white-space:pre-wrap">def encoder(x):
 	# Encoder Hidden layer with sigmoid activation #1
     layer_1 = tf.nn.sigmoid(tf.add(tf.matmul(x, weights['e_1']),
