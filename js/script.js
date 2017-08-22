@@ -58,6 +58,30 @@
 'use strict';
 
 (function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate,
+            timestamp: timestamp
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        function timestamp(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("x");
+        }
+
+        return factory;
+    }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').factory('BlogService', BlogService);
 
   BlogService.$inject = ['DateService'];
@@ -122,56 +146,6 @@
         if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
       }
       return null;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate,
-            timestamp: timestamp
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        function timestamp(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("x");
-        }
-
-        return factory;
-    }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
     }
 
     return factory;
@@ -563,6 +537,32 @@
 'use strict';
 
 (function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -633,92 +633,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
-
-  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
-
-  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.notification = { firstName: null, lastName: null, email: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-
-    vm.team = TeamService.getAll();
-    vm.officers = TeamService.getOfficers();
-    vm.developers = TeamService.getDevelopers();
-    vm.alumni = TeamService.getAlumni();
-  }
-
-  function MembersList() {
-    return {
-      restrict: 'E',
-      // transclude: true,
-      scope: {
-        name: "@",
-        list: "="
-      },
-      templateUrl: 'templates/pages/home/members-list.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
 
   BlogCtrl.$inject = ['BlogService', '$stateParams'];
@@ -764,6 +678,92 @@
           }
         });
       }
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
+
+  HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
+
+  function HomeCtrl(FormService, NotificationSheetURL, TeamService) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.notification = { firstName: null, lastName: null, email: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.notification, NotificationSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+
+    vm.team = TeamService.getAll();
+    vm.officers = TeamService.getOfficers();
+    vm.developers = TeamService.getDevelopers();
+    vm.alumni = TeamService.getAlumni();
+  }
+
+  function MembersList() {
+    return {
+      restrict: 'E',
+      // transclude: true,
+      scope: {
+        name: "@",
+        list: "="
+      },
+      templateUrl: 'templates/pages/home/members-list.html'
     };
   }
 })();
