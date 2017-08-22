@@ -3,7 +3,7 @@
     <img class="blog-post-image" ng-src="templates/pages/blog/posts/{{vm.currentPost.datePath}}/face-detection.jpg"/>
     <p>In this tutorial, we'll go over a complete tutorial on how to write a basic python script using <strong>OpenCV</strong> in less than 20 lines of code that tracks your face in real-time from your webcam. Now, you're going to need <strong>Python 3.5+</strong> and <strong>OpenCV 3.2</strong>. You'll most likely come across problems that are specific to your computer. However, most bugs can be solved through searching Stack Overflow and other forums. To learn more about OpenCV, the tutorials and documentation for both C++ and Python can be found on the <a href="http://docs.opencv.org/master/" target="_blank">official website</a>.</p>
     <p>After installing the latest version of Python and OpenCV, you should create a python script titled <code>faceDetection.py</code>. We'll be using OpenCV to handle the IO from the webcam using this template.</p>
-    <code style="display:block;white-space:pre-wrap">import cv2
+    <pre><code style="display:block;white-space:pre-wrap">import cv2
 camera = cv2.VideoCapture(0)
 while True:
 	_, frame = camera.read()
@@ -13,11 +13,11 @@ while True:
 	if key == 27:
 		break
 camera.release()
-cv2.destroyAllWindows()</code>
+cv2.destroyAllWindows()</code></pre>
 	<p>Now, we'll take a look at the major parts of the template. After importing OpenCV with <code>import cv2</code>, we must create a camera instance with <code>cv2.VideoCapture(0)</code>, which requires either the path to a video file on your computer or zero for the webcam. Then, we can loop through video by reading a frame from the camera instance with <code>camera.read()</code> and flip the frame so that the image becomes a reflection. We can then display the frame using <code>cv2.imshow("Output", frame)</code>, which creates or updates a window. The specify the frame rate, the loop then pauses for 60ms to listen to user input and breaks if the value of the key pressed is 27 or <code>ESC</code>.</p>
 	<p>There are many advanced methods for object and face detection including feature matching algorithms such as SIFT, SURF, and ORB. However, we'll be using Haar Cascade Classifiers, which is an object detection method that relies on <a href="http://docs.opencv.org/trunk/d7/d8b/tutorial_py_face_detection.html" target="_blank">Viola-Jones algorithm</a> implemented in many computer vision frameworks including OpenCV.</p>
 	<p>Before creating a cascade classifier instance, you'll need to import a cascade classifier that's been trained for face detection, which can be found <a href="https://raw.githubusercontent.com/callaunchpad/sherlock/master/sherlock/data/haarcascade_frontalface_default.xml" target="_blank">here</a>. Once you download the xml classifier and move it to the same directory as the script, we can import the classifier.</p>
-	<code style="display:block;white-space:pre-wrap">import cv2
+	<pre><code style="display:block;white-space:pre-wrap">import cv2
 
 classifier_path = './haarcascade_frontalface_default.xml'
 classifier = cv2.CascadeClassifier(classifier_path)
@@ -31,9 +31,9 @@ while True:
 	if key == 27:
 		break
 camera.release()
-cv2.destroyAllWindows()</code>
+cv2.destroyAllWindows()</code></pre>
 	<p>After importing the classifier and converting the frame to grayscale, we can search the frame for matching regions and specify the parameters for the search. To adjust the search, you can modify the <code>scaleFactor</code> and <code>minNeighbors</code>, which adjusts the accuracy and sensitivity respectively. Lastly, we can draw the regions of interest returned by the search, which is a list of rectangles.</p>
-	<code style="display:block;white-space:pre-wrap">import cv2
+	<pre><code style="display:block;white-space:pre-wrap">import cv2
 
 classifier_path = './haarcascade_frontalface_default.xml'
 classifier = cv2.CascadeClassifier(classifier_path)
@@ -66,7 +66,7 @@ while True:
 		break
 
 camera.release()
-cv2.destroyAllWindows()</code>
+cv2.destroyAllWindows()</code></pre>
 	<p>Now, you have a face detector in 20 lines of code! There are many resources online if you're interested in learning more about the algorithms behind the methods. However, hopefully this tutorial has showcased the power of OpenCV and its potential applications.</p>
 	<img class="blog-post-image" ng-src="templates/pages/blog/posts/{{vm.currentPost.datePath}}/vishal_darren_harika_peter.jpg"/>
 	<p><strong>About Team Sherlock</strong></p>
