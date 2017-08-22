@@ -40,7 +40,7 @@
         author: "Arsh Zahed",
         date: DateService.blogDate(8,21,2017),
         tags: ["DeepBeat", "Music", "Autoencoder", "Magenta"],
-        category: "Autoencoder Tutorial",
+        category: "Preseason Demo",
         preview: "Google Brain recently added a new model to Magenta, their open-source project for generating music, audio and drawings. The key to Magenta is the use of Auto-Encoders, a special Neural Network architecture. In this tutorial, we will explore the fundamental concepts and implement some code to get a basic auto-encoder up an running."
       }
     ];
