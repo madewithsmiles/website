@@ -33,13 +33,13 @@
         preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
       },
       {
-        datePath: "8-21-2017",
-        titlePath: "stock_prediction",
+        datePath: "8-22-2017",
+        titlePath: "stock-prediction",
         title: "Launchpad: Stock Prediction Attempt using LSTMs",
         author: "Caleb Siu",
-        date: DateService.blogDate(8,21,2017),
-        tags: ["Demo", "LSTM"],
-        category: "Demo",
+        date: DateService.blogDate(8,22,2017),
+        tags: ["Preseason Demo", "LSTM", "Stock Prediction"],
+        category: "Preseason Demo",
         preview: "One of the latest models to rise to prominence in the deep learning community has been the Long Short Term Memory network, more commonly known as LSTMs. The model is unique in that it is able to handle long-term dependencies. This is especially useful in solving problems that rely on contextual knowledge based on past inputs. More of what LSTMs are capable of can be read on Andrej Karpathy’s blog post, The Unreasonable Effectiveness of Recurrent Neural Networks."
       }
     ];
