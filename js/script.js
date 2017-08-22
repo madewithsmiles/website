@@ -86,6 +86,15 @@
       tags: ["Project Sherlock", "Face Detection"],
       category: "Computer Vision Tutorial",
       preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
+    }, {
+      datePath: "8-21-2017",
+      titlePath: "music-autoencoders",
+      title: "Autoencoders and Music Generation",
+      author: "Arsh Zahed",
+      date: DateService.blogDate(8, 21, 2017),
+      tags: ["DeepBeat", "Music", "Autoencoder", "Magenta"],
+      category: "Autoecoder Tutorial",
+      preview: "Google Brain recently added a new model to Magenta, their open-source project for generating music, audio and drawings. The key to Magenta is the use of Auto-Encoders, a special Neural Network architecture. In this tutorial, we will explore the fundamental concepts and implement some code to get a basic auto-encoder up an running."
     }];
 
     function parseText(text) {
