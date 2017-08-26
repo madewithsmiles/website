@@ -58,26 +58,28 @@
 'use strict';
 
 (function () {
-    angular.module('MB').factory('DateService', DateService);
+  angular.module('MB').factory('DropboxService', DropboxService);
 
-    DateService.$inject = ['moment'];
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
 
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate,
-            timestamp: timestamp
-        };
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
 
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        function timestamp(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("x");
-        }
-
-        return factory;
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
     }
+
+    return factory;
+  }
 })();
 'use strict';
 
@@ -150,6 +152,30 @@
 
     return factory;
   }
+})();
+'use strict';
+
+(function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate,
+            timestamp: timestamp
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        function timestamp(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("x");
+        }
+
+        return factory;
+    }
 })();
 'use strict';
 
@@ -537,27 +563,52 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
 
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
 
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
     };
+  }
 
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
     }
-
-    return factory;
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
+    };
   }
 })();
 'use strict';
@@ -627,57 +678,6 @@
 
     vm.pastDeadline = function () {
       console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
     };
   }
 })();
