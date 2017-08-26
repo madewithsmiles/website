@@ -58,32 +58,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').factory('BlogService', BlogService);
 
   BlogService.$inject = ['DateService'];
@@ -124,6 +98,16 @@
       tags: ["DeepBeat", "Music", "Autoencoder", "Magenta"],
       category: "Preseason Demo",
       preview: "Google Brain recently added a new model to Magenta, their open-source project for generating music, audio and drawings. The key to Magenta is the use of Auto-Encoders, a special Neural Network architecture. In this tutorial, we will explore the fundamental concepts and implement some code to get a basic auto-encoder up an running."
+    }, {
+      datePath: "8-26-2017",
+      titlePath: "music-image",
+      title: "Music and Image Classification",
+      author: "Nipun Ramakrishnan",
+      date: DateService.blogDate(8, 26, 2017),
+      timestamp: DateService.timestamp(8, 26, 2017),
+      tags: ["Audio", "Music", "Classification", "Image"],
+      category: "Preseason Demo",
+      preview: "Music genre classification is a classic problem in which we try to identify the genre of a given piece of music. It’s a challenging task in the field of Music Information Retrieval with some pretty cool applications. For example, Pandora uses genre classifications to dynamically generate images that complement the music. But how does such a classification system work?"
     }];
 
     function parseText(text) {
@@ -148,6 +132,32 @@
         if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
       }
       return null;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
     }
 
     return factory;
@@ -563,57 +573,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -678,6 +637,57 @@
 
     vm.pastDeadline = function () {
       console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
     };
   }
 })();
