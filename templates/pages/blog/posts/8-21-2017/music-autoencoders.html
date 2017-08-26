@@ -16,12 +16,12 @@
     <p>An autoencoder is a neural network that is trained to output exactly what was input. However, what's important about autoencoders is before generating the output, they must first compress the input data into a <b>feature vector</b> of a lower dimensionality than the input and output vectors. This means the neural network has two parts, an <b>encoder</b>, which attempts to effectively compress the input into the feature vector, and the <b>decoder</b>, which attempts to reconstruct the original input from the feature vector.</p>
     <img class="blog-post-image" ng-src="templates/pages/blog/posts/{{vm.currentPost.datePath}}/autoencoder.png"/>
 
-    <p>In the case of Performance-RNN, the primer piece was encoded into a corresponding feature vector. The decoder then did its best job in decoding the feature vector based off of the pieces it's seen before (which are professional performances, not a lullaby tune like the primer), but clearly does a far from perfect job at duplicating the input piece. However, our goal is to create something new, not replicate an input, so the noise and "imperfections" of the decoder are actually what we are looking for. This gives us a new piece that is inspired by what we input.</p>
+    <p>In the case of Performance-RNN, the primer piece was encoded into a corresponding feature vector. The decoder then did its best job in decoding the feature vector based off of the pieces it's seen before (which are professional performances, not a lullaby tune like the primer), but clearly does a far from perfect job at duplicating the input piece. However, our goal is to create something new, not replicate an input, so the noise and "imperfections" of the decoder are actually what we are looking for. This gives us a new piece that is inspired by the primer.</p>
 
     <p>For this tutorial, we will create a regular autoencoder to recreate images from the classic MNIST dataset using TensorFlow. </p>
 
     <p>Firt thing first, let's import all the libraries we'll need.</p>
-    <code style="display:block;white-space:pre-wrap">import numpy as np
+    <pre><code style="display:block;white-space:pre-wrap">import numpy as np
 import tensorflow as tf
 
 import matplotlib.pyplot as plt
@@ -29,9 +29,9 @@ import matplotlib.pyplot as plt
 #Training Data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("MNIST_data", one_hot=True)   	
-    </code>
+    </code></pre>
     <p>Now let's set up the parameters and layers. We'll keep this model relatively small for the sake of simplicity, so we'll go with two hidden layers each for the encoder and decoder. Feel free to mess with some of these parameters. The image sizes of the MNIST samples are 28x28, so we'll need an input vector of 784 dimensions.</p>
-    <code style="display:block;white-space:pre-wrap">#Parameters
+    <pre><code style="display:block;white-space:pre-wrap">#Parameters
 learning_rate = 0.01
 num_epochs = 20
 batch_size = 256
@@ -50,7 +50,7 @@ X = tf.placeholder("float", [None, n_input])
 Note how the hidden layers of the encoder and decorder are "mirrored".
 """
 weights = {
-	'e_1' : tf.Variable(tf.random_normal([n_input, n_hidden_1])),
+    'e_1' : tf.Variable(tf.random_normal([n_input, n_hidden_1])),
 	'e_2' : tf.Variable(tf.random_normal([n_hidden_1, n_hidden_2])),
 	'd_1' : tf.Variable(tf.random_normal([n_hidden_2, n_hidden_1])),
 	'd_2' : tf.Variable(tf.random_normal([n_hidden_1, n_input]))
@@ -61,11 +61,11 @@ biases = {
 	'e_2' : tf.Variable(tf.random_normal([n_hidden_2])),
 	'd_1' : tf.Variable(tf.random_normal([n_hidden_1])),
 	'd_2' : tf.Variable(tf.random_normal([n_input]))
-}</code>
+}</code></pre>
 
 	<p>Now that our parameters and variables are set up, we can make the encoder and decoder. For our activation functions, we will opt for the sigmoid function. While ReLU is probably more used than sigmoid in most modern architectures, ReLU is not suited for this autoencoder because of it's lack of an upperbound and its vanishing gradient.</p>
 	<p>Additionally we'll be using Minimum Mean Square Error for our cost.</p>
-	<code style="display:block;white-space:pre-wrap">def encoder(x):
+	<pre><code style="display:block;white-space:pre-wrap">def encoder(x):
 	# Encoder Hidden layer with sigmoid activation #1
     layer_1 = tf.nn.sigmoid(tf.add(tf.matmul(x, weights['e_1']),
                                    biases['e_1']))
@@ -99,10 +99,9 @@ optimizer = tf.train.RMSPropOptimizer(learning_rate).minimize(cost)
 
 # Initializing the variables
 init = tf.global_variables_initializer()
-</code>
+</code></pre>
 	<p>With that, the model is entirely built. All we need to do now is run it. We can do this just like any other model in TensorFlow.</p>
-	<code style="display:block;white-space:pre-wrap">
-		#Launch the graph
+	<pre><code style="display:block;white-space:pre-wrap">#Launch the graph
 with tf.Session() as sess:
     sess.run(init)	
     total_batch = int(mnist.train.num_examples/batch_size)
@@ -130,7 +129,7 @@ with tf.Session() as sess:
         a[1][i].imshow(np.reshape(encode_decode[i], (28, 28)))
     plt.show()
     plt.draw()
-	</code>
+	</code></pre>
 
 	<p>That's all the code there is! You can check out the code from this <a href="https://github.com/callaunchpad/Autoencoder-Tutorial" target="_blank">github repo</a>. After just 20 epochs of training (taking me about a minute to train on my Macbook), I got a bit over 90% accuracy. Here is a sample of the results.</p>
 	<img class="blog-post-image" ng-src="templates/pages/blog/posts/{{vm.currentPost.datePath}}/autoencoder_result1.png"/>
