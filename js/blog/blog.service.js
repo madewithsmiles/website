@@ -46,14 +46,15 @@
         category: "Preseason Demo",
         preview: "Google Brain recently added a new model to Magenta, their open-source project for generating music, audio and drawings. The key to Magenta is the use of Auto-Encoders, a special Neural Network architecture. In this tutorial, we will explore the fundamental concepts and implement some code to get a basic auto-encoder up an running."
       },
-      { 
-        datePath: "8-26-2017",
-        titlePath: "music-image",
-        title: "Music and Image Classification",
+
+      {
+        datePath: "8-25-2017",
+        titlePath: "music_image",
+        title: "Musecage: Music and Image Classification",
         author: "Nipun Ramakrishnan",
-        date: DateService.blogDate(8,26,2017),
-        timestamp: DateService.timestamp(8,26,2017),
-        tags: ["Audio", "Music", "Classification", "Image"],
+        date: DateService.blogDate(8,27,2017),
+        timestamp: DateService.timestamp(8,27,2017),
+        tags: ["Project Musecage", "Computer Vision", "Music"]
         category: "Preseason Demo",
         preview: "Music genre classification is a classic problem in which we try to identify the genre of a given piece of music. It’s a challenging task in the field of Music Information Retrieval with some pretty cool applications. For example, Pandora uses genre classifications to dynamically generate images that complement the music. But how does such a classification system work?"
       }
