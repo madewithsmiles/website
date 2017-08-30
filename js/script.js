@@ -58,32 +58,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').factory('BlogService', BlogService);
 
   BlogService.$inject = ['DateService'];
@@ -176,6 +150,32 @@
 
         return factory;
     }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
+    }
+
+    return factory;
+  }
 })();
 'use strict';
 
@@ -563,57 +563,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -684,6 +633,57 @@
 'use strict';
 
 (function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
+    };
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -697,28 +697,6 @@
     vm.sendRequest = function () {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
       var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;
@@ -764,6 +742,28 @@
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
     };
   }
 })();
