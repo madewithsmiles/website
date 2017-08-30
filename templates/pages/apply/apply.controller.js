@@ -11,7 +11,7 @@
     temp_deadline.setTime( temp_deadline.getTime() + temp_deadline.getTimezoneOffset()*60*1000 );
     const APP_DEADLINE = temp_deadline;
     const WORD_LIMIT = 200;
-    vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
+    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
     vm.positions = ["Project Developer", "Designer", "Business Developer"];
 
     vm.submitted = false;

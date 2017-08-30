@@ -583,7 +583,7 @@
     temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
     var APP_DEADLINE = temp_deadline;
     var WORD_LIMIT = 200;
-    vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
+    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
     vm.positions = ["Project Developer", "Designer", "Business Developer"];
 
     vm.submitted = false;
@@ -644,8 +644,6 @@
 
 (function () {
   angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-<<<<<<< HEAD
-=======
 
   BlogCtrl.$inject = ['BlogService', '$stateParams'];
 
@@ -696,52 +694,22 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
->>>>>>> 7c1a0d8700977e3958efc976c3c41bba8f19ae82
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
 
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
     var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
 
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
 
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
       }
+      return false;
     };
   }
 })();
@@ -806,28 +774,6 @@
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
     };
   }
 })();
