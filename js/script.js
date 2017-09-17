@@ -104,9 +104,20 @@
       title: "Launchpad: Stock Prediction Attempt using LSTMs",
       author: "Caleb Siu",
       date: DateService.blogDate(8, 22, 2017),
+      timestamp: DateService.timestamp(8, 22, 2017),
       tags: ["Preseason Demo", "LSTM", "Stock Prediction"],
       category: "Preseason Demo",
       preview: "One of the latest models to rise to prominence in the deep learning community has been the Long Short Term Memory network, more commonly known as LSTMs. The model is unique in that it is able to handle long-term dependencies. This is especially useful in solving problems that rely on contextual knowledge based on past inputs. More of what LSTMs are capable of can be read on Andrej Karpathy’s blog post, The Unreasonable Effectiveness of Recurrent Neural Networks."
+    }, {
+      datePath: "8-26-2017",
+      titlePath: "music-image",
+      title: "Music and Image Classification",
+      author: "Nipun Ramakrishnan",
+      date: DateService.blogDate(8, 26, 2017),
+      timestamp: DateService.timestamp(8, 26, 2017),
+      tags: ["Audio", "Image", "Music", "Classification"],
+      category: "Preseason Demo",
+      preview: "Music genre classification is a classic problem in which we try to identify the genre of a given piece of music. It’s a challenging task in the field of Music Information Retrieval with some pretty cool applications. For example, Pandora uses genre classifications to dynamically generate images that complement the music. But how does such a classification system work?"
     }];
 
     function parseText(text) {
@@ -578,11 +589,11 @@
 
   function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
     var vm = this;
-    var temp_deadline = new Date(Date.UTC(2017, 8, 1, 23, 59, 0));
+    var temp_deadline = new Date(Date.UTC(2017, 8, 2, 1, 59, 0));
     temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
     var APP_DEADLINE = temp_deadline;
     var WORD_LIMIT = 200;
-    vm.years = ["Freshman", "Sophomore", "Junior", "Senior"];
+    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
     vm.positions = ["Project Developer", "Designer", "Business Developer"];
 
     vm.submitted = false;
@@ -693,28 +704,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -728,6 +717,28 @@
     vm.sendRequest = function () {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
       var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;

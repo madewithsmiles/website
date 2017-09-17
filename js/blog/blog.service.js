@@ -52,9 +52,21 @@
         title: "Launchpad: Stock Prediction Attempt using LSTMs",
         author: "Caleb Siu",
         date: DateService.blogDate(8,22,2017),
+        timestamp: DateService.timestamp(8,22,2017),
         tags: ["Preseason Demo", "LSTM", "Stock Prediction"],
         category: "Preseason Demo",
         preview: "One of the latest models to rise to prominence in the deep learning community has been the Long Short Term Memory network, more commonly known as LSTMs. The model is unique in that it is able to handle long-term dependencies. This is especially useful in solving problems that rely on contextual knowledge based on past inputs. More of what LSTMs are capable of can be read on Andrej Karpathy’s blog post, The Unreasonable Effectiveness of Recurrent Neural Networks."
+      },
+      {
+        datePath: "8-26-2017",
+        titlePath: "music-image",
+        title: "Music and Image Classification",
+        author: "Nipun Ramakrishnan",
+        date: DateService.blogDate(8,26,2017),
+        timestamp: DateService.timestamp(8,26,2017),
+        tags: ["Audio", "Image", "Music", "Classification"],
+        category: "Preseason Demo",
+        preview: "Music genre classification is a classic problem in which we try to identify the genre of a given piece of music. It’s a challenging task in the field of Music Information Retrieval with some pretty cool applications. For example, Pandora uses genre classifications to dynamically generate images that complement the music. But how does such a classification system work?"
       }
     ];
 
