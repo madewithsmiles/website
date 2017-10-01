@@ -1,0 +1,50 @@
+.alumni-page {
+	.alumni.collection {
+		border: none;
+
+		li {
+			border: none;
+			min-height: 70px;
+		}
+
+		.collection-item.avatar {
+
+			.avatar-image {
+			    position: absolute;
+			    width: 42px;
+			    height: 42px;
+			    overflow: hidden;
+			    left: 15px;
+			    display: inline-block;
+			    vertical-align: middle;
+			    border-radius: 50%;
+			    border: 0;
+			    background: no-repeat center center;
+	    		background-size: cover;
+			}
+
+			.position {
+				color: $dark-grey;
+				font-size: inherit;
+			}
+		}
+	}
+
+	section {
+		padding-top: 4em;
+		padding-bottom: 0;
+	}
+
+	section.companies {
+		padding-top: 1em;
+		padding-bottom: 3em;
+
+		.sponsors-container {
+			margin: 0 auto;
+		}
+	}
+
+	.container {
+		height: 100%;
+	}
+}

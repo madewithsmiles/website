@@ -20,6 +20,11 @@
       templateUrl: 'templates/pages/home/index.html',
       controller: 'HomeCtrl',
       controllerAs: 'vm'
+    }).state('alumni', {
+      url: '/',
+      templateUrl: 'templates/pages/alumni/index.html',
+      controller: 'AlumniCtrl',
+      controllerAs: 'vm'
     }).state('projects', {
       url: '/projects',
       templateUrl: 'templates/pages/projects/index.html'
@@ -352,12 +357,16 @@
 })();
 'use strict';
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 (function () {
   angular.module('MB').factory('TeamService', TeamService);
 
   TeamService.$inject = ['$http', '$log'];
 
   function TeamService(Dropbox, $http, $log) {
+    var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10, _ref11, _ref12, _ref13, _ref14, _ref15, _ref16, _ref17, _ref18, _ref19, _ref20, _ref21;
+
     var factory = {
       getAll: getAll,
       getOfficers: getOfficers,
@@ -371,7 +380,7 @@
         "name": "Felix Su",
         "position": "Founder / President",
         "website": "http://felixsu.com",
-        "header": "Amazon SDE Intern",
+        "header": "",
         "subheader": "",
         "image": "/img/team/officers/felix_su.png",
         "semester": "Fall 2017"
@@ -387,7 +396,7 @@
         "name": "Nipun Ramakrishnan",
         "position": "Project Leader",
         "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
-        "header": "",
+        "header": "MuseCage",
         "subheader": "",
         "image": "/img/team/officers/nipun_ramakrishnan.jpg",
         "semester": "Fall 2017"
@@ -395,7 +404,7 @@
         "name": "Hank O'Brien",
         "position": "Project Leader",
         "website": "https://github.com/hjobrien",
-        "header": "",
+        "header": "UAV Robotics",
         "subheader": "",
         "image": "/img/team/officers/hank_obrien.jpg",
         "semester": "Fall 2017"
@@ -403,146 +412,124 @@
         "name": "Arsh Zahed",
         "position": "Project Leader",
         "website": "https://github.com/azahed98",
-        "header": "",
+        "header": "DeepBeat",
         "subheader": "",
         "image": "/img/team/officers/arsh_zahed.jpg",
         "semester": "Fall 2017"
       }],
-      developers: [{ 'header': '',
+      developers: [(_ref = { 'header': '',
         'image': '/img/team/members/developers/alex_shi.jpg',
         'name': 'Alex Shi',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref, 'header', 'UAV Robotics'), _defineProperty(_ref, 'website', ''), _ref), (_ref2 = { 'header': '',
         'image': '/img/team/members/developers/alex_wu.jpg',
         'name': 'Alex Wu',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref2, 'header', 'UAV Robotics'), _defineProperty(_ref2, 'website', ''), _ref2), (_ref3 = { 'header': '',
         'image': '/img/team/members/developers/an_wang.jpg',
         'name': 'An Wang',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref3, 'header', 'UAV Robotics'), _defineProperty(_ref3, 'website', ''), _ref3), (_ref4 = { 'header': '',
         'image': '/img/team/members/developers/andy_zhang.jpg',
         'name': 'Andy Zhang',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref4, 'header', 'MuseCage'), _defineProperty(_ref4, 'website', ''), _ref4), (_ref5 = { 'header': '',
         'image': '/img/team/members/developers/arjun_khare.jpg',
         'name': 'Arjun Khare',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref5, 'header', 'MuseCage'), _defineProperty(_ref5, 'website', ''), _ref5), (_ref6 = { 'header': '',
         'image': '/img/team/members/developers/daniel_zeng.jpg',
         'name': 'Daniel Zeng',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref6, 'header', 'DeepBeat'), _defineProperty(_ref6, 'website', ''), _ref6), (_ref7 = { 'header': '',
         'image': '/img/team/members/developers/elina_yon.jpg',
         'name': 'Elina Yon',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref7, 'header', 'DeepBeat'), _defineProperty(_ref7, 'website', ''), _ref7), (_ref8 = { 'header': '',
         'image': '/img/team/members/developers/helen_yang.jpg',
         'name': 'Helen Yang',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref8, 'header', 'MuseCage'), _defineProperty(_ref8, 'website', ''), _ref8), (_ref9 = { 'header': '',
         'image': '/img/team/members/developers/jerry_wu.jpg',
         'name': 'Jerry Wu',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref9, 'header', 'DeepBeat'), _defineProperty(_ref9, 'website', ''), _ref9), (_ref10 = { 'header': '',
         'image': '/img/team/members/developers/jonathan_lin.jpg',
         'name': 'Jonathan Lin',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref10, 'header', 'DeepBeat'), _defineProperty(_ref10, 'website', ''), _ref10), (_ref11 = { 'header': '',
         'image': '/img/team/members/developers/laura_smith.jpg',
         'name': 'Laura Smith',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref11, 'header', 'MuseCage'), _defineProperty(_ref11, 'website', ''), _ref11), (_ref12 = { 'header': '',
         'image': '/img/team/members/developers/moira_huang.jpg',
         'name': 'Moira Huang',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref12, 'header', 'DeepBeat'), _defineProperty(_ref12, 'website', ''), _ref12), (_ref13 = { 'header': '',
         'image': '/img/team/members/developers/nicholas_truong.jpg',
         'name': 'Nicholas Truong',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref13, 'header', 'UAV Robotics'), _defineProperty(_ref13, 'website', ''), _ref13), (_ref14 = { 'header': '',
         'image': '/img/team/members/developers/phillip_kravtsov.jpg',
         'name': 'Phillip Kravtsov',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref14, 'header', 'MuseCage'), _defineProperty(_ref14, 'website', ''), _ref14), (_ref15 = { 'header': '',
         'image': '/img/team/members/developers/ryan_hsu.jpg',
         'name': 'Ryan Hsu',
         'position': 'Project Developer / Business Associate',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref15, 'header', 'DeepBeat'), _defineProperty(_ref15, 'website', ''), _ref15), (_ref16 = { 'header': '',
         'image': '/img/team/members/developers/sahil_sancheti.jpg',
         'name': 'Sahil Sancheti',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref16, 'header', 'UAV Robotics'), _defineProperty(_ref16, 'website', ''), _ref16), (_ref17 = { 'header': '',
         'image': '/img/team/members/developers/sean_meng.jpg',
         'name': 'Sean Meng',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref17, 'header', 'MuseCage'), _defineProperty(_ref17, 'website', ''), _ref17), (_ref18 = { 'header': '',
         'image': '/img/team/members/developers/timothy_liu.jpg',
         'name': 'Timothy Liu',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref18, 'header', 'DeepBeat'), _defineProperty(_ref18, 'website', ''), _ref18), (_ref19 = { 'header': '',
         'image': '/img/team/members/developers/victor_chan.jpg',
         'name': 'Victor Chan',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref19, 'header', 'UAV Robotics'), _defineProperty(_ref19, 'website', ''), _ref19), (_ref20 = { 'header': '',
         'image': '/img/team/members/developers/william_fang.jpg',
         'name': 'William Fang',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': '' }, { 'header': '',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref20, 'header', 'MuseCage'), _defineProperty(_ref20, 'website', ''), _ref20), (_ref21 = { 'header': '',
         'image': '/img/team/members/developers/yijin_hua.jpg',
         'name': 'Yijin Hua',
         'position': 'Project Developer',
-        'semester': 'Fall 2017',
-        'subheader': '',
-        'website': ''
-      }],
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref21, 'header', 'DeepBeat'), _defineProperty(_ref21, 'website', ''), _ref21)],
       alumni: [{
         "name": "Peter Lee",
         "position": "President / Project Leader",
         "website": "http://peterlee.tech",
         "header": "Microsoft SDE Intern",
         "subheader": "",
-        "image": "/img/team/officers/peter_lee.png",
+        "image": "/img/team/alumni/peter_lee.png",
         "semester": "Spring 2017"
       }, {
         "name": "Katie Li",
@@ -560,8 +547,7 @@
         "subheader": "",
         "image": "/img/team/alumni/michelle_huang.jpg",
         "semester": "Spring 2017"
-      }],
-      pastMembers: [{
+      }, {
         "name": "Aditya Gandhi",
         "position": "Business Developer",
         "website": "https://www.linkedin.com/in/adigandhi1",
@@ -591,7 +577,7 @@
         "website": "http://darrenklee.me/",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/darren_lee.png",
+        "image": "/img/team/alumni/darren_lee.png",
         "semester": "Spring 2017"
       }, {
         "name": "Evan Limanto",
@@ -607,7 +593,7 @@
         "website": "",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/george_zhang.jpg",
+        "image": "/img/team/alumni/george_zhang.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Harika Kalidhindi",
@@ -615,7 +601,7 @@
         "website": "https://github.com/jrharika",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/harika_kalidhindi.jpg",
+        "image": "/img/team/alumni/harika_kalidhindi.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Lenny Dong",
@@ -631,7 +617,7 @@
         "website": "https://github.com/mqfan",
         "header": "",
         "subheader": "",
-        "image": "/img/team/officers/michael_fan.jpg",
+        "image": "/img/team/alumni/michael_fan.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Nate Young",
@@ -639,7 +625,7 @@
         "website": "https://github.com/natetyoung",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nate_young.jpg",
+        "image": "/img/team/alumni/nate_young.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Nick Zoghb",
@@ -647,7 +633,7 @@
         "website": "https://github.com/nzoghb",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/nick_zoghb.jpg",
+        "image": "/img/team/alumni/nick_zoghb.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Nina Chang",
@@ -655,7 +641,7 @@
         "website": "https://www.linkedin.com/in/nina-chang-100133118",
         "header": "",
         "subheader": "",
-        "image": "/img/team/officers/nina_chang.jpg",
+        "image": "/img/team/alumni/nina_chang.jpg",
         "semester": "Spring 2017"
       }, {
         "name": "Vishal Satish",
@@ -663,7 +649,7 @@
         "website": "https://github.com/visatish",
         "header": "",
         "subheader": "",
-        "image": "/img/team/members/developers/vishal_satish.jpg",
+        "image": "/img/team/alumni/vishal_satish.jpg",
         "semester": "Spring 2017"
       }]
     };
@@ -705,6 +691,80 @@
     }
 
     return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('AlumniCtrl', AlumniCtrl).directive('alumniList', AlumniList);
+
+  AlumniCtrl.$inject = ['TeamService'];
+
+  function AlumniCtrl(TeamService) {
+    var vm = this;
+    vm.alumni_col_2 = TeamService.getAlumni();
+
+    var half = Math.ceil(vm.alumni_col_2.length / 2);
+    vm.alumni_col_1 = vm.alumni_col_2.splice(0, half);
+
+    vm.connections = [{
+      name: "Google",
+      url: "https://www.google.com",
+      image: "img/connections/google.png"
+    }, {
+      name: "Moxtra",
+      url: "https://www.moxtra.com",
+      image: "img/connections/moxtra.png"
+    }, {
+      name: "Amazon",
+      url: "https://www.amazon.com",
+      image: "img/connections/amazon.png"
+    }, {
+      name: "Cisco",
+      url: "https://www.cisco.com",
+      image: "img/connections/cisco.png"
+    }, {
+      name: "DE Shaw & Co",
+      url: "https://www.deshaw.com",
+      image: "img/connections/de_shaw.png"
+    }, {
+      name: "Microsoft",
+      url: "https://www.microsoft.com",
+      image: "img/connections/microsoft.png"
+    }, {
+      name: "Texas Instruments",
+      url: "https://www.ti.com",
+      image: "img/connections/texas_instruments.png"
+    }, {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com",
+      image: "img/connections/linkedin.png"
+    }, {
+      name: "NASA",
+      url: "https://www.nasa.gov",
+      image: "img/connections/nasa.png"
+    }, {
+      name: "Brilliant",
+      url: "https://www.brilliant.org",
+      image: "img/connections/brilliant.png"
+    }];
+
+    vm.research = [{
+      name: "Berkeley Deep Drive",
+      url: "https://deepdrive.berkeley.edu/",
+      image: "img/research/berkeley_deep_drive.png"
+    }];
+  }
+
+  function AlumniList() {
+    return {
+      restrict: 'E',
+      // transclude: true,
+      scope: {
+        list: "="
+      },
+      templateUrl: 'templates/pages/alumni/alumni-list.html'
+    };
   }
 })();
 'use strict';
@@ -831,28 +891,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -866,6 +904,28 @@
     vm.sendRequest = function () {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
       var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
       if (sent) {
         vm.submitted = true;
         return true;

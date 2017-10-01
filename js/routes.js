@@ -10,6 +10,12 @@
           controller: 'HomeCtrl',
           controllerAs: 'vm'
         })
+        .state('alumni', {
+          url: '/',
+          templateUrl: 'templates/pages/alumni/index.html',
+          controller: 'AlumniCtrl',
+          controllerAs: 'vm'
+        })
         .state('projects', {
           url: '/projects',
           templateUrl: 'templates/pages/projects/index.html'
