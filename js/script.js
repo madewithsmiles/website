@@ -21,7 +21,7 @@
       controller: 'HomeCtrl',
       controllerAs: 'vm'
     }).state('alumni', {
-      url: '/',
+      url: '/alumni',
       templateUrl: 'templates/pages/alumni/index.html',
       controller: 'AlumniCtrl',
       controllerAs: 'vm'
@@ -179,6 +179,32 @@
 'use strict';
 
 (function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').factory('FormService', FormService);
 
   FormService.$inject = ['$http', '$log', 'Dropbox'];
@@ -324,32 +350,6 @@
       }
 
       if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
     }
 
     return factory;
@@ -702,10 +702,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
   function AlumniCtrl(TeamService) {
     var vm = this;
-    vm.alumni_col_2 = TeamService.getAlumni();
+    vm.alumni = TeamService.getAlumni();
 
-    var half = Math.ceil(vm.alumni_col_2.length / 2);
-    vm.alumni_col_1 = vm.alumni_col_2.splice(0, half);
+    var half = Math.ceil(vm.alumni.length / 2);
+    vm.alumni_col_1 = vm.alumni.slice(0, half);
+    vm.alumni_col_2 = vm.alumni.slice(half, vm.alumni.length);
 
     vm.connections = [{
       name: "Google",

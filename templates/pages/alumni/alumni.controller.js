@@ -8,10 +8,11 @@
 
   function AlumniCtrl(TeamService) {
     var vm = this;
-    vm.alumni_col_2 = TeamService.getAlumni();
+    vm.alumni = TeamService.getAlumni();
 
-    var half = Math.ceil(vm.alumni_col_2.length/2);   
-    vm.alumni_col_1 = vm.alumni_col_2.splice(0, half);
+    var half = Math.ceil(vm.alumni.length/2);
+    vm.alumni_col_1 = vm.alumni.slice(0, half);
+    vm.alumni_col_2 = vm.alumni.slice(half, vm.alumni.length);
 
     vm.connections = [
       {

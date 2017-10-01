@@ -11,7 +11,7 @@
           controllerAs: 'vm'
         })
         .state('alumni', {
-          url: '/',
+          url: '/alumni',
           templateUrl: 'templates/pages/alumni/index.html',
           controller: 'AlumniCtrl',
           controllerAs: 'vm'
