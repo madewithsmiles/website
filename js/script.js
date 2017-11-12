@@ -7,7 +7,7 @@
         $('html, body').animate({ scrollTop: 0 }, 300);
       }, 0);
     });
-  }]).constant('Dropbox', new Dropbox({ accessToken: 'jxFO4XmR3oAAAAAAAAAADo6UZ3wEVJac19ppbs7teOK0kOuzfHIa1xvBID-FxSkG' })).constant('ContactSheetURL', 'https://script.google.com/macros/s/AKfycbwgfI7poKThVxhWtYTDCqAKJw5oqo_6sJMR46EGaoGiKZ92VRG-/exec').constant('ApplicationSheetURL', 'https://script.google.com/macros/s/AKfycbyWPGobTkBaiFxAqRsO4RgbVTqarcCPUm0fE4yZUGsv4ZsJR3k/exec').constant('CompanySheetURL', 'https://script.google.com/macros/s/AKfycbz94-rrAQFMYWIi98g96MZVF7pk6K0AIjJM7PzjH0NzJI7ZiA3g/exec').constant('NotificationSheetURL', 'https://script.google.com/macros/s/AKfycbw-Q19a8MpvSRHSUr-litBtbZ74CQkgakAN-C-J1tvIs4k-OVva/exec');
+  }]).constant('Dropbox', new Dropbox({ accessToken: 'jxFO4XmR3oAAAAAAAAAADo6UZ3wEVJac19ppbs7teOK0kOuzfHIa1xvBID-FxSkG' })).constant('ContactSheetURL', 'https://script.google.com/macros/s/AKfycbwgfI7poKThVxhWtYTDCqAKJw5oqo_6sJMR46EGaoGiKZ92VRG-/exec').constant('ApplicationSheetURL', 'https://script.google.com/macros/s/AKfycbyWPGobTkBaiFxAqRsO4RgbVTqarcCPUm0fE4yZUGsv4ZsJR3k/exec').constant('CompanySheetURL', 'https://script.google.com/macros/s/AKfycbz94-rrAQFMYWIi98g96MZVF7pk6K0AIjJM7PzjH0NzJI7ZiA3g/exec').constant('NotificationSheetURL', 'https://script.google.com/macros/s/AKfycbw-Q19a8MpvSRHSUr-litBtbZ74CQkgakAN-C-J1tvIs4k-OVva/exec').constant('ShowcaseSheetURL', 'https://script.google.com/macros/s/AKfycbza4R4QbJabhrTOYYKUfWrTxmq_AEU8MSv03AtbUYzJ0jCYIx0/exec');
 })(jQuery);
 'use strict';
 
@@ -19,6 +19,11 @@
       url: '/',
       templateUrl: 'templates/pages/home/index.html',
       controller: 'HomeCtrl',
+      controllerAs: 'vm'
+    }).state('showcase', {
+      url: '/showcase',
+      templateUrl: 'templates/pages/showcase/index.html',
+      controller: 'ShowcaseCtrl',
       controllerAs: 'vm'
     }).state('alumni', {
       url: '/alumni',
@@ -696,81 +701,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('AlumniCtrl', AlumniCtrl).directive('alumniList', AlumniList);
-
-  AlumniCtrl.$inject = ['TeamService'];
-
-  function AlumniCtrl(TeamService) {
-    var vm = this;
-    vm.alumni = TeamService.getAlumni();
-
-    var half = Math.ceil(vm.alumni.length / 2);
-    vm.alumni_col_1 = vm.alumni.slice(0, half);
-    vm.alumni_col_2 = vm.alumni.slice(half, vm.alumni.length);
-
-    vm.connections = [{
-      name: "Google",
-      url: "https://www.google.com",
-      image: "img/connections/google.png"
-    }, {
-      name: "Moxtra",
-      url: "https://www.moxtra.com",
-      image: "img/connections/moxtra.png"
-    }, {
-      name: "Amazon",
-      url: "https://www.amazon.com",
-      image: "img/connections/amazon.png"
-    }, {
-      name: "Cisco",
-      url: "https://www.cisco.com",
-      image: "img/connections/cisco.png"
-    }, {
-      name: "DE Shaw & Co",
-      url: "https://www.deshaw.com",
-      image: "img/connections/de_shaw.png"
-    }, {
-      name: "Microsoft",
-      url: "https://www.microsoft.com",
-      image: "img/connections/microsoft.png"
-    }, {
-      name: "Texas Instruments",
-      url: "https://www.ti.com",
-      image: "img/connections/texas_instruments.png"
-    }, {
-      name: "LinkedIn",
-      url: "https://www.linkedin.com",
-      image: "img/connections/linkedin.png"
-    }, {
-      name: "NASA",
-      url: "https://www.nasa.gov",
-      image: "img/connections/nasa.png"
-    }, {
-      name: "Brilliant",
-      url: "https://www.brilliant.org",
-      image: "img/connections/brilliant.png"
-    }];
-
-    vm.research = [{
-      name: "Berkeley Deep Drive",
-      url: "https://deepdrive.berkeley.edu/",
-      image: "img/research/berkeley_deep_drive.png"
-    }];
-  }
-
-  function AlumniList() {
-    return {
-      restrict: 'E',
-      // transclude: true,
-      scope: {
-        list: "="
-      },
-      templateUrl: 'templates/pages/alumni/alumni-list.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -865,57 +795,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ContactCtrl', ContactCtrl);
   ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
 
@@ -972,6 +851,157 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ShowcaseCtrl', ShowcaseCtrl);
+
+  ShowcaseCtrl.$inject = ['FormService', 'ShowcaseSheetURL'];
+
+  function ShowcaseCtrl(FormService, ShowcaseSheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, message: null };
+    console.log(ShowcaseSheetURL);
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, ShowcaseSheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('AlumniCtrl', AlumniCtrl).directive('alumniList', AlumniList);
+
+  AlumniCtrl.$inject = ['TeamService'];
+
+  function AlumniCtrl(TeamService) {
+    var vm = this;
+    vm.alumni = TeamService.getAlumni();
+
+    var half = Math.ceil(vm.alumni.length / 2);
+    vm.alumni_col_1 = vm.alumni.slice(0, half);
+    vm.alumni_col_2 = vm.alumni.slice(half, vm.alumni.length);
+
+    vm.connections = [{
+      name: "Google",
+      url: "https://www.google.com",
+      image: "img/connections/google.png"
+    }, {
+      name: "Moxtra",
+      url: "https://www.moxtra.com",
+      image: "img/connections/moxtra.png"
+    }, {
+      name: "Amazon",
+      url: "https://www.amazon.com",
+      image: "img/connections/amazon.png"
+    }, {
+      name: "Cisco",
+      url: "https://www.cisco.com",
+      image: "img/connections/cisco.png"
+    }, {
+      name: "DE Shaw & Co",
+      url: "https://www.deshaw.com",
+      image: "img/connections/de_shaw.png"
+    }, {
+      name: "Microsoft",
+      url: "https://www.microsoft.com",
+      image: "img/connections/microsoft.png"
+    }, {
+      name: "Texas Instruments",
+      url: "https://www.ti.com",
+      image: "img/connections/texas_instruments.png"
+    }, {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com",
+      image: "img/connections/linkedin.png"
+    }, {
+      name: "NASA",
+      url: "https://www.nasa.gov",
+      image: "img/connections/nasa.png"
+    }, {
+      name: "Brilliant",
+      url: "https://www.brilliant.org",
+      image: "img/connections/brilliant.png"
+    }];
+
+    vm.research = [{
+      name: "Berkeley Deep Drive",
+      url: "https://deepdrive.berkeley.edu/",
+      image: "img/research/berkeley_deep_drive.png"
+    }];
+  }
+
+  function AlumniList() {
+    return {
+      restrict: 'E',
+      // transclude: true,
+      scope: {
+        list: "="
+      },
+      templateUrl: 'templates/pages/alumni/alumni-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
     };
   }
 })();

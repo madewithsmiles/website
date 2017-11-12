@@ -10,6 +10,12 @@
           controller: 'HomeCtrl',
           controllerAs: 'vm'
         })
+        .state('showcase', {
+          url: '/showcase',
+          templateUrl: 'templates/pages/showcase/index.html',
+          controller: 'ShowcaseCtrl',
+          controllerAs: 'vm'
+        })
         .state('alumni', {
           url: '/alumni',
           templateUrl: 'templates/pages/alumni/index.html',

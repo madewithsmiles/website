@@ -109,6 +109,48 @@ div.shade-overlay {
 	}
 }
 
+.parallax-container.showcase {
+	height: 380px;
+
+	.title-cover {
+		width: 100%;
+		height: 380px;
+		margin-bottom: 2em;
+		overflow: hidden;
+
+		.text-container {
+			width: 100%;
+			padding-left: 0.8em;
+			padding-right: 0.8em;
+			z-index: 999;
+
+			h3 {
+				@include font($alt-display-font, 1.8em, 600);
+				letter-spacing: 2px;
+				margin-bottom: 0.2em;
+			}
+
+			p {
+				@include font($content-font, 1.2em, 200);
+				opacity: 0.9;
+				max-width: 80%;
+				margin: auto;
+				margin-top: 0.4em;
+			}
+		}
+	}
+
+	.overlay {
+		background-color: rgba(0, 0, 0, 0.7);
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 1;
+	}
+}
+
 a.anchor {
   display: block;
   position: relative;
@@ -175,6 +217,7 @@ section#previews {
 @import 'newsletter';
 @import 'project';
 @import 'companies';
+@import 'showcase';
 @import 'apply';
 @import 'animations';
 @import 'fonts';

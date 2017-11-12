@@ -1,0 +1,111 @@
+section.registration {
+  background-color: white;
+	padding-top: 2em;
+	padding-bottom: 1em;
+
+  h1 { @include font($display-font, 2.2em, 700); }
+  h3 { @include font($content-font, 1.3em, 700); }
+  p, li { font-size: 1.1em; }
+
+  @media #{$small-and-down} {
+    h1 { font-size: 1.4em; }
+    span, p, li { font-size: 1em; }
+  }
+
+  .sponsors-container {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+
+  .sponsor.title {
+    height: 80px;
+    display: inline-block;
+    margin: 25px 25px 0 25px;
+  }
+
+  .sponsor {
+    height: 35px;
+    margin: 25px 15px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    -webkit-transition: opacity .2s;
+  }
+
+  .sponsor:hover {
+    opacity: 1;
+  }
+
+  .sponsor.sponsor-very-small {
+    height: 60px;
+  }
+
+  .sponsor.sponsor-too-small {
+    height: 45px;
+  }
+
+  @media #{$small-and-down} {
+    .sponsor {
+      height: 15px;
+      margin: 10px;
+    }
+
+    .sponsor.title {
+      height: 25px;
+      margin: 10px auto 0 auto;
+    }
+
+    .sponsor-very-small {
+      height: 25px;
+    }
+
+    .sponsor-too-small {
+      height: 20px;
+    }
+  }
+
+  .submit-btn {
+    float: right;
+    background-color: white !important;
+    color: $dark-blue;
+  }
+}
+
+
+section.showcase {
+  background-color: white;
+  padding-top: 1em;
+  padding-bottom: 4em;
+
+  h1 { @include font($display-font, 2.2em, 700); }
+  h2 { @include font($content-font, 1.7em, 700); }
+  h3 { @include font($content-font, 1.3em, 700); }
+
+  p, li { font-size: 1.1em; }
+
+  @media #{$small-and-down} {
+    h1 { font-size: 1.4em; }
+
+    span, p, li { font-size: 1em; }
+  }
+
+  .cover-img {
+    width: 100%;
+    position: relative;
+    margin-top: 2em;
+  }
+
+  .showcase-img {
+    width: 100%;
+    position: relative;
+  }
+
+  .showcase-text {
+    width: 100%;
+    position: relative;
+    vertical-align: top;
+  }
+}
+
+
