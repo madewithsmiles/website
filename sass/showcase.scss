@@ -85,7 +85,7 @@ section.showcase {
 
   h1 { @include font($display-font, 2.2em, 700); }
   h2 { @include font($content-font, 1.7em, 700); }
-  h3 { @include font($content-font, 1.3em, 700); margin-top: 0;}
+  h3 { @include font($content-font, 1.3em, 700); margin-top: 0; padding-top: 0;}
 
   p, li { font-size: 1.1em; }
 

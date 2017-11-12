@@ -209,6 +209,159 @@
 })();
 'use strict';
 
+(function () {
+  angular.module('MB').factory('FormService', FormService);
+
+  FormService.$inject = ['$http', '$log', 'Dropbox'];
+
+  function FormService($http, $log, Dropbox) {
+    var factory = {
+      checkFullSubmit: checkFullSubmit,
+      sendMessage: sendMessage,
+      sendToSheet: sendToSheet,
+      submitApplication: submitApplication,
+      updateTextArea: updateTextArea
+    };
+
+    function checkFullSubmit(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) {
+          if (!object[key] && key != 'optional' && key != 'github') {
+            console.log("Invalid key: " + key);
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function camelCaseToPretty(text) {
+      var spaces = text.replace(/([A-Z0-9])/g, " $1");
+      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
+      return pretty;
+    }
+
+    function renameProperty(object, oldName, newName) {
+      if (oldName == newName) {
+        return object;
+      }
+      if (object.hasOwnProperty(oldName)) {
+        object[newName] = object[oldName];
+        delete object[oldName];
+      }
+      return object;
+    };
+
+    function prettyObjectKeys(object) {
+      for (var key in object) {
+        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
+      }
+      return object;
+    }
+
+    function sendMessage(messageObject, errorMessage, gFormURL) {
+      var okay = checkFullSubmit(messageObject);
+      var postData = $.param(messageObject);
+      console.log(postData);
+
+      if (okay) {
+        $http({
+          url: gFormURL,
+          method: "POST",
+          data: postData,
+          dataType: "json"
+        }).then(function successCallback(response) {
+          $log.debug(response);
+        }, function errorCallback(response) {
+          $log.error(response);
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
+      var okay = checkFullSubmit(messageObject);
+      if (okay) {
+        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+          messageObject.resume = response.name;
+          sendToSheet(messageObject, sheetURL, errorMessage);
+          return true;
+        }).catch(function (error) {
+          $log.error(error);
+          return false;
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    function sendToSheet(messageObject, sheetURL, errorMessage) {
+      var okay = checkFullSubmit(messageObject);
+      var message = prettyObjectKeys(messageObject);
+      var postData = $.param(messageObject);
+      if (okay) {
+        $.ajax({
+          url: sheetURL,
+          type: "post",
+          data: postData,
+          success: function success(response) {
+            $log.debug('Message Sent: ' + JSON.stringify(response));
+          },
+          error: function error(request, textStatus, errorThrown) {
+            $log.error("Status: " + textStatus);
+            $log.error("Error: " + errorThrown);
+          }
+        });
+        return true;
+      }
+      if (!errorMessage) {
+        Materialize.toast("Please complete all fields.", 2000);
+      } else {
+        Materialize.toast(errorMessage, 2000);
+      }
+      return false;
+    }
+
+    var isWhitespace = function isWhitespace(char) {
+      return char == ' ' || char == '\n';
+    };
+
+    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
+      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
+
+      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
+        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
+          vmObject[wordCountVar]++;
+          if (vmObject[wordCountVar] == wordLimit + 1) {
+            vmObject[wordCountVar]--;
+            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
+            return;
+          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
+            vmObject[wordCountVar] = 1;
+          }
+        }
+      }
+
+      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 (function () {
@@ -548,154 +701,76 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').factory('FormService', FormService);
+  angular.module('MB').controller('AlumniCtrl', AlumniCtrl).directive('alumniList', AlumniList);
 
-  FormService.$inject = ['$http', '$log', 'Dropbox'];
+  AlumniCtrl.$inject = ['TeamService'];
 
-  function FormService($http, $log, Dropbox) {
-    var factory = {
-      checkFullSubmit: checkFullSubmit,
-      sendMessage: sendMessage,
-      sendToSheet: sendToSheet,
-      submitApplication: submitApplication,
-      updateTextArea: updateTextArea
+  function AlumniCtrl(TeamService) {
+    var vm = this;
+    vm.alumni = TeamService.getAlumni();
+
+    var half = Math.ceil(vm.alumni.length / 2);
+    vm.alumni_col_1 = vm.alumni.slice(0, half);
+    vm.alumni_col_2 = vm.alumni.slice(half, vm.alumni.length);
+
+    vm.connections = [{
+      name: "Google",
+      url: "https://www.google.com",
+      image: "img/connections/google.png"
+    }, {
+      name: "Moxtra",
+      url: "https://www.moxtra.com",
+      image: "img/connections/moxtra.png"
+    }, {
+      name: "Amazon",
+      url: "https://www.amazon.com",
+      image: "img/connections/amazon.png"
+    }, {
+      name: "Cisco",
+      url: "https://www.cisco.com",
+      image: "img/connections/cisco.png"
+    }, {
+      name: "DE Shaw & Co",
+      url: "https://www.deshaw.com",
+      image: "img/connections/de_shaw.png"
+    }, {
+      name: "Microsoft",
+      url: "https://www.microsoft.com",
+      image: "img/connections/microsoft.png"
+    }, {
+      name: "Texas Instruments",
+      url: "https://www.ti.com",
+      image: "img/connections/texas_instruments.png"
+    }, {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com",
+      image: "img/connections/linkedin.png"
+    }, {
+      name: "NASA",
+      url: "https://www.nasa.gov",
+      image: "img/connections/nasa.png"
+    }, {
+      name: "Brilliant",
+      url: "https://www.brilliant.org",
+      image: "img/connections/brilliant.png"
+    }];
+
+    vm.research = [{
+      name: "Berkeley Deep Drive",
+      url: "https://deepdrive.berkeley.edu/",
+      image: "img/research/berkeley_deep_drive.png"
+    }];
+  }
+
+  function AlumniList() {
+    return {
+      restrict: 'E',
+      // transclude: true,
+      scope: {
+        list: "="
+      },
+      templateUrl: 'templates/pages/alumni/alumni-list.html'
     };
-
-    function checkFullSubmit(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) {
-          if (!object[key] && key != 'optional' && key != 'github') {
-            console.log("Invalid key: " + key);
-            return false;
-          }
-        }
-      }
-      return true;
-    }
-
-    function camelCaseToPretty(text) {
-      var spaces = text.replace(/([A-Z0-9])/g, " $1");
-      var pretty = spaces.charAt(0).toUpperCase() + spaces.slice(1);
-      return pretty;
-    }
-
-    function renameProperty(object, oldName, newName) {
-      if (oldName == newName) {
-        return object;
-      }
-      if (object.hasOwnProperty(oldName)) {
-        object[newName] = object[oldName];
-        delete object[oldName];
-      }
-      return object;
-    };
-
-    function prettyObjectKeys(object) {
-      for (var key in object) {
-        if (object.hasOwnProperty(key)) object = renameProperty(object, key, camelCaseToPretty(key));
-      }
-      return object;
-    }
-
-    function sendMessage(messageObject, errorMessage, gFormURL) {
-      var okay = checkFullSubmit(messageObject);
-      var postData = $.param(messageObject);
-      console.log(postData);
-
-      if (okay) {
-        $http({
-          url: gFormURL,
-          method: "POST",
-          data: postData,
-          dataType: "json"
-        }).then(function successCallback(response) {
-          $log.debug(response);
-        }, function errorCallback(response) {
-          $log.error(response);
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function submitApplication(messageObject, sheetURL, errorMessage, resume) {
-      var okay = checkFullSubmit(messageObject);
-      if (okay) {
-        Dropbox.filesUpload({ path: '/resumes/' + resume.name, contents: resume, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-          $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-          messageObject.resume = response.name;
-          sendToSheet(messageObject, sheetURL, errorMessage);
-          return true;
-        }).catch(function (error) {
-          $log.error(error);
-          return false;
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    function sendToSheet(messageObject, sheetURL, errorMessage) {
-      var okay = checkFullSubmit(messageObject);
-      var message = prettyObjectKeys(messageObject);
-      var postData = $.param(messageObject);
-      if (okay) {
-        $.ajax({
-          url: sheetURL,
-          type: "post",
-          data: postData,
-          success: function success(response) {
-            $log.debug('Message Sent: ' + JSON.stringify(response));
-          },
-          error: function error(request, textStatus, errorThrown) {
-            $log.error("Status: " + textStatus);
-            $log.error("Error: " + errorThrown);
-          }
-        });
-        return true;
-      }
-      if (!errorMessage) {
-        Materialize.toast("Please complete all fields.", 2000);
-      } else {
-        Materialize.toast(errorMessage, 2000);
-      }
-      return false;
-    }
-
-    var isWhitespace = function isWhitespace(char) {
-      return char == ' ' || char == '\n';
-    };
-
-    function updateTextArea($event, vmObject, textObject, textKey, wordCountVar, wordLimit) {
-      if (!isWhitespace(vmObject[textObject][textKey][0])) vmObject[wordCountVar] = 1;
-
-      for (var i = 1; i < vmObject[textObject][textKey].length; i++) {
-        if (!isWhitespace(vmObject[textObject][textKey][i]) && isWhitespace(vmObject[textObject][textKey][i - 1])) {
-          vmObject[wordCountVar]++;
-          if (vmObject[wordCountVar] == wordLimit + 1) {
-            vmObject[wordCountVar]--;
-            vmObject[textObject][textKey] = vmObject[textObject][textKey].substring(0, i);
-            return;
-          } else if (!isWhitespace(vmObject[textObject][textKey][i]) && !isWhitespace(vmObject[textObject][textKey][i - 1]) && vmObject[wordCountVar] == 0) {
-            vmObject[wordCountVar] = 1;
-          }
-        }
-      }
-
-      if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
-    }
-
-    return factory;
   }
 })();
 'use strict';
@@ -765,6 +840,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     vm.pastDeadline = function () {
       console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
     };
   }
 })();
@@ -876,132 +1002,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return true;
       }
       return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('AlumniCtrl', AlumniCtrl).directive('alumniList', AlumniList);
-
-  AlumniCtrl.$inject = ['TeamService'];
-
-  function AlumniCtrl(TeamService) {
-    var vm = this;
-    vm.alumni = TeamService.getAlumni();
-
-    var half = Math.ceil(vm.alumni.length / 2);
-    vm.alumni_col_1 = vm.alumni.slice(0, half);
-    vm.alumni_col_2 = vm.alumni.slice(half, vm.alumni.length);
-
-    vm.connections = [{
-      name: "Google",
-      url: "https://www.google.com",
-      image: "img/connections/google.png"
-    }, {
-      name: "Moxtra",
-      url: "https://www.moxtra.com",
-      image: "img/connections/moxtra.png"
-    }, {
-      name: "Amazon",
-      url: "https://www.amazon.com",
-      image: "img/connections/amazon.png"
-    }, {
-      name: "Cisco",
-      url: "https://www.cisco.com",
-      image: "img/connections/cisco.png"
-    }, {
-      name: "DE Shaw & Co",
-      url: "https://www.deshaw.com",
-      image: "img/connections/de_shaw.png"
-    }, {
-      name: "Microsoft",
-      url: "https://www.microsoft.com",
-      image: "img/connections/microsoft.png"
-    }, {
-      name: "Texas Instruments",
-      url: "https://www.ti.com",
-      image: "img/connections/texas_instruments.png"
-    }, {
-      name: "LinkedIn",
-      url: "https://www.linkedin.com",
-      image: "img/connections/linkedin.png"
-    }, {
-      name: "NASA",
-      url: "https://www.nasa.gov",
-      image: "img/connections/nasa.png"
-    }, {
-      name: "Brilliant",
-      url: "https://www.brilliant.org",
-      image: "img/connections/brilliant.png"
-    }];
-
-    vm.research = [{
-      name: "Berkeley Deep Drive",
-      url: "https://deepdrive.berkeley.edu/",
-      image: "img/research/berkeley_deep_drive.png"
-    }];
-  }
-
-  function AlumniList() {
-    return {
-      restrict: 'E',
-      // transclude: true,
-      scope: {
-        list: "="
-      },
-      templateUrl: 'templates/pages/alumni/alumni-list.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
     };
   }
 })();
