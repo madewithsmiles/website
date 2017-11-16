@@ -996,6 +996,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     vm.sendRequest = function () {
       var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      if (vm.company.message == null) {
+        vm.company.message = ' ';
+      }
       var sent = FormService.sendToSheet(vm.company, ShowcaseSheetURL, errMsg);
       if (sent) {
         vm.submitted = true;
