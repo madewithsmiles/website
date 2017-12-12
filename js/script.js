@@ -68,6 +68,98 @@
 'use strict';
 
 (function () {
+  angular.module('MB').factory('BlogService', BlogService);
+
+  BlogService.$inject = ['DateService'];
+
+  function BlogService(DateService) {
+    var factory = {
+      getPostMetaData: getPostMetaData,
+      getPostData: getPostData
+    };
+
+    var postMetaData = [{
+      datePath: "2-22-2017",
+      titlePath: "nlp-with-stella",
+      title: "Natural Language Processing with Stella",
+      author: "Felix Su",
+      date: DateService.blogDate(2, 22, 2017),
+      timestamp: DateService.timestamp(2, 22, 2017),
+      tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
+      category: "Hack Night 2",
+      preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
+    }, {
+      datePath: "2-26-2017",
+      titlePath: "sherlock-facial-recognition",
+      title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
+      author: "Peter Lee",
+      date: DateService.blogDate(2, 26, 2017),
+      timestamp: DateService.timestamp(2, 26, 2017),
+      tags: ["Project Sherlock", "Face Detection"],
+      category: "Computer Vision Tutorial",
+      preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
+    }, {
+      datePath: "8-21-2017",
+      titlePath: "music-autoencoders",
+      title: "Autoencoders and Music Generation",
+      author: "Arsh Zahed",
+      date: DateService.blogDate(8, 21, 2017),
+      timestamp: DateService.timestamp(8, 21, 2017),
+      tags: ["DeepBeat", "Music", "Autoencoder", "Magenta"],
+      category: "Preseason Demo",
+      preview: "Google Brain recently added a new model to Magenta, their open-source project for generating music, audio and drawings. The key to Magenta is the use of Auto-Encoders, a special Neural Network architecture. In this tutorial, we will explore the fundamental concepts and implement some code to get a basic auto-encoder up an running."
+    }, {
+      datePath: "8-22-2017",
+      titlePath: "stock-prediction",
+      title: "Launchpad: Stock Prediction Attempt using LSTMs",
+      author: "Caleb Siu",
+      date: DateService.blogDate(8, 22, 2017),
+      timestamp: DateService.timestamp(8, 22, 2017),
+      tags: ["Preseason Demo", "LSTM", "Stock Prediction"],
+      category: "Preseason Demo",
+      preview: "One of the latest models to rise to prominence in the deep learning community has been the Long Short Term Memory network, more commonly known as LSTMs. The model is unique in that it is able to handle long-term dependencies. This is especially useful in solving problems that rely on contextual knowledge based on past inputs. More of what LSTMs are capable of can be read on Andrej Karpathy’s blog post, The Unreasonable Effectiveness of Recurrent Neural Networks."
+    }, {
+      datePath: "8-26-2017",
+      titlePath: "music-image",
+      title: "Music and Image Classification",
+      author: "Nipun Ramakrishnan",
+      date: DateService.blogDate(8, 26, 2017),
+      timestamp: DateService.timestamp(8, 26, 2017),
+      tags: ["Audio", "Image", "Music", "Classification"],
+      category: "Preseason Demo",
+      preview: "Music genre classification is a classic problem in which we try to identify the genre of a given piece of music. It’s a challenging task in the field of Music Information Retrieval with some pretty cool applications. For example, Pandora uses genre classifications to dynamically generate images that complement the music. But how does such a classification system work?"
+    }];
+
+    function parseText(text) {
+      return text.replace(/^ +| +$/gm, "");
+    }
+
+    function cleanPostData(post) {
+      post.preview = parseText(post.preview);
+      return post;
+    }
+
+    function getPostMetaData() {
+      var cleanData = postMetaData;
+      for (var i = 0; i < cleanData.length; i++) {
+        cleanData[i].preview = parseText(cleanData[i].preview);
+      }
+      return cleanData;
+    }
+
+    function getPostData(titlePath) {
+      for (var i = 0; i < postMetaData.length; i++) {
+        if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
+      }
+      return null;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
     angular.module('MB').factory('DateService', DateService);
 
     DateService.$inject = ['moment'];
@@ -270,98 +362,6 @@
 })();
 'use strict';
 
-(function () {
-  angular.module('MB').factory('BlogService', BlogService);
-
-  BlogService.$inject = ['DateService'];
-
-  function BlogService(DateService) {
-    var factory = {
-      getPostMetaData: getPostMetaData,
-      getPostData: getPostData
-    };
-
-    var postMetaData = [{
-      datePath: "2-22-2017",
-      titlePath: "nlp-with-stella",
-      title: "Natural Language Processing with Stella",
-      author: "Felix Su",
-      date: DateService.blogDate(2, 22, 2017),
-      timestamp: DateService.timestamp(2, 22, 2017),
-      tags: ["Project Luna", "NLP", "Speech Recognition", "Hack Night"],
-      category: "Hack Night 2",
-      preview: "Last Saturday, our Luna developers dove into the Stella Demo to implement Natural Language Processing. If you checked our original source code, you would have seen an ugly jumble of if statements that hard coded mappings between commands and our API functions. To tackle this problem, we split into 2 teams to test which combinations of the NLP techniques we learned at Wednesday's Tech Tutorial could best allow Stella to understand and support commands that our engineers might not anticipate."
-    }, {
-      datePath: "2-26-2017",
-      titlePath: "sherlock-facial-recognition",
-      title: "Launchpad + Computer Vision: Face Detection in 20 Lines of Code",
-      author: "Peter Lee",
-      date: DateService.blogDate(2, 26, 2017),
-      timestamp: DateService.timestamp(2, 26, 2017),
-      tags: ["Project Sherlock", "Face Detection"],
-      category: "Computer Vision Tutorial",
-      preview: "In this tutorial, we'll showcase the power of OpenCV by writing a short python script that recognizes your face through a live webcam in real-time. This was a warmup exercise for our newest members of the Launchpad Team for Project Sherlock, a cloud API that provides optimized algorithms for human-centric computer vision."
-    }, {
-      datePath: "8-21-2017",
-      titlePath: "music-autoencoders",
-      title: "Autoencoders and Music Generation",
-      author: "Arsh Zahed",
-      date: DateService.blogDate(8, 21, 2017),
-      timestamp: DateService.timestamp(8, 21, 2017),
-      tags: ["DeepBeat", "Music", "Autoencoder", "Magenta"],
-      category: "Preseason Demo",
-      preview: "Google Brain recently added a new model to Magenta, their open-source project for generating music, audio and drawings. The key to Magenta is the use of Auto-Encoders, a special Neural Network architecture. In this tutorial, we will explore the fundamental concepts and implement some code to get a basic auto-encoder up an running."
-    }, {
-      datePath: "8-22-2017",
-      titlePath: "stock-prediction",
-      title: "Launchpad: Stock Prediction Attempt using LSTMs",
-      author: "Caleb Siu",
-      date: DateService.blogDate(8, 22, 2017),
-      timestamp: DateService.timestamp(8, 22, 2017),
-      tags: ["Preseason Demo", "LSTM", "Stock Prediction"],
-      category: "Preseason Demo",
-      preview: "One of the latest models to rise to prominence in the deep learning community has been the Long Short Term Memory network, more commonly known as LSTMs. The model is unique in that it is able to handle long-term dependencies. This is especially useful in solving problems that rely on contextual knowledge based on past inputs. More of what LSTMs are capable of can be read on Andrej Karpathy’s blog post, The Unreasonable Effectiveness of Recurrent Neural Networks."
-    }, {
-      datePath: "8-26-2017",
-      titlePath: "music-image",
-      title: "Music and Image Classification",
-      author: "Nipun Ramakrishnan",
-      date: DateService.blogDate(8, 26, 2017),
-      timestamp: DateService.timestamp(8, 26, 2017),
-      tags: ["Audio", "Image", "Music", "Classification"],
-      category: "Preseason Demo",
-      preview: "Music genre classification is a classic problem in which we try to identify the genre of a given piece of music. It’s a challenging task in the field of Music Information Retrieval with some pretty cool applications. For example, Pandora uses genre classifications to dynamically generate images that complement the music. But how does such a classification system work?"
-    }];
-
-    function parseText(text) {
-      return text.replace(/^ +| +$/gm, "");
-    }
-
-    function cleanPostData(post) {
-      post.preview = parseText(post.preview);
-      return post;
-    }
-
-    function getPostMetaData() {
-      var cleanData = postMetaData;
-      for (var i = 0; i < cleanData.length; i++) {
-        cleanData[i].preview = parseText(cleanData[i].preview);
-      }
-      return cleanData;
-    }
-
-    function getPostData(titlePath) {
-      for (var i = 0; i < postMetaData.length; i++) {
-        if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
-      }
-      return null;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 (function () {
@@ -370,7 +370,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   TeamService.$inject = ['$http', '$log'];
 
   function TeamService(Dropbox, $http, $log) {
-    var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10, _ref11, _ref12, _ref13, _ref14, _ref15, _ref16, _ref17, _ref18, _ref19, _ref20, _ref21;
+    var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10, _ref11, _ref12, _ref13, _ref14, _ref15, _ref16, _ref17, _ref18, _ref19, _ref20;
 
     var factory = {
       getAll: getAll,
@@ -488,46 +488,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'position': 'Project Developer',
         'semester': 'Fall 2017'
       }, _defineProperty(_ref13, 'header', 'UAV Robotics'), _defineProperty(_ref13, 'website', ''), _ref13), (_ref14 = { 'header': '',
-        'image': '/img/team/members/developers/phillip_kravtsov.jpg',
-        'name': 'Phillip Kravtsov',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref14, 'header', 'MuseCage'), _defineProperty(_ref14, 'website', ''), _ref14), (_ref15 = { 'header': '',
         'image': '/img/team/members/developers/ryan_hsu.jpg',
         'name': 'Ryan Hsu',
         'position': 'Project Developer / Business Associate',
         'semester': 'Fall 2017'
-      }, _defineProperty(_ref15, 'header', 'DeepBeat'), _defineProperty(_ref15, 'website', ''), _ref15), (_ref16 = { 'header': '',
+      }, _defineProperty(_ref14, 'header', 'DeepBeat'), _defineProperty(_ref14, 'website', ''), _ref14), (_ref15 = { 'header': '',
         'image': '/img/team/members/developers/sahil_sancheti.jpg',
         'name': 'Sahil Sancheti',
         'position': 'Project Developer',
         'semester': 'Fall 2017'
-      }, _defineProperty(_ref16, 'header', 'UAV Robotics'), _defineProperty(_ref16, 'website', ''), _ref16), (_ref17 = { 'header': '',
+      }, _defineProperty(_ref15, 'header', 'UAV Robotics'), _defineProperty(_ref15, 'website', ''), _ref15), (_ref16 = { 'header': '',
         'image': '/img/team/members/developers/sean_meng.jpg',
         'name': 'Sean Meng',
         'position': 'Project Developer',
         'semester': 'Fall 2017'
-      }, _defineProperty(_ref17, 'header', 'MuseCage'), _defineProperty(_ref17, 'website', ''), _ref17), (_ref18 = { 'header': '',
+      }, _defineProperty(_ref16, 'header', 'MuseCage'), _defineProperty(_ref16, 'website', ''), _ref16), (_ref17 = { 'header': '',
         'image': '/img/team/members/developers/timothy_liu.jpg',
         'name': 'Timothy Liu',
         'position': 'Project Developer',
         'semester': 'Fall 2017'
-      }, _defineProperty(_ref18, 'header', 'DeepBeat'), _defineProperty(_ref18, 'website', ''), _ref18), (_ref19 = { 'header': '',
+      }, _defineProperty(_ref17, 'header', 'DeepBeat'), _defineProperty(_ref17, 'website', ''), _ref17), (_ref18 = { 'header': '',
         'image': '/img/team/members/developers/victor_chan.jpg',
         'name': 'Victor Chan',
         'position': 'Project Developer',
         'semester': 'Fall 2017'
-      }, _defineProperty(_ref19, 'header', 'UAV Robotics'), _defineProperty(_ref19, 'website', ''), _ref19), (_ref20 = { 'header': '',
+      }, _defineProperty(_ref18, 'header', 'UAV Robotics'), _defineProperty(_ref18, 'website', ''), _ref18), (_ref19 = { 'header': '',
         'image': '/img/team/members/developers/william_fang.jpg',
         'name': 'William Fang',
         'position': 'Project Developer',
         'semester': 'Fall 2017'
-      }, _defineProperty(_ref20, 'header', 'MuseCage'), _defineProperty(_ref20, 'website', ''), _ref20), (_ref21 = { 'header': '',
+      }, _defineProperty(_ref19, 'header', 'MuseCage'), _defineProperty(_ref19, 'website', ''), _ref19), (_ref20 = { 'header': '',
         'image': '/img/team/members/developers/yijin_hua.jpg',
         'name': 'Yijin Hua',
         'position': 'Project Developer',
         'semester': 'Fall 2017'
-      }, _defineProperty(_ref21, 'header', 'DeepBeat'), _defineProperty(_ref21, 'website', ''), _ref21)],
+      }, _defineProperty(_ref20, 'header', 'DeepBeat'), _defineProperty(_ref20, 'website', ''), _ref20)],
       alumni: [{
         "name": "Peter Lee",
         "position": "President / Project Leader",
@@ -776,81 +771,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
   ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
@@ -921,22 +841,75 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
     var vm = this;
-
     vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
 
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
       if (sent) {
         vm.submitted = true;
         return true;
       }
       return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
     };
   }
 })();
@@ -977,6 +950,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
     };
   }
 })();
