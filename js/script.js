@@ -398,20 +398,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'image': '/img/team/officers/elina_yon.jpg',
         'semester': 'Spring 2018'
       }, {
-        'name': 'Laura Smith',
-        'position': 'Project Developer',
-        'website': '',
-        'header': '',
-        'subheader': '',
-        'image': '/img/team/officers/laura_smith.jpg',
-        'semester': 'Spring 2018'
-      }, {
         'name': 'Moira Huang',
         'position': 'Internal Vice President',
         'website': '',
         'header': '',
         'subheader': '',
         'image': '/img/team/officers/moira_huang.jpg',
+        'semester': 'Spring 2018'
+      }, {
+        'name': 'Laura Smith',
+        'position': 'Vice President of Operations',
+        'website': '',
+        'header': '',
+        'subheader': '',
+        'image': '/img/team/officers/laura_smith.jpg',
         'semester': 'Spring 2018'
       }, {
         "name": "Felix Su",
@@ -717,127 +717,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
-
-  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
-
-  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
-    var vm = this;
-    var temp_deadline = new Date(Date.UTC(2017, 8, 2, 1, 59, 0));
-    temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
-    var APP_DEADLINE = temp_deadline;
-    var WORD_LIMIT = 200;
-    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
-    vm.positions = ["Project Developer", "Designer", "Business Developer"];
-
-    vm.submitted = false;
-    vm.page = 1;
-    vm.wordCount1 = 0;
-    vm.wordCount2 = 0;
-    vm.wordCount3 = 0;
-
-    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
-    vm.responses = { interestingProject: null, teamExperience: null };
-    vm.additional = { optional: null, github: null };
-
-    vm.submitForm = function () {
-      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
-      var resume = document.getElementById('resume').files[0];
-      $log.debug(fullForm);
-      var errMsg = "Error: You must complete all previous fields to continue.";
-      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      $log.warn('Application not sent!');
-      return false;
-    };
-
-    vm.changePage = function (page) {
-      if (page <= 3 && page >= 0) {
-        vm.page = page;
-        return true;
-      }
-      return false;
-    };
-
-    vm.next = function (object) {
-      vm.changePage(vm.page + 1, object);
-    };
-    vm.prev = function () {
-      if (vm.page >= 0) vm.page -= 1;
-    };
-
-    vm.updateTextArea1 = function ($event) {
-      FormService.updateTextArea($event, vm, 'responses', 'interestingProject', 'wordCount1', WORD_LIMIT);
-    };
-    vm.updateTextArea2 = function ($event) {
-      FormService.updateTextArea($event, vm, 'responses', 'teamExperience', 'wordCount2', WORD_LIMIT);
-    };
-    vm.updateTextArea3 = function ($event) {
-      FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT);
-    };
-
-    vm.pastDeadline = function () {
-      console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
-
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
-    var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
-
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
-
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
-      }
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('AlumniCtrl', AlumniCtrl).directive('alumniList', AlumniList);
 
   AlumniCtrl.$inject = ['TeamService'];
@@ -907,6 +786,76 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         list: "="
       },
       templateUrl: 'templates/pages/alumni/alumni-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
+
+  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
+
+  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
+    var vm = this;
+    var temp_deadline = new Date(Date.UTC(2017, 8, 2, 1, 59, 0));
+    temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
+    var APP_DEADLINE = temp_deadline;
+    var WORD_LIMIT = 200;
+    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
+    vm.positions = ["Project Developer", "Designer", "Business Developer"];
+
+    vm.submitted = false;
+    vm.page = 1;
+    vm.wordCount1 = 0;
+    vm.wordCount2 = 0;
+    vm.wordCount3 = 0;
+
+    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
+    vm.responses = { interestingProject: null, teamExperience: null };
+    vm.additional = { optional: null, github: null };
+
+    vm.submitForm = function () {
+      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
+      var resume = document.getElementById('resume').files[0];
+      $log.debug(fullForm);
+      var errMsg = "Error: You must complete all previous fields to continue.";
+      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      $log.warn('Application not sent!');
+      return false;
+    };
+
+    vm.changePage = function (page) {
+      if (page <= 3 && page >= 0) {
+        vm.page = page;
+        return true;
+      }
+      return false;
+    };
+
+    vm.next = function (object) {
+      vm.changePage(vm.page + 1, object);
+    };
+    vm.prev = function () {
+      if (vm.page >= 0) vm.page -= 1;
+    };
+
+    vm.updateTextArea1 = function ($event) {
+      FormService.updateTextArea($event, vm, 'responses', 'interestingProject', 'wordCount1', WORD_LIMIT);
+    };
+    vm.updateTextArea2 = function ($event) {
+      FormService.updateTextArea($event, vm, 'responses', 'teamExperience', 'wordCount2', WORD_LIMIT);
+    };
+    vm.updateTextArea3 = function ($event) {
+      FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT);
+    };
+
+    vm.pastDeadline = function () {
+      console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
     };
   }
 })();
@@ -1021,6 +970,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return true;
       }
       return false;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
     };
   }
 })();

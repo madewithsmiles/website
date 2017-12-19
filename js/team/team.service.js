@@ -35,21 +35,21 @@
           'semester': 'Spring 2018'
         },
         {
-          'name': 'Laura Smith',
-          'position': 'Project Developer',
-          'website': '',
-          'header': '',
-          'subheader': '',
-          'image': '/img/team/officers/laura_smith.jpg',
-          'semester': 'Spring 2018'
-        },
-        {
           'name': 'Moira Huang',
           'position': 'Internal Vice President',
           'website': '',
           'header': '',
           'subheader': '',
           'image': '/img/team/officers/moira_huang.jpg',
+          'semester': 'Spring 2018'
+        },
+        {
+          'name': 'Laura Smith',
+          'position': 'Vice President of Operations',
+          'website': '',
+          'header': '',
+          'subheader': '',
+          'image': '/img/team/officers/laura_smith.jpg',
           'semester': 'Spring 2018'
         },
         {
