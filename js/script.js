@@ -370,7 +370,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   TeamService.$inject = ['$http', '$log'];
 
   function TeamService(Dropbox, $http, $log) {
-    var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10, _ref11, _ref12, _ref13, _ref14, _ref15, _ref16, _ref17, _ref18, _ref19, _ref20;
+    var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10, _ref11, _ref12, _ref13, _ref14;
 
     var factory = {
       getAll: getAll,
@@ -382,148 +382,169 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     var team = {
       officers: [{
+        "name": "Arsh Zahed",
+        "position": "President",
+        "website": "https://github.com/azahed98",
+        "header": "",
+        "subheader": "",
+        "image": "/img/team/officers/arsh_zahed.jpg",
+        "semester": 'Spring 2018'
+      }, {
+        'name': 'Elina Yon',
+        'position': 'External Vice President',
+        'website': '',
+        'header': '',
+        'subheader': '',
+        'image': '/img/team/officers/elina_yon.jpg',
+        'semester': 'Spring 2018'
+      }, {
+        'name': 'Laura Smith',
+        'position': 'Project Developer',
+        'website': '',
+        'header': '',
+        'subheader': '',
+        'image': '/img/team/officers/laura_smith.jpg',
+        'semester': 'Spring 2018'
+      }, {
+        'name': 'Moira Huang',
+        'position': 'Internal Vice President',
+        'website': '',
+        'header': '',
+        'subheader': '',
+        'image': '/img/team/officers/moira_huang.jpg',
+        'semester': 'Spring 2018'
+      }, {
         "name": "Felix Su",
-        "position": "Founder / President",
-        "website": "http://felixsu.com",
-        "header": "",
-        "subheader": "",
-        "image": "/img/team/officers/felix_su.png",
-        "semester": "Fall 2017"
-      }, {
-        "name": "Caleb Siu",
-        "position": "Vice President",
-        "website": "https://www.linkedin.com/in/calebsiu",
-        "header": "",
-        "subheader": "",
-        "image": "/img/team/officers/caleb_siu.jpg",
-        "semester": "Fall 2017"
-      }, {
-        "name": "Nipun Ramakrishnan",
         "position": "Project Leader",
-        "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
-        "header": "MuseCage",
+        "website": "http://felixsu.com",
+        "header": "Robotics",
         "subheader": "",
-        "image": "/img/team/officers/nipun_ramakrishnan.jpg",
-        "semester": "Fall 2017"
+        "image": "/img/team/officers/felix_su.jpg",
+        "semester": 'Spring 2018'
       }, {
         "name": "Hank O'Brien",
         "position": "Project Leader",
         "website": "https://github.com/hjobrien",
-        "header": "UAV Robotics",
+        "header": "",
         "subheader": "",
         "image": "/img/team/officers/hank_obrien.jpg",
-        "semester": "Fall 2017"
+        "semester": 'Spring 2018'
       }, {
-        "name": "Arsh Zahed",
-        "position": "Project Leader",
-        "website": "https://github.com/azahed98",
-        "header": "DeepBeat",
-        "subheader": "",
-        "image": "/img/team/officers/arsh_zahed.jpg",
-        "semester": "Fall 2017"
+        'name': 'Alex Wu',
+        'position': 'Project Leader',
+        'website': '',
+        'header': '',
+        'subheader': '',
+        'image': '/img/team/officers/alex_wu.jpg',
+        'semester': 'Spring 2018'
+      }, {
+        'name': 'An Wang',
+        'position': 'Project Leader',
+        'website': '',
+        'header': '',
+        'subheader': '',
+        'image': '/img/team/officers/an_wang.jpg',
+        'semester': 'Spring 2018'
+      }, {
+        'name': 'Jonathan Lin',
+        'position': 'Project Leader',
+        'website': '',
+        'header': '',
+        'subheader': '',
+        'image': '/img/team/officers/jonathan_lin.jpg',
+        'semester': 'Spring 2018'
       }],
       developers: [(_ref = { 'header': '',
         'image': '/img/team/members/developers/alex_shi.jpg',
         'name': 'Alex Shi',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
+        'semester': 'Fall 2017 / Spring 2018'
       }, _defineProperty(_ref, 'header', 'UAV Robotics'), _defineProperty(_ref, 'website', ''), _ref), (_ref2 = { 'header': '',
-        'image': '/img/team/members/developers/alex_wu.jpg',
-        'name': 'Alex Wu',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref2, 'header', 'UAV Robotics'), _defineProperty(_ref2, 'website', ''), _ref2), (_ref3 = { 'header': '',
-        'image': '/img/team/members/developers/an_wang.jpg',
-        'name': 'An Wang',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref3, 'header', 'UAV Robotics'), _defineProperty(_ref3, 'website', ''), _ref3), (_ref4 = { 'header': '',
-        'image': '/img/team/members/developers/andy_zhang.jpg',
-        'name': 'Andy Zhang',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref4, 'header', 'MuseCage'), _defineProperty(_ref4, 'website', ''), _ref4), (_ref5 = { 'header': '',
         'image': '/img/team/members/developers/arjun_khare.jpg',
         'name': 'Arjun Khare',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref5, 'header', 'MuseCage'), _defineProperty(_ref5, 'website', ''), _ref5), (_ref6 = { 'header': '',
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref2, 'header', 'MuseCage'), _defineProperty(_ref2, 'website', ''), _ref2), (_ref3 = { 'header': '',
         'image': '/img/team/members/developers/daniel_zeng.jpg',
         'name': 'Daniel Zeng',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref6, 'header', 'DeepBeat'), _defineProperty(_ref6, 'website', ''), _ref6), (_ref7 = { 'header': '',
-        'image': '/img/team/members/developers/elina_yon.jpg',
-        'name': 'Elina Yon',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref7, 'header', 'DeepBeat'), _defineProperty(_ref7, 'website', ''), _ref7), (_ref8 = { 'header': '',
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref3, 'header', 'DeepBeat'), _defineProperty(_ref3, 'website', ''), _ref3), (_ref4 = { 'header': '',
         'image': '/img/team/members/developers/helen_yang.jpg',
         'name': 'Helen Yang',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref8, 'header', 'MuseCage'), _defineProperty(_ref8, 'website', ''), _ref8), (_ref9 = { 'header': '',
-        'image': '/img/team/members/developers/jerry_wu.jpg',
-        'name': 'Jerry Wu',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref9, 'header', 'DeepBeat'), _defineProperty(_ref9, 'website', ''), _ref9), (_ref10 = { 'header': '',
-        'image': '/img/team/members/developers/jonathan_lin.jpg',
-        'name': 'Jonathan Lin',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref10, 'header', 'DeepBeat'), _defineProperty(_ref10, 'website', ''), _ref10), (_ref11 = { 'header': '',
-        'image': '/img/team/members/developers/laura_smith.jpg',
-        'name': 'Laura Smith',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref11, 'header', 'MuseCage'), _defineProperty(_ref11, 'website', ''), _ref11), (_ref12 = { 'header': '',
-        'image': '/img/team/members/developers/moira_huang.jpg',
-        'name': 'Moira Huang',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref12, 'header', 'DeepBeat'), _defineProperty(_ref12, 'website', ''), _ref12), (_ref13 = { 'header': '',
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref4, 'header', 'MuseCage'), _defineProperty(_ref4, 'website', ''), _ref4), (_ref5 = { 'header': '',
         'image': '/img/team/members/developers/nicholas_truong.jpg',
         'name': 'Nicholas Truong',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref13, 'header', 'UAV Robotics'), _defineProperty(_ref13, 'website', ''), _ref13), (_ref14 = { 'header': '',
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref5, 'header', 'UAV Robotics'), _defineProperty(_ref5, 'website', ''), _ref5), (_ref6 = { 'header': '',
         'image': '/img/team/members/developers/ryan_hsu.jpg',
         'name': 'Ryan Hsu',
         'position': 'Project Developer / Business Associate',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref14, 'header', 'DeepBeat'), _defineProperty(_ref14, 'website', ''), _ref14), (_ref15 = { 'header': '',
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref6, 'header', 'DeepBeat'), _defineProperty(_ref6, 'website', ''), _ref6), (_ref7 = { 'header': '',
         'image': '/img/team/members/developers/sahil_sancheti.jpg',
         'name': 'Sahil Sancheti',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref15, 'header', 'UAV Robotics'), _defineProperty(_ref15, 'website', ''), _ref15), (_ref16 = { 'header': '',
-        'image': '/img/team/members/developers/sean_meng.jpg',
-        'name': 'Sean Meng',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref16, 'header', 'MuseCage'), _defineProperty(_ref16, 'website', ''), _ref16), (_ref17 = { 'header': '',
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref7, 'header', 'UAV Robotics'), _defineProperty(_ref7, 'website', ''), _ref7), (_ref8 = { 'header': '',
         'image': '/img/team/members/developers/timothy_liu.jpg',
         'name': 'Timothy Liu',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref17, 'header', 'DeepBeat'), _defineProperty(_ref17, 'website', ''), _ref17), (_ref18 = { 'header': '',
-        'image': '/img/team/members/developers/victor_chan.jpg',
-        'name': 'Victor Chan',
-        'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref18, 'header', 'UAV Robotics'), _defineProperty(_ref18, 'website', ''), _ref18), (_ref19 = { 'header': '',
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref8, 'header', 'DeepBeat'), _defineProperty(_ref8, 'website', ''), _ref8), (_ref9 = { 'header': '',
         'image': '/img/team/members/developers/william_fang.jpg',
         'name': 'William Fang',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref19, 'header', 'MuseCage'), _defineProperty(_ref19, 'website', ''), _ref19), (_ref20 = { 'header': '',
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref9, 'header', 'MuseCage'), _defineProperty(_ref9, 'website', ''), _ref9), (_ref10 = { 'header': '',
         'image': '/img/team/members/developers/yijin_hua.jpg',
         'name': 'Yijin Hua',
         'position': 'Project Developer',
-        'semester': 'Fall 2017'
-      }, _defineProperty(_ref20, 'header', 'DeepBeat'), _defineProperty(_ref20, 'website', ''), _ref20)],
+        'semester': 'Fall 2017 / Spring 2018'
+      }, _defineProperty(_ref10, 'header', 'DeepBeat / TBA'), _defineProperty(_ref10, 'website', ''), _ref10)],
       alumni: [{
+        "name": "Caleb Siu",
+        "position": "Vice President",
+        "website": "https://www.linkedin.com/in/calebsiu",
+        "header": "",
+        "subheader": "",
+        "image": "/img/team/alumni/caleb_siu.jpg",
+        "semester": 'Fall 2017 / Spring 2018'
+      }, {
+        "name": "Nipun Ramakrishnan",
+        "position": "Project Leader - MuseCage",
+        "website": "https://www.linkedin.com/in/nipun-ramakrishnan-001a40116",
+        "header": "MuseCage",
+        "subheader": "",
+        "image": "/img/team/alumni/nipun_ramakrishnan.jpg",
+        "semester": 'Fall 2017 / Spring 2018'
+      }, (_ref11 = { 'header': '',
+        'image': '/img/team/alumni/andy_zhang.jpg',
+        'name': 'Andy Zhang',
+        'position': 'Project Developer - MuseCage',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref11, 'header', 'MuseCage'), _defineProperty(_ref11, 'website', ''), _ref11), (_ref12 = {
+        'header': '',
+        'image': '/img/team/alumni/jerry_wu.jpg',
+        'name': 'Jerry Wu',
+        'position': 'Project Developer - DeepBeat',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref12, 'header', 'DeepBeat'), _defineProperty(_ref12, 'website', ''), _ref12), (_ref13 = {
+        'header': '',
+        'image': '/img/team/alumni/sean_meng.jpg',
+        'name': 'Sean Meng',
+        'position': 'Project Developer - MuseCage',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref13, 'header', 'MuseCage'), _defineProperty(_ref13, 'website', ''), _ref13), (_ref14 = {
+        'header': '',
+        'image': '/img/team/alumni/victor_chan.jpg',
+        'name': 'Victor Chan',
+        'position': 'Project Developer - UAV Robotics',
+        'semester': 'Fall 2017'
+      }, _defineProperty(_ref14, 'header', 'UAV Robotics'), _defineProperty(_ref14, 'website', ''), _ref14), {
         "name": "Peter Lee",
         "position": "President / Project Leader",
         "website": "http://peterlee.tech",
@@ -565,7 +586,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Annie Wang",
-        "position": "Project Developer",
+        "position": "Project Developer - Stella",
         "website": "https://www.linkedin.com/in/annieyueyiwang",
         "header": "",
         "subheader": "",
@@ -573,7 +594,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Darren Lee",
-        "position": "Project Developer",
+        "position": "Project Developer - Sherlock",
         "website": "http://darrenklee.me/",
         "header": "",
         "subheader": "",
@@ -581,7 +602,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Evan Limanto",
-        "position": "Project Developer",
+        "position": "Project Developer - Stella",
         "website": "http://evanlimanto.github.io/",
         "header": "",
         "subheader": "",
@@ -589,7 +610,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "George Zhang",
-        "position": "Project Developer",
+        "position": "Project Developer - Sherlock",
         "website": "",
         "header": "",
         "subheader": "",
@@ -597,7 +618,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Harika Kalidhindi",
-        "position": "Project Developer",
+        "position": "Project Developer - Sherlock",
         "website": "https://github.com/jrharika",
         "header": "",
         "subheader": "",
@@ -605,7 +626,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Lenny Dong",
-        "position": "Project Developer",
+        "position": "Project Developer - Stella",
         "website": "http://lennyd.me/",
         "header": "",
         "subheader": "",
@@ -613,7 +634,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Michael Fan",
-        "position": "Project Developer",
+        "position": "Project Developer - Stella",
         "website": "https://github.com/mqfan",
         "header": "",
         "subheader": "",
@@ -621,7 +642,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Nate Young",
-        "position": "Project Developer",
+        "position": "Project Developer - Stella",
         "website": "https://github.com/natetyoung",
         "header": "",
         "subheader": "",
@@ -629,7 +650,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Nick Zoghb",
-        "position": "Project Developer",
+        "position": "Project Developer - Sherlock",
         "website": "https://github.com/nzoghb",
         "header": "",
         "subheader": "",
@@ -637,7 +658,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Nina Chang",
-        "position": "Project Developer",
+        "position": "Project Developer - Sherlock",
         "website": "https://www.linkedin.com/in/nina-chang-100133118",
         "header": "",
         "subheader": "",
@@ -645,7 +666,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         "semester": "Spring 2017"
       }, {
         "name": "Vishal Satish",
-        "position": "Project Developer",
+        "position": "Project Developer - Sherlock",
         "website": "https://github.com/visatish",
         "header": "",
         "subheader": "",
@@ -691,6 +712,127 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     return factory;
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
+
+  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
+
+  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
+    var vm = this;
+    var temp_deadline = new Date(Date.UTC(2017, 8, 2, 1, 59, 0));
+    temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
+    var APP_DEADLINE = temp_deadline;
+    var WORD_LIMIT = 200;
+    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
+    vm.positions = ["Project Developer", "Designer", "Business Developer"];
+
+    vm.submitted = false;
+    vm.page = 1;
+    vm.wordCount1 = 0;
+    vm.wordCount2 = 0;
+    vm.wordCount3 = 0;
+
+    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
+    vm.responses = { interestingProject: null, teamExperience: null };
+    vm.additional = { optional: null, github: null };
+
+    vm.submitForm = function () {
+      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
+      var resume = document.getElementById('resume').files[0];
+      $log.debug(fullForm);
+      var errMsg = "Error: You must complete all previous fields to continue.";
+      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      $log.warn('Application not sent!');
+      return false;
+    };
+
+    vm.changePage = function (page) {
+      if (page <= 3 && page >= 0) {
+        vm.page = page;
+        return true;
+      }
+      return false;
+    };
+
+    vm.next = function (object) {
+      vm.changePage(vm.page + 1, object);
+    };
+    vm.prev = function () {
+      if (vm.page >= 0) vm.page -= 1;
+    };
+
+    vm.updateTextArea1 = function ($event) {
+      FormService.updateTextArea($event, vm, 'responses', 'interestingProject', 'wordCount1', WORD_LIMIT);
+    };
+    vm.updateTextArea2 = function ($event) {
+      FormService.updateTextArea($event, vm, 'responses', 'teamExperience', 'wordCount2', WORD_LIMIT);
+    };
+    vm.updateTextArea3 = function ($event) {
+      FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT);
+    };
+
+    vm.pastDeadline = function () {
+      console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+
+  BlogCtrl.$inject = ['BlogService', '$stateParams'];
+
+  function BlogCtrl(BlogService, $stateParams) {
+    var vm = this;
+    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
+    vm.posts = BlogService.getPostMetaData();
+  }
+
+  function PostDir() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        name: "=",
+        author: "=",
+        date: "=",
+        tags: '=',
+        category: '=',
+        datePath: '=',
+        titlePath: '='
+      },
+      templateUrl: 'templates/pages/blog/post.html'
+    };
+  }
+
+  function FBComments() {
+    function createHTML(href) {
+      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
+    }
+    return {
+      restrict: 'E',
+      scope: {},
+      link: function link(scope, elem, attrs) {
+        attrs.$observe('pageHref', function (newValue) {
+          if (newValue) {
+            var href = newValue;
+            elem.html(createHTML(href));
+            FB.XFBML.parse(elem[0]);
+          } else {
+            element.html("<div></div>");
+          }
+        });
+      }
+    };
   }
 })();
 'use strict';
@@ -771,76 +913,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
-
-  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
-
-  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
-    var vm = this;
-    var temp_deadline = new Date(Date.UTC(2017, 8, 2, 1, 59, 0));
-    temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
-    var APP_DEADLINE = temp_deadline;
-    var WORD_LIMIT = 200;
-    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
-    vm.positions = ["Project Developer", "Designer", "Business Developer"];
-
-    vm.submitted = false;
-    vm.page = 1;
-    vm.wordCount1 = 0;
-    vm.wordCount2 = 0;
-    vm.wordCount3 = 0;
-
-    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
-    vm.responses = { interestingProject: null, teamExperience: null };
-    vm.additional = { optional: null, github: null };
-
-    vm.submitForm = function () {
-      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
-      var resume = document.getElementById('resume').files[0];
-      $log.debug(fullForm);
-      var errMsg = "Error: You must complete all previous fields to continue.";
-      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      $log.warn('Application not sent!');
-      return false;
-    };
-
-    vm.changePage = function (page) {
-      if (page <= 3 && page >= 0) {
-        vm.page = page;
-        return true;
-      }
-      return false;
-    };
-
-    vm.next = function (object) {
-      vm.changePage(vm.page + 1, object);
-    };
-    vm.prev = function () {
-      if (vm.page >= 0) vm.page -= 1;
-    };
-
-    vm.updateTextArea1 = function ($event) {
-      FormService.updateTextArea($event, vm, 'responses', 'interestingProject', 'wordCount1', WORD_LIMIT);
-    };
-    vm.updateTextArea2 = function ($event) {
-      FormService.updateTextArea($event, vm, 'responses', 'teamExperience', 'wordCount2', WORD_LIMIT);
-    };
-    vm.updateTextArea3 = function ($event) {
-      FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT);
-    };
-
-    vm.pastDeadline = function () {
-      console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -865,51 +937,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
 
-  BlogCtrl.$inject = ['BlogService', '$stateParams'];
-
-  function BlogCtrl(BlogService, $stateParams) {
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
     var vm = this;
-    vm.currentPost = BlogService.getPostData($stateParams.titlePath);
-    vm.posts = BlogService.getPostMetaData();
-  }
 
-  function PostDir() {
-    return {
-      restrict: 'E',
-      transclude: true,
-      scope: {
-        name: "=",
-        author: "=",
-        date: "=",
-        tags: '=',
-        category: '=',
-        datePath: '=',
-        titlePath: '='
-      },
-      templateUrl: 'templates/pages/blog/post.html'
-    };
-  }
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
 
-  function FBComments() {
-    function createHTML(href) {
-      return '<div class="fb-comments" ' + 'data-href="' + href + '" ' + 'data-width="100%" data-numposts="5">' + '</div>';
-    }
-    return {
-      restrict: 'E',
-      scope: {},
-      link: function link(scope, elem, attrs) {
-        attrs.$observe('pageHref', function (newValue) {
-          if (newValue) {
-            var href = newValue;
-            elem.html(createHTML(href));
-            FB.XFBML.parse(elem[0]);
-          } else {
-            element.html("<div></div>");
-          }
-        });
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
       }
+      return false;
     };
   }
 })();
@@ -950,28 +993,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
     };
   }
 })();
