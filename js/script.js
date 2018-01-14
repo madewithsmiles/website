@@ -160,6 +160,30 @@
 'use strict';
 
 (function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate,
+            timestamp: timestamp
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        function timestamp(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("x");
+        }
+
+        return factory;
+    }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').factory('FormService', FormService);
 
   FormService.$inject = ['$http', '$log', 'Dropbox'];
@@ -313,26 +337,28 @@
 'use strict';
 
 (function () {
-    angular.module('MB').factory('DateService', DateService);
+  angular.module('MB').factory('DropboxService', DropboxService);
 
-    DateService.$inject = ['moment'];
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
 
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate,
-            timestamp: timestamp
-        };
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
 
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        function timestamp(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("x");
-        }
-
-        return factory;
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
     }
+
+    return factory;
+  }
 })();
 'use strict';
 
@@ -691,27 +717,71 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
+  angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
 
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
 
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
+  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
+    var vm = this;
+    var temp_deadline = new Date(Date.UTC(2017, 8, 2, 1, 59, 0));
+    temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
+    var APP_DEADLINE = temp_deadline;
+    var WORD_LIMIT = 200;
+    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
+    vm.positions = ["Project Developer", "Designer", "Business Developer"];
+
+    vm.submitted = false;
+    vm.page = 1;
+    vm.wordCount1 = 0;
+    vm.wordCount2 = 0;
+    vm.wordCount3 = 0;
+
+    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
+    vm.responses = { interestingProject: null, teamExperience: null };
+    vm.additional = { optional: null, github: null };
+
+    vm.submitForm = function () {
+      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
+      var resume = document.getElementById('resume').files[0];
+      $log.debug(fullForm);
+      var errMsg = "Error: You must complete all previous fields to continue.";
+      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      $log.warn('Application not sent!');
+      return false;
     };
 
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+    vm.changePage = function (page) {
+      if (page <= 3 && page >= 0) {
+        vm.page = page;
         return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
-    }
+      }
+      return false;
+    };
 
-    return factory;
+    vm.next = function (object) {
+      vm.changePage(vm.page + 1, object);
+    };
+    vm.prev = function () {
+      if (vm.page >= 0) vm.page -= 1;
+    };
+
+    vm.updateTextArea1 = function ($event) {
+      FormService.updateTextArea($event, vm, 'responses', 'interestingProject', 'wordCount1', WORD_LIMIT);
+    };
+    vm.updateTextArea2 = function ($event) {
+      FormService.updateTextArea($event, vm, 'responses', 'teamExperience', 'wordCount2', WORD_LIMIT);
+    };
+    vm.updateTextArea3 = function ($event) {
+      FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT);
+    };
+
+    vm.pastDeadline = function () {
+      console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
+    };
   }
 })();
 'use strict';
@@ -792,76 +862,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
-
-  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
-
-  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
-    var vm = this;
-    var temp_deadline = new Date(Date.UTC(2017, 8, 2, 1, 59, 0));
-    temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
-    var APP_DEADLINE = temp_deadline;
-    var WORD_LIMIT = 200;
-    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
-    vm.positions = ["Project Developer", "Designer", "Business Developer"];
-
-    vm.submitted = false;
-    vm.page = 1;
-    vm.wordCount1 = 0;
-    vm.wordCount2 = 0;
-    vm.wordCount3 = 0;
-
-    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
-    vm.responses = { interestingProject: null, teamExperience: null };
-    vm.additional = { optional: null, github: null };
-
-    vm.submitForm = function () {
-      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
-      var resume = document.getElementById('resume').files[0];
-      $log.debug(fullForm);
-      var errMsg = "Error: You must complete all previous fields to continue.";
-      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      $log.warn('Application not sent!');
-      return false;
-    };
-
-    vm.changePage = function (page) {
-      if (page <= 3 && page >= 0) {
-        vm.page = page;
-        return true;
-      }
-      return false;
-    };
-
-    vm.next = function (object) {
-      vm.changePage(vm.page + 1, object);
-    };
-    vm.prev = function () {
-      if (vm.page >= 0) vm.page -= 1;
-    };
-
-    vm.updateTextArea1 = function ($event) {
-      FormService.updateTextArea($event, vm, 'responses', 'interestingProject', 'wordCount1', WORD_LIMIT);
-    };
-    vm.updateTextArea2 = function ($event) {
-      FormService.updateTextArea($event, vm, 'responses', 'teamExperience', 'wordCount2', WORD_LIMIT);
-    };
-    vm.updateTextArea3 = function ($event) {
-      FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT);
-    };
-
-    vm.pastDeadline = function () {
-      console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('BlogCtrl', BlogCtrl).directive('blogPost', PostDir).directive('fbComments', FBComments);
 
   BlogCtrl.$inject = ['BlogService', '$stateParams'];
@@ -907,30 +907,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         });
       }
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
-
-  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
-
-  function CompaniesCtrl(FormService, CompanySheetURL) {
-    var vm = this;
-    vm.submitted = false;
-
-    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
-
-    vm.sendRequest = function () {
-      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
-      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
     };
   }
 })();
@@ -993,6 +969,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
+
+  CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
+
+  function CompaniesCtrl(FormService, CompanySheetURL) {
+    var vm = this;
+    vm.submitted = false;
+
+    vm.company = { organization: null, email: null, firstName: null, lastName: null, subject: null, message: null };
+
+    vm.sendRequest = function () {
+      var errMsg = "Error: Please complete all fields so we have enough information to proceed.";
+      var sent = FormService.sendToSheet(vm.company, CompanySheetURL, errMsg);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
     };
   }
 })();
