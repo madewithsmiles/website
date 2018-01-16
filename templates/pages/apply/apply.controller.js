@@ -7,12 +7,12 @@
 
   function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL){
     var vm = this;
-    var temp_deadline = new Date(Date.UTC(2017, 8, 2, 1, 59, 0));
+    var temp_deadline = new Date(Date.UTC(2018, 0, 26, -1, -1, -1));
     temp_deadline.setTime( temp_deadline.getTime() + temp_deadline.getTimezoneOffset()*60*1000 );
     const APP_DEADLINE = temp_deadline;
     const WORD_LIMIT = 200;
     vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
-    vm.positions = ["Project Developer", "Designer", "Business Developer"];
+    vm.positions = ["Project Developer"];
 
     vm.submitted = false;
     vm.page = 1;
@@ -21,7 +21,7 @@
     vm.wordCount3 = 0;
 
     vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
-    vm.responses = { interestingProject: null, teamExperience: null, };
+    vm.responses = { project: null, interest: null, };
     vm.additional = { optional: null, github: null };
 
     vm.submitForm = () => {
@@ -49,8 +49,8 @@
     vm.next = (object) => { vm.changePage(vm.page + 1, object); };
     vm.prev = () => { if (vm.page >= 0) vm.page -= 1; };
 
-    vm.updateTextArea1 = ($event) => { FormService.updateTextArea($event, vm, 'responses', 'interestingProject', 'wordCount1', WORD_LIMIT); };
-    vm.updateTextArea2 = ($event) => { FormService.updateTextArea($event, vm, 'responses', 'teamExperience', 'wordCount2', WORD_LIMIT); };
+    vm.updateTextArea1 = ($event) => { FormService.updateTextArea($event, vm, 'responses', 'project', 'wordCount1', WORD_LIMIT); };
+    vm.updateTextArea2 = ($event) => { FormService.updateTextArea($event, vm, 'responses', 'interest', 'wordCount2', WORD_LIMIT); };
     vm.updateTextArea3 = ($event) => { FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT); };
 
     vm.pastDeadline = () => { console.log(APP_DEADLINE); console.log(Date.now() > APP_DEADLINE); return Date.now() > APP_DEADLINE };

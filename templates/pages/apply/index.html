@@ -1,4 +1,4 @@
-<div class="parallax-container">
+ <div class="parallax-container">
   <div class="parallax">
     <div class="title-cover valign-wrapper">
       <div class="text-container valign center">
@@ -67,13 +67,13 @@
     <div class="row"></div>
     <div class="row"></div>
 
-    <h1 class="title uppercase">Fall 2017 Application Form</h1>
+    <h1 class="title uppercase">Spring 2018 Application Form</h1>
     <div class="divider"></div>
     <div class="form-container valign-wrapper" ng-show="vm.pastDeadline()">
-      <p class="center-align">Applications are closed for the Fall 2017 semester. If you are interested in what we do, please go to our Contact page to reach out to us. Applications will reopen for the Spring 2017 semester at the beginning of January.</p>
+      <p class="center-align">Applications are closed for the Spring 2018 semester. If you are interested in what we do, please go to our Contact page to reach out to us. Applications will reopen for the Spring 2017 semester at the beginning of January.</p>
     </div>
     <div ng-hide="vm.pastDeadline()">
-      <p>Submitted applications will be reviewed on a rolling basis. Applications must be submitted by September 1, 2017 @ 11:59 PM PST in order to be considered for Fall 2017 membership. We will not be able to accept any later submissions.</p>
+      <p>Submitted applications will be reviewed on a rolling basis. Applications must be submitted by January 25, 2018 @ 11:59 PM PST in order to be considered for Spring 2018 membership. We will not be able to accept any later submissions.</p>
       <nav class="breadcrumb-nav">
         <div class="nav-wrapper">
           <div class="col s12">
@@ -153,15 +153,15 @@
             <div class="form-container">
               <div class="row">
                 <div input-field class="col s12">
-                  <textarea name="Interesting Project" id="interestingProject" ng-model="vm.responses.interestingProject" class="materialize-textarea" placeholder="(max 200 words)" maxlength="2000" ng-change="vm.updateTextArea1()"></textarea>
-                  <label>What is the most interesting project you worked on?*</label>
+                  <textarea name="Project" id="project" ng-model="vm.responses.project" class="materialize-textarea" placeholder="(max 200 words)" maxlength="2000" ng-change="vm.updateTextArea1()"></textarea>
+                  <label>Describe the project you learned the most from.*</label>
                   <p class="wordCount">{{vm.wordCount1}}/200</p>
                 </div>
               </div>
               <div class="row">
                 <div input-field class="col s12">
-                  <textarea name="Team Experience" id="teamExperience" ng-model="vm.responses.teamExperience" class="materialize-textarea" placeholder="(max 200 words)" maxlength="2000" ng-change="vm.updateTextArea2()"></textarea>
-                  <label>Tell us about an experience that you had working on a team.*</label>
+                  <textarea name="Interest" id="interest" ng-model="vm.responses.interest" class="materialize-textarea" placeholder="(max 200 words)" maxlength="2000" ng-change="vm.updateTextArea2()"></textarea>
+                  <label>What made you most interested in Launchpad?*</label>
                   <p class="wordCount">{{vm.wordCount2}}/200</p>
                 </div>
               </div>
@@ -179,7 +179,7 @@
               <div class="row">
                 <div input-field class="col s12">
                   <textarea name="Optional" id="optional" ng-model="vm.additional.optional" class="materialize-textarea" placeholder="(max 200 words)" maxlength="8000" ng-change="vm.updateTextArea3()"></textarea>
-                  <label>Additional Comments</label>
+                  <label>Any additional comments (a cool project you’ve worked on, why you want to join Launchpad, a hard problem you’ve solved, or anything else)?</label>
                   <p class="wordCount">{{vm.wordCount3}}/200</p>
                 </div>
               </div>
