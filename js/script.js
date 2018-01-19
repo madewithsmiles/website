@@ -160,6 +160,30 @@
 'use strict';
 
 (function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate,
+            timestamp: timestamp
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        function timestamp(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("x");
+        }
+
+        return factory;
+    }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').factory('DropboxService', DropboxService);
 
   DropboxService.$inject = ['Dropbox', '$http', '$log'];
@@ -182,30 +206,6 @@
 
     return factory;
   }
-})();
-'use strict';
-
-(function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate,
-            timestamp: timestamp
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        function timestamp(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("x");
-        }
-
-        return factory;
-    }
 })();
 'use strict';
 
@@ -717,76 +717,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
-
-  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
-
-  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
-    var vm = this;
-    var temp_deadline = new Date(Date.UTC(2018, 0, 26, -1, -1, -1));
-    temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
-    var APP_DEADLINE = temp_deadline;
-    var WORD_LIMIT = 200;
-    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
-    vm.positions = ["Project Developer"];
-
-    vm.submitted = false;
-    vm.page = 1;
-    vm.wordCount1 = 0;
-    vm.wordCount2 = 0;
-    vm.wordCount3 = 0;
-
-    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
-    vm.responses = { project: null, interest: null };
-    vm.additional = { optional: null, github: null };
-
-    vm.submitForm = function () {
-      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
-      var resume = document.getElementById('resume').files[0];
-      $log.debug(fullForm);
-      var errMsg = "Error: You must complete all previous fields to continue.";
-      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      $log.warn('Application not sent!');
-      return false;
-    };
-
-    vm.changePage = function (page) {
-      if (page <= 3 && page >= 0) {
-        vm.page = page;
-        return true;
-      }
-      return false;
-    };
-
-    vm.next = function (object) {
-      vm.changePage(vm.page + 1, object);
-    };
-    vm.prev = function () {
-      if (vm.page >= 0) vm.page -= 1;
-    };
-
-    vm.updateTextArea1 = function ($event) {
-      FormService.updateTextArea($event, vm, 'responses', 'project', 'wordCount1', WORD_LIMIT);
-    };
-    vm.updateTextArea2 = function ($event) {
-      FormService.updateTextArea($event, vm, 'responses', 'interest', 'wordCount2', WORD_LIMIT);
-    };
-    vm.updateTextArea3 = function ($event) {
-      FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT);
-    };
-
-    vm.pastDeadline = function () {
-      console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('AlumniCtrl', AlumniCtrl).directive('alumniList', AlumniList);
 
   AlumniCtrl.$inject = ['TeamService'];
@@ -856,6 +786,76 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         list: "="
       },
       templateUrl: 'templates/pages/alumni/alumni-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ApplyCtrl', ApplyCtrl);
+
+  ApplyCtrl.$inject = ['FormService', '$http', '$log', 'Dropbox', 'DropboxService', 'ApplicationSheetURL'];
+
+  function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
+    var vm = this;
+    var temp_deadline = new Date(Date.UTC(2018, 0, 26, -1, -1, -1));
+    temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
+    var APP_DEADLINE = temp_deadline;
+    var WORD_LIMIT = 200;
+    vm.years = ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
+    vm.positions = ["Project Developer"];
+
+    vm.submitted = false;
+    vm.page = 1;
+    vm.wordCount1 = 0;
+    vm.wordCount2 = 0;
+    vm.wordCount3 = 0;
+
+    vm.basic = { firstName: null, lastName: null, year: null, major: null, email: null, phone: null, position: null, resume: null };
+    vm.responses = { project: null, interest: null };
+    vm.additional = { optional: null, github: null };
+
+    vm.submitForm = function () {
+      var fullForm = $.extend({}, Object.assign(vm.basic, vm.responses, vm.additional));
+      var resume = document.getElementById('resume').files[0];
+      $log.debug(fullForm);
+      var errMsg = "Error: You must complete all previous fields to continue.";
+      var sent = FormService.submitApplication(fullForm, ApplicationSheetURL, errMsg, resume);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      $log.warn('Application not sent!');
+      return false;
+    };
+
+    vm.changePage = function (page) {
+      if (page <= 3 && page >= 0) {
+        vm.page = page;
+        return true;
+      }
+      return false;
+    };
+
+    vm.next = function (object) {
+      vm.changePage(vm.page + 1, object);
+    };
+    vm.prev = function () {
+      if (vm.page >= 0) vm.page -= 1;
+    };
+
+    vm.updateTextArea1 = function ($event) {
+      FormService.updateTextArea($event, vm, 'responses', 'project', 'wordCount1', WORD_LIMIT);
+    };
+    vm.updateTextArea2 = function ($event) {
+      FormService.updateTextArea($event, vm, 'responses', 'interest', 'wordCount2', WORD_LIMIT);
+    };
+    vm.updateTextArea3 = function ($event) {
+      FormService.updateTextArea($event, vm, 'additional', 'optional', 'wordCount3', WORD_LIMIT);
+    };
+
+    vm.pastDeadline = function () {
+      console.log(APP_DEADLINE);console.log(Date.now() > APP_DEADLINE);return Date.now() > APP_DEADLINE;
     };
   }
 })();
