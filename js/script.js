@@ -184,6 +184,32 @@
 'use strict';
 
 (function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
   angular.module('MB').factory('FormService', FormService);
 
   FormService.$inject = ['$http', '$log', 'Dropbox'];
@@ -329,32 +355,6 @@
       }
 
       if (vmObject[textObject][textKey].length == 0) vmObject[wordCountVar] = 0;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
     }
 
     return factory;
@@ -937,28 +937,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('HomeCtrl', HomeCtrl).directive('membersList', MembersList);
 
   HomeCtrl.$inject = ['FormService', 'NotificationSheetURL', 'TeamService'];
@@ -993,6 +971,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
     };
   }
 })();
