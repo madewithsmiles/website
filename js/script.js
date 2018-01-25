@@ -68,32 +68,6 @@
 'use strict';
 
 (function () {
-  angular.module('MB').factory('DropboxService', DropboxService);
-
-  DropboxService.$inject = ['Dropbox', '$http', '$log'];
-
-  function DropboxService(Dropbox, $http, $log) {
-    var factory = {
-      uploadFile: uploadFile
-    };
-
-    function uploadFile(filePath, fileContents) {
-      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
-        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
-        return true;
-      }).catch(function (error) {
-        $log.error(error);
-        return false;
-      });
-      return true;
-    }
-
-    return factory;
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').factory('BlogService', BlogService);
 
   BlogService.$inject = ['DateService'];
@@ -178,6 +152,56 @@
         if (titlePath == postMetaData[i].titlePath) return cleanPostData(postMetaData[i]);
       }
       return null;
+    }
+
+    return factory;
+  }
+})();
+'use strict';
+
+(function () {
+    angular.module('MB').factory('DateService', DateService);
+
+    DateService.$inject = ['moment'];
+
+    function DateService(moment) {
+        var factory = {
+            blogDate: blogDate,
+            timestamp: timestamp
+        };
+
+        function blogDate(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
+        }
+
+        function timestamp(month, day, year) {
+            return moment(new Date(year, month - 1, day)).format("x");
+        }
+
+        return factory;
+    }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').factory('DropboxService', DropboxService);
+
+  DropboxService.$inject = ['Dropbox', '$http', '$log'];
+
+  function DropboxService(Dropbox, $http, $log) {
+    var factory = {
+      uploadFile: uploadFile
+    };
+
+    function uploadFile(filePath, fileContents) {
+      Dropbox.filesUpload({ path: filePath, contents: fileContents, mode: { ".tag": "add" }, autorename: true }).then(function (response) {
+        $log.debug('File Uploaded to Dropbox: ' + JSON.stringify(response));
+        return true;
+      }).catch(function (error) {
+        $log.error(error);
+        return false;
+      });
+      return true;
     }
 
     return factory;
@@ -335,30 +359,6 @@
 
     return factory;
   }
-})();
-'use strict';
-
-(function () {
-    angular.module('MB').factory('DateService', DateService);
-
-    DateService.$inject = ['moment'];
-
-    function DateService(moment) {
-        var factory = {
-            blogDate: blogDate,
-            timestamp: timestamp
-        };
-
-        function blogDate(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("MMM D, YYYY");
-        }
-
-        function timestamp(month, day, year) {
-            return moment(new Date(year, month - 1, day)).format("x");
-        }
-
-        return factory;
-    }
 })();
 'use strict';
 
@@ -798,7 +798,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
   function ApplyCtrl(FormService, $http, $log, Dropbox, DropboxService, ApplicationSheetURL) {
     var vm = this;
-    var temp_deadline = new Date(Date.UTC(2018, 0, 26, -1, -1, -1));
+    var temp_deadline = new Date(Date.UTC(2018, 0, 26, 3, 5, -1));
     temp_deadline.setTime(temp_deadline.getTime() + temp_deadline.getTimezoneOffset() * 60 * 1000);
     var APP_DEADLINE = temp_deadline;
     var WORD_LIMIT = 200;
@@ -913,28 +913,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 'use strict';
 
 (function () {
-  angular.module('MB').controller('ContactCtrl', ContactCtrl);
-  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
-
-  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
-    var vm = this;
-
-    vm.submitted = false;
-    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
-
-    vm.sendMessage = function () {
-      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
-      if (sent) {
-        vm.submitted = true;
-        return true;
-      }
-      return false;
-    };
-  }
-})();
-'use strict';
-
-(function () {
   angular.module('MB').controller('CompaniesCtrl', CompaniesCtrl);
 
   CompaniesCtrl.$inject = ['FormService', 'CompanySheetURL'];
@@ -993,6 +971,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         list: "="
       },
       templateUrl: 'templates/pages/home/members-list.html'
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('MB').controller('ContactCtrl', ContactCtrl);
+  ContactCtrl.$inject = ['FormService', '$http', '$log', 'ContactSheetURL'];
+
+  function ContactCtrl(FormService, $http, $log, ContactSheetURL) {
+    var vm = this;
+
+    vm.submitted = false;
+    vm.contact = { firstName: null, lastName: null, email: null, subject: null, message: null };
+
+    vm.sendMessage = function () {
+      var sent = FormService.sendToSheet(vm.contact, ContactSheetURL);
+      if (sent) {
+        vm.submitted = true;
+        return true;
+      }
+      return false;
     };
   }
 })();
